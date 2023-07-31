@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script src="taptapir/taptapir.js"></script>
+<script type="text/sunsnake">
+
+#Global Functions
+set_orientation('horizontal')
+set_window_color('gray')
+set_background_color('black')
+ASSETS_FOLDER = 'assets/'
+
+#Loading score and data etc.
+score = int(save_system_load('score'))
+if not score:
+    score = 0
+
+e = Button(texture='Clicker.png',scale=[.1,.1],y=.2)
+e.on_click = def():
+    score += 1
+
+score_display = Text(text=`Clicks: ${score}`,x=.3)
+score_display.update = def():
+    score_display.text = `Clicks: ${score}`
+
+
+#General updating stuff
+def update():
+    save_system_save('score', score)
+
+
+
+
+
+
+
+
+
+
+
+_hidden_fullscreen_button.xy = [213213213,123123123]
+</script>
+<script src="taptapir/sunsnake_compiler.js"></script>
+</body>
+</html>
