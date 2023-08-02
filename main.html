@@ -9,10 +9,6 @@ const woosh = {
   woosh3: new Audio('assets/woosh3.ogg'),
 };
 
-const songs = {
-  song1: new Audio('')
-}
-
 const wooshArray = Object.values(woosh);
 
 function getRandomWoosh() {
@@ -24,13 +20,30 @@ function getRandomWoosh() {
   
 }
 
+const songs = {
+  song1: new Audio('assets/bgsong.ogg')
+}
+
+const songArray = Object.values(songs);
+
+function getRandomSong() {
+  const randomIndex = Math.floor(Math.random() * songArray.length);
+  const current = songArray[randomIndex]
+  if (current.paused) {
+    return current;
+  }
+  
+}
+
+getRandomSong().play()
+
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
 
 #Global Functions
 set_orientation('horizontal')
-set_window_color('gray')
+set_window_color('black')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 

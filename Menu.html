@@ -3,19 +3,49 @@
 <body>
     
     <script>
-//let e = new Audio('assets/bgsong.ogg')
+let click = new Audio('assets/clickMenu.ogg');
+let click2 = new Audio('assets/clickGeneral.ogg');
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
 
 #Global Functions
 set_orientation('horizontal')
-set_window_color('gray')
+set_window_color('black')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
-#Menuscreen used for cool shit
+#Functions
+def cooltransition():
+    if settingsButton.alpha > 0:
+        after .01:
+            startButton.alpha-=.1
+            settingsButton.alpha-=.1
+            cooltransition()
+    else:
+        after .4:
+            window.location.href = "main.html";
 
+#Used so game don't break
+#candoshit = True
+
+#Menuscreen used for cool shit
+startButton = Button(text='START GAME',y=.3,scale=[.5,.1],roundness=.5)
+settingsButton = Button(text='SETTINGS',y=.15,scale=[.5,.1],roundness=.5)
+#startButton = Button(text='START GAME',y=.3,scale=[.5,.1],roundness=.5)
+#startButton = Button(text='START GAME',y=.3,scale=[.5,.1],roundness=.5)
+
+
+
+startButton.on_click = def():
+    click.play()
+    candoshit = False
+    cooltransition()
+    startButton.ignore_collision = True
+    settingsButton.ignore_collision = True
+
+settingsButton.on_click = def():
+    click2.play()
 
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
