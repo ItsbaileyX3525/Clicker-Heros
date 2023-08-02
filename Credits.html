@@ -3,8 +3,8 @@
 <body>
     
     <script>
-let music = new Audio('assets/settingsbgsong.ogg');
-music.play()
+let click = new Audio('assets/clickMenu.ogg');
+let click2 = new Audio('assets/clickGeneral.ogg');
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
@@ -15,12 +15,10 @@ set_window_color('black')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
-Credits = Button(text='Credits',y=-.4,x=.5,scale=[.2,.1],color=color.gray,text_color=color.white)
-Credits.on_click = def():
-    window.location.href = 'Credits.html'
-
-
-
+BaileysCredit = Text(text='Main coder - Bailey')
+BaileysCredit = Text(text='Graphics Designer - Bailey & BingGPT')
+RyansCredit = Text(text='Cutie UwU - RangerRhino23')
+RyansCredit = Text(text='Main coder 2 - RangerRhino23')
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
