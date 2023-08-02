@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html>
 <body>
+    
+    <script>
+const woosh = {
+  woosh1: new Audio('assets/woosh1.ogg'),
+  woosh2: new Audio('assets/woosh2.ogg'),
+  woosh3: new Audio('assets/woosh3.ogg'),
+};
+
+const songs = {
+  song1: new Audio('')
+}
+
+const wooshArray = Object.values(woosh);
+
+function getRandomWoosh() {
+  const randomIndex = Math.floor(Math.random() * wooshArray.length);
+  const current = wooshArray[randomIndex]
+  if (current.paused) {
+    return current;
+  }
+  
+}
+
+    </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
 
@@ -10,14 +34,21 @@ set_window_color('gray')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
+#Scenery
+backgroundNormal = Entity(texture='bg.webp',scale=[1.77,1],alpha=.4)
+
 #Loading score and data etc.
 score = int(save_system_load('score'))
 if not score:
     score = 0
 
-e = Button(texture='Clicker.png',scale=[.1,.1],y=.2)
+e = Button(texture='Clicker-idle.gif',scale=[.15,.15],y=.33,x=-.04)
 e.on_click = def():
     score += 1
+    getRandomWoosh().play()
+    e.texture = 'Clicker-attack.gif'
+    after .5:
+        e.texture = 'Clicker-idle.gif'
 
 score_display = Text(text=`Clicks: ${score}`,x=.3)
 score_display.update = def():
