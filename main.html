@@ -3,6 +3,7 @@
 <body>
     
     <script>
+
 const woosh = {
   woosh1: new Audio('assets/woosh1.ogg'),
   woosh2: new Audio('assets/woosh2.ogg'),
@@ -35,8 +36,14 @@ function getRandomSong() {
   
 }
 
-getRandomSong().play()
-
+StartedSong = getRandomSong()
+StartedSong.play()
+window.addEventListener('click', (event) => {
+  if (StartedSong.paused) {
+    StartedSong.play();
+    alert("Why was the audio paused?")
+  }
+})
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
@@ -47,26 +54,32 @@ set_window_color('black')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
+#For settings
+save_system_save('prevtab', "main")
+
 #Scenery
-backgroundNormal = Entity(texture='bg.webp',scale=[1.77,1],alpha=.4)
+backgroundNormal = Entity(z=1,texture='bg.webp',scale=[1.77,1],alpha=.4)
 
 #Loading score and data etc.
 score = int(save_system_load('score'))
 if not score:
     score = 0
 
-e = Button(texture='Clicker-idle.gif',scale=[.15,.15],y=.33,x=-.04)
-e.on_click = def():
+ClickerDude = Button(texture='Clicker-idle.gif',scale=[.15,.15],y=.33)
+ClickerDude.on_click = def():
     score += 1
     getRandomWoosh().play()
-    e.texture = 'Clicker-attack.gif'
+    ClickerDude.texture = 'Clicker-attack.gif'
     after .5:
-        e.texture = 'Clicker-idle.gif'
+        ClickerDude.texture = 'Clicker-idle.gif'
 
 score_display = Text(text=`Clicks: ${score}`,x=.3)
 score_display.update = def():
     score_display.text = `Clicks: ${score}`
 
+settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
+settingsButton.on_click = def():
+    window.location.href = 'Settings.html'
 
 #General updating stuff
 def update():

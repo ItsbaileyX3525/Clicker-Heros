@@ -3,17 +3,56 @@
 <body>
     
     <script>
+  function setMasterVolume(volume) {
+    var audioElements = document.querySelectorAll('audio');
+    audioElements.forEach(function(audio) {
+      audio.volume = volume;
+    });
+  }
+
 let music = new Audio('assets/settingsbgsong.ogg');
 music.play()
+
+function eggs() {
+    let person = prompt("What tab did you come from", "(main)/(menu)");
+    person = person.toUpperCase();
+    console.log(person);
+    let text;
+    if (person == null || person == "") {
+        text = "User cancelled the prompt.";
+        } else {
+        if (person == "MENU")
+        {
+            PrevTab = 'menu'
+            window.localStorage.setItem('prevtab', '"menu"')
+        } else {
+            window.localStorage.setItem('prevtab', '"main"')
+            PrevTab = 'main'
+        }
+        }
+}
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
 
 #Global Functions
 set_orientation('horizontal')
-set_window_color('black')
+set_window_color('rgb(57, 66, 92)')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
+
+
+PrevTab = save_system_load('prevtab')
+if not PrevTab:
+    eggs()
+
+
+GoBackButton = Button(texture='LeftArrow.webp',y=.425,x=-.8,scale=[.1,.1])
+GoBackButton.on_click = def():
+    if PrevTab == 'menu':
+        window.location.href = 'Menu.html'
+    elif PrevTab == 'main':
+        window.location.href = 'main.html'
 
 Credits = Button(text='Credits',y=-.4,x=.5,scale=[.2,.1],color=color.gray,text_color=color.white)
 Credits.on_click = def():

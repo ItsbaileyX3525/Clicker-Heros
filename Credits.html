@@ -3,8 +3,9 @@
 <body>
     
     <script>
-let click = new Audio('assets/clickMenu.ogg');
-let click2 = new Audio('assets/clickGeneral.ogg');
+music =  new Audio('assets/Creditsbg.ogg')
+music.play()
+music.volume = .1
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
@@ -15,10 +16,46 @@ set_window_color('black')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
-BaileysCredit = Text(text='Main coder - Bailey')
-BaileysCredit = Text(text='Graphics Designer - Bailey & BingGPT')
-RyansCredit = Text(text='Cutie UwU - RangerRhino23')
-RyansCredit = Text(text='Main coder 2 - RangerRhino23')
+PrevTab = save_system_load('prevtab')
+if not PrevTab:
+    alert("What tab did you come from???")
+
+Texts = []
+
+Credit1 = Text(text='Main coders - Bailey & Ryan',text_color=color.white,y=-1)
+Credit2 = Text(text='Graphics Designer - Bailey & BingGPT',text_color=color.white,y=-1.1)
+Credit3 = Text(text='Animator - Bailey',text_color=color.white, y=-1.2)
+Credit4 = Text(text='Sound design - Pixabay & NCS',text_color=color.white, y=-1.3)
+Credit69 = Text(text='Cutie UwU - RangerRhino23',text_color=color.white,y=-1.4, id = 'Final')
+
+Texts.append(Credit1)
+Texts.append(Credit2)
+Texts.append(Credit3)
+Texts.append(Credit4)
+
+Texts.append(Credit69)
+
+def update():
+    for e in Texts:
+        e.y+= .0005
+        print(e.y)
+        if e.y >= 0.12:
+            if Credit69.y >= 0.12:
+                Credit69.y=-999
+                after .2s:
+                    if PrevTab == 'menu'
+                        window.location.href = 'Menu.html'
+                    else:
+                        window.location.href = 'main.html'
+            else:
+                destroy(e)
+
+skipButton = Button(text='skip',x=.7,y=-.45,color=color.gray,scale=[.15,.05],text_size=2)
+skipButton.on_click = def():
+    if PrevTab == 'menu'
+        window.location.href = 'Menu.html'
+    else:
+        window.location.href = 'main.html'
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
