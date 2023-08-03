@@ -27,7 +27,7 @@ style.textContent = `
   outline: 0; -moz-outline-style: none;
 }
 
-#game {margin:auto; background-color: darkgreen; position: absolute; top: 50%; left: 50%;
+#game {margin:auto; background-color: black; position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%); overflow: hidden; pointer-events: none;
   width:100%; height:100%; outline: 0; box-shadow: 0; touch-action: none; user-select: none;
   white-space: pre-wrap;
@@ -37,7 +37,7 @@ fullscreen_button {padding: 4px 4px; width: 64px; height: 64px; background-color
 }
 body {
   margin:0;
-  background-color:'#111';
+  background-color:black;
   font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
   overscroll-behavior-y: contain;
 }
@@ -1344,4 +1344,4 @@ function _fullscreenchange() {
 }
 document.addEventListener('fullscreenchange', _fullscreenchange)
 
-set_orientation('vertical')
+set_orientation('horizontal')
