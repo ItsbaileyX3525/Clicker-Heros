@@ -5,6 +5,8 @@ body{
     background-color:black;
 }
 </style>
+<div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+<script src="Smooth.js"></script>
 <body>
     
     <script>
@@ -20,20 +22,6 @@ set_window_color('black')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
-#Functions
-def cooltransition():
-    if settingsButton.alpha > 0:
-        after .01:
-            startButton.alpha-=.1
-            settingsButton.alpha-=.1
-            cooltransition()
-    else:
-        after .4:
-            window.location.href = "main.html";
-
-#Used so game don't break
-#candoshit = True
-
 #Menuscreen used for cool shit
 startButton = Button(text='START GAME',y=.3,scale=[.5,.1],roundness=.5)
 settingsButton = Button(text='SETTINGS',y=.15,scale=[.5,.1],roundness=.5)
@@ -45,13 +33,13 @@ settingsButton = Button(text='SETTINGS',y=.15,scale=[.5,.1],roundness=.5)
 startButton.on_click = def():
     click.play()
     candoshit = False
-    cooltransition()
+    SmoothTransit('main')
     startButton.ignore_collision = True
     settingsButton.ignore_collision = True
 
 settingsButton.on_click = def():
     click2.play();
-    window.location.href = "Settings.html";
+    SmoothTransit("Settings")
 
 save_system_save('prevtab', "menu")
 

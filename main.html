@@ -7,7 +7,8 @@ body{
 }
 </style>
 <body>
-    
+    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+    <script src="Smooth.js"></script>
     <script>
 
 const woosh = {
@@ -46,11 +47,14 @@ StartedSong = getRandomSong()
 StartedSong.play()
 window.addEventListener('click', (event) => {
   if (StartedSong.paused) {
-    StartedSong.play();
-    alert("Why was the audio paused?")
+    ;
+    //StartedSong.play();
+    //alert("Why was the audio paused?")
   }
 })
+
     </script>
+    
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
 
@@ -62,9 +66,6 @@ ASSETS_FOLDER = 'assets/'
 
 #For settings
 save_system_save('prevtab', "main")
-
-#Scenery
-backgroundNormal = Entity(z=1,texture='bg.webp',scale=[1.77,1],alpha=.4)
 
 #Loading score and data etc.
 score = int(save_system_load('score'))
@@ -85,7 +86,7 @@ score_display.update = def():
 
 settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
-    window.location.href = 'Settings.html'
+    SmoothTransit("Settings")
 
 #General updating stuff
 def update():

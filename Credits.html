@@ -6,6 +6,8 @@ body{
 }
 </style>
 <body>
+    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+    <script src="Smooth.js"></script>
     
     <script>
 music =  new Audio('assets/Creditsbg.ogg')
@@ -49,18 +51,18 @@ def update():
                 Credit69.y=-999
                 after .2s:
                     if PrevTab == 'menu'
-                        window.location.href = 'Menu.html'
+                        SmoothTransit('Menu')
                     else:
-                        window.location.href = 'main.html'
+                        SmoothTransit('main')
             else:
                 destroy(e)
 
 skipButton = Button(text='skip',x=.7,y=-.45,color=color.gray,scale=[.15,.05],text_size=2)
 skipButton.on_click = def():
     if PrevTab == 'menu'
-        window.location.href = 'Menu.html'
+        SmoothTransit('Menu')
     else:
-        window.location.href = 'main.html'
+        SmoothTransit('main')
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
