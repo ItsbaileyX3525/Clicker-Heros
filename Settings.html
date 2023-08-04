@@ -6,19 +6,20 @@ body{
 }
 </style>
 <body>
-    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+    <div id='Smooth' style="z-index: 0;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
     <script src="Smooth.js"></script>
     
     <script>
-  function setMasterVolume(volume) {
-    var audioElements = document.querySelectorAll('audio');
-    audioElements.forEach(function(audio) {
-      audio.volume = volume;
-    });
-  }
 
-let music = new Audio('assets/settingsbgsong.ogg');
-music.play()
+
+music = new Audio('assets/settingsbgsong.ogg')
+
+music.play();
+
+function setVolumeForAudioArray(volumee) {
+    var vol = volumee/100
+    music.volume = parseFloat(vol);
+}
 
 function eggs() {
     let person = prompt("What tab did you come from", "(main)/(menu)");
@@ -40,7 +41,25 @@ function eggs() {
 }
 
     </script>
-    <script src="taptapir/taptapir.js"></script>
+    <script src="taptapir/taptapir.js"></script><script>
+class Slider extends Entity{
+    constructor({scale=[.4,.03],x=0,y=.3}) {
+        super(function update(){});
+        this.alpha = 0;
+        this.sliderBackground = new Entity({scale:[scale[0]+scale[1],scale[1]],x:x,y:y,roundness:0.5});
+        this.sliderVal = new Entity({scale:[scale[0],0],x:x,y:y})
+        this.sliderButton = new Button({scale:[scale[1],scale[1]],x:x,y:y,roundness:0.5,color:color.blue,draggable:true,lock_y:true});
+        }
+    update = function() {
+        if (this.sliderButton.x <= (-this.sliderVal.scale_x/2+0)) {
+            this.sliderButton.x = -this.sliderVal.scale_x/2+0;
+        }
+        if (this.sliderButton.x >= (this.sliderVal.scale_x/2-0)) {
+            this.sliderButton.x = this.sliderVal.scale_x/2-0;
+        }
+        this.value = round((this.sliderButton.x + this.sliderVal.scale_x/2) * 100 / this.sliderVal.scale_x, 0);
+    }
+}</script>
 <script type="text/sunsnake">
 
 #Global Functions
@@ -62,10 +81,24 @@ GoBackButton.on_click = def():
     elif PrevTab == 'main':
         SmoothTransit('main')
 
+masterVolume = new Slider(y=1)
+masterVolume.sliderButton.x = (masterVolume.sliderVal.scale_x/2-0)
+masterVolumeVolume = Text(text='',x=.365,y=-.1)
+masterVolumeVolume.update = def():
+    masterVolumeVolume.text = masterVolume.value
+
+masterVolumeText = Text(text='Master volume: ',x=-.2,y=-.16)
+
+
 Credits = Button(text='Credits',y=-.4,x=.5,scale=[.2,.1],color=color.gray,text_color=color.white)
 Credits.on_click = def():
     SmoothTransit('Credits')
 
+#Because Rangers thing sucks
+entityUpdater = Entity(alpha=0)
+entityUpdater.update = def():
+    save_system_save("mastervolume", masterVolume.value/100)
+    setVolumeForAudioArray(masterVolume.value);
 
 
 

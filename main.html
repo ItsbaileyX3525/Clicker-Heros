@@ -2,7 +2,6 @@
 <html>
 <style>
 body{
-    background-color: pink;
     background-image:url('assets/bg.webp');
 }
 </style>
@@ -10,7 +9,6 @@ body{
     <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
     <script src="Smooth.js"></script>
     <script>
-
 const woosh = {
   woosh1: new Audio('assets/woosh1.ogg'),
   woosh2: new Audio('assets/woosh2.ogg'),
@@ -52,9 +50,16 @@ window.addEventListener('click', (event) => {
     //alert("Why was the audio paused?")
   }
 })
+function setVolumeForAudioArrays(audioArrays, volume) {
+    audioArrays.forEach(audioArray => {
+        audioArray.forEach(element => {
+            element.volume = volume;
+        });
+    });
+}
 
     </script>
-    
+
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
 
@@ -88,9 +93,13 @@ settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
     SmoothTransit("Settings")
 
+volume = int(save_system_load('mastervolume'))
+setVolumeForAudioArrays([wooshArray, songArray], volume);
+
 #General updating stuff
 def update():
     save_system_save('score', score)
+    
 
 
 

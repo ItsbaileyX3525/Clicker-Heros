@@ -1,11 +1,3 @@
-function stopAllAudio() {
-    const allMediaElements = document.querySelectorAll('audio, video');
-
-    allMediaElements.forEach((element) => {
-        element.pause();
-    });
-}
-
 function SmoothTransit(toPage) {
     const overlay = document.createElement('div');
     overlay.style.position = 'fixed';
@@ -16,31 +8,37 @@ function SmoothTransit(toPage) {
     overlay.style.backgroundColor = 'black';
     overlay.style.opacity = '0';
     document.body.appendChild(overlay);
-    stopAllAudio();
+    const allMediaElements = document.querySelectorAll('audio, video');
+
 
     let opacity = 0;
 
     const fadeInInterval = setInterval(() => {
         opacity += 0.1;
+        allMediaElements.forEach((element) => {
+            element.volume-=0.0001;
+        });
         overlay.style.opacity = opacity.toString();
 
         if (opacity >= 1) {
             clearInterval(fadeInInterval);
             window.location.href = toPage+".html"
         }
-    }, .000001);
+    }, 15);
 }
 
 function UnSmoothTransit() {
-    const overlay = document.getElementById('Smooth')
+    const egg = document.getElementById('Smooth')
 
     let opacity = 1;
+    
 
     const fadeInInterval = setInterval(() => {
         opacity -= 0.1;
-        overlay.style.opacity = opacity.toString();
+        egg.style.opacity = opacity.toString();
 
-        if (opacity >= 1) {
+        if (opacity <= -0) {
+            document.body.removeChild(egg)
             clearInterval(fadeInInterval);
         }
     }, 15);
