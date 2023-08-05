@@ -2,11 +2,11 @@
 <html>
 <style>
 body{
-    background-color:black;
+    background-image:url('assets/Settingsbg.png');
 }
 </style>
 <body>
-    <div id='Smooth' style="z-index: 0;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
     <script src="Smooth.js"></script>
     
     <script>
@@ -21,33 +21,15 @@ function setVolumeForAudioArray(volumee) {
     music.volume = parseFloat(vol);
 }
 
-function eggs() {
-    let person = prompt("What tab did you come from", "(main)/(menu)");
-    person = person.toUpperCase();
-    console.log(person);
-    let text;
-    if (person == null || person == "") {
-        text = "User cancelled the prompt.";
-        } else {
-        if (person == "MENU")
-        {
-            PrevTab = 'menu'
-            window.localStorage.setItem('prevtab', '"menu"')
-        } else {
-            window.localStorage.setItem('prevtab', '"main"')
-            PrevTab = 'main'
-        }
-        }
-}
-
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utilities/slider.js"></script>
+<script src="taptapir-utilities/checkbox.js"></script>
 <script type="text/sunsnake">
 
 #Global Functions
 set_orientation('horizontal')
-set_window_color('rgb(57, 66, 92)')
+set_window_color('transparent')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
@@ -56,8 +38,6 @@ if not volume:
     volume = 1
 volume = volume * 100
 PrevTab = save_system_load('prevtab')
-if not PrevTab:
-    eggs()
 
 
 GoBackButton = Button(texture='LeftArrow.webp',y=.425,x=-.8,scale=[.1,.1])
@@ -66,6 +46,8 @@ GoBackButton.on_click = def():
         SmoothTransit('Menu')
     elif PrevTab == 'main':
         SmoothTransit('main')
+
+checkboc = new Checkbox(state=true)
 
 masterVolume = new Slider({y:.315,scale:[0.4,0.03],background_color:rgb(57, 66, 92)})
 
@@ -85,8 +67,11 @@ entityUpdater = Entity(alpha=0)
 entityUpdater.update = def():
     save_system_save("mastervolume", masterVolume.value/100)
     setVolumeForAudioArray(masterVolume.value);
+testText = Text(text=checkboc.value)
 
-
+def update():
+    testText.text = checkboc.value
+    
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
