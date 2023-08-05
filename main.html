@@ -19,11 +19,7 @@ const wooshArray = Object.values(woosh);
 
 function getRandomWoosh() {
   const randomIndex = Math.floor(Math.random() * wooshArray.length);
-  const current = wooshArray[randomIndex]
-  if (current.paused) {
-    return current;
-  }
-  
+  return wooshArray[randomIndex]
 }
 
 const songs = {
@@ -45,7 +41,6 @@ StartedSong = getRandomSong()
 StartedSong.play()
 window.addEventListener('click', (event) => {
   if (StartedSong.paused) {
-    ;
     StartedSong.play();
     //alert("Why was the audio paused?")
   }
@@ -93,7 +88,7 @@ settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
     SmoothTransit("Settings")
 
-volume = int(save_system_load('mastervolume'))
+volume = parseFloat(save_system_load('mastervolume'))
 setVolumeForAudioArrays([wooshArray, songArray], volume);
 
 #General updating stuff
