@@ -17,6 +17,9 @@ function random_int_(min, max) {
 }  
 
 function Playwoosh() {
+   if (!allowedAttackSFX) {
+    console.log(allowedAttackSFX);
+   } else {
     swoosh = random_int_(1,3);
     if (swoosh === 1) {
       woosh = new Audio('assets/woosh1.ogg')
@@ -30,7 +33,7 @@ function Playwoosh() {
 
     woosh.addEventListener('ended', function() {
       woosh.remove();
-    });
+    })};
 }
 
 const songs = {
@@ -83,9 +86,22 @@ score = int(save_system_load('score'))
 if not score:
     score = 0
 
+volume = parseFloat(save_system_load('mastervolume'))
+if not volume:
+  volume = 1
+  save_system_save('mastervolume', volume)
+setVolumeForAudioArrays([songArray], volume);
+  
+allowedAttackSFX = save_system_load('attacksfx')
+if allowedAttackSFX == null:
+    allowedAttackSFX = True
+    save_system_save('attacksfx', allowedAttackSFX)
+
+#Main clicker game
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.15,.15],y=.33)
 ClickerDude.on_click = def():
     score += 1
+    print(allowedAttackSFX)
     Playwoosh()
 
 score_display = Text(text=`Clicks: ${score}`,x=.3)
@@ -95,9 +111,6 @@ score_display.update = def():
 settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
     SmoothTransit("Settings")
-
-volume = parseFloat(save_system_load('mastervolume'))
-setVolumeForAudioArrays([songArray], volume);
 
 #General updating stuff
 def update():

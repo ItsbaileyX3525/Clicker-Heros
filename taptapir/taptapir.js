@@ -886,6 +886,45 @@ class HealthBar extends Entity {
         }
     }
 }
+class Checkbox extends Button {
+    constructor(options = false) {
+        let settings = {text: '',state: false,parent: camera.ui,scale: [0.05, 0.05],roundness: 0.2,text_origin: [0, 0],};
+        
+        if (typeof options === 'boolean') {
+            settings.state = options;
+        } else if (typeof options === 'object') {
+            for (const [key, value] of Object.entries(options)) {
+                settings[key] = value;
+            }
+        }
+        
+        super(settings);
+        
+        this._value = settings['state'];
+        if (!this._value) {
+            this.text = '';
+        } else {
+            this.text = 'x';
+        }
+        
+        this.on_click = function () {
+            this.value = !this._value;
+        };
+    }
+    
+    get value() {
+        return this._value;
+    }
+    
+    set value(newValue) {
+        this._value = newValue;
+        if (!this._value) {
+            this.text = '';
+        } else {
+            this.text = 'x';
+        }
+    }
+}
 class RainbowSlider extends Entity {
     constructor(options=false) {
         let settings = {min:1, max:5, default:1, color:'#222', scale:[.8,.05], roundness:.25, show_text:false, show_lines:false, gradient:['#CCCCFF', '#6495ED', '#40E0D0', '#9FE2BF', '#28ccaa'], }

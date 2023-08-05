@@ -24,7 +24,6 @@ function setVolumeForAudioArray(volumee) {
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>
-<script src="taptapir-utility/checkbox.js"></script>
 <script type="text/sunsnake">
 
 #Global Functions
@@ -38,8 +37,8 @@ if not volume:
     volume = 1
 volume = volume * 100
 PrevTab = save_system_load('prevtab')
-
-
+allowedAttackSFX = save_system_load('attacksfx')
+print(allowedAttackSFX)
 GoBackButton = Button(texture='LeftArrow.webp',y=.425,x=-.8,scale=[.1,.1])
 GoBackButton.on_click = def():
     if PrevTab == 'menu':
@@ -47,7 +46,9 @@ GoBackButton.on_click = def():
     elif PrevTab == 'main':
         SmoothTransit('main')
 
-checkboc = new Checkbox(state=true)
+attackSFX = Checkbox(state=allowedAttackSFX,y=.151,x=-.085)
+attackSFXText = Text(text='Click sounds: ',y=-.31,x=-.048)
+
 
 masterVolume = new Slider({y:.315,scale:[0.4,0.03],background_color:rgb(57, 66, 92)})
 
@@ -58,6 +59,7 @@ masterVolumeVolume.update = def():
 masterVolumeText = Text(text='Master volume: ',x=-.05,y=-.16)
 masterVolume.setValue(volume)
 
+
 Credits = Button(text='Credits',y=-.4,x=.5,scale=[.2,.1],color=color.gray,text_color=color.white)
 Credits.on_click = def():
     SmoothTransit('Credits')
@@ -66,12 +68,22 @@ Credits.on_click = def():
 entityUpdater = Entity(alpha=0)
 entityUpdater.update = def():
     save_system_save("mastervolume", masterVolume.value/100)
+    save_system_save("attacksfx", attackSFX.value)
     setVolumeForAudioArray(masterVolume.value);
-testText = Text(text=checkboc.value)
-
-def update():
-    testText.text = checkboc.value
     
+
+
+
+
+
+#Reset game stuff (very dangerous all progress lost)
+resetGame = Button(y=-.4,text='RESET',scale=[.2,.1],color=color.red)
+resetGame.on_click = def():
+    SmoothTransit('Reset')
+    
+
+
+
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
