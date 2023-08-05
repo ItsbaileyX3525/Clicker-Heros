@@ -41,31 +41,8 @@ function eggs() {
 }
 
     </script>
-    <script src="taptapir/taptapir.js"></script><script>
-class Slider extends Entity{
-    constructor({scale=[.4,.03],value=10,x=0,y=0}) {
-        super(function update(){});
-        this.alpha = 0;
-        this.sliderBackground = new Entity({scale:[scale[0]+scale[1],scale[1]],x:x,y:y,roundness:0.5});
-        this.sliderVal = new Entity({scale:[scale[0],0],x:x,y:y})
-        this.sliderButton = new Button({scale:[scale[1],scale[1]],x:x,y:y,roundness:0.5,color:color.blue,draggable:true,lock_y:true});
-        this.value = value;
-        this.sliderButton.x = (this.sliderButton.x = this.value * this.sliderVal.scale_x / 100 - this.sliderVal.scale_x / 2);
-        }
-    update = function() {
-        if (this.sliderButton.x <= (-this.sliderVal.scale_x/2+0)) {
-            this.sliderButton.x = -this.sliderVal.scale_x/2+0;
-        }
-        if (this.sliderButton.x >= (this.sliderVal.scale_x/2-0)) {
-            this.sliderButton.x = this.sliderVal.scale_x/2-0;
-        }
-        this.value = round((this.sliderButton.x + this.sliderVal.scale_x/2) * 100 / this.sliderVal.scale_x, 0);
-    }
-    setValue = function(value) {
-        console.log(value)
-        this.sliderButton.x = (this.sliderButton.x = value * this.sliderVal.scale_x / 100 - this.sliderVal.scale_x / 2);
-    }
-}</script>
+    <script src="taptapir/taptapir.js"></script>
+<script src="taptapir-utilities/slider.js"></script>
 <script type="text/sunsnake">
 
 #Global Functions
@@ -74,8 +51,9 @@ set_window_color('rgb(57, 66, 92)')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
-
 volume = round(parseFloat(save_system_load('mastervolume')), 10)
+if not volume:
+    volume = 1
 volume = volume * 100
 PrevTab = save_system_load('prevtab')
 if not PrevTab:
@@ -89,14 +67,13 @@ GoBackButton.on_click = def():
     elif PrevTab == 'main':
         SmoothTransit('main')
 
-masterVolume = new Slider({y:.3})
+masterVolume = new Slider({y:.315,scale:[0.4,0.03],background_color:rgb(57, 66, 92)})
 
-masterVolume.sliderButton.x = (masterVolume.sliderVal.scale_x/2-0)
 masterVolumeVolume = Text(text='',x=.365,y=-.1)
 masterVolumeVolume.update = def():
     masterVolumeVolume.text = masterVolume.value
 
-masterVolumeText = Text(text='Master volume: ',x=-.2,y=-.16)
+masterVolumeText = Text(text='Master volume: ',x=-.05,y=-.16)
 masterVolume.setValue(volume)
 
 Credits = Button(text='Credits',y=-.4,x=.5,scale=[.2,.1],color=color.gray,text_color=color.white)
