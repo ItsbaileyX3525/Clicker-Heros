@@ -12,6 +12,13 @@ body{
     <script>
 let click = new Audio('assets/clickMenu.ogg');
 let click2 = new Audio('assets/clickGeneral.ogg');
+function requestAppClose() { //Close android app
+    try {
+        AndroidApp.closeApp();
+    } catch (ReferenceError) {
+        alert("Mobile only sowwy")
+    }
+}
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
@@ -23,11 +30,12 @@ set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
 #Menuscreen used for cool shit
-startButton = Button(text='START GAME',y=.3,scale=[.5,.1],roundness=.5)
-settingsButton = Button(text='SETTINGS',y=.15,scale=[.5,.1],roundness=.5)
-#startButton = Button(text='START GAME',y=.3,scale=[.5,.1],roundness=.5)
-#startButton = Button(text='START GAME',y=.3,scale=[.5,.1],roundness=.5)
-
+Title = Text(text='CLICKER HEROS!',xy=[.2,-0.025],text_color=color.red)
+startButton = Button(text='START GAME',y=.15,scale=[.5,.1],roundness=.5)
+settingsButton = Button(text='SETTINGS',y=0,scale=[.5,.1],roundness=.5)
+#startButton = Button(text='',y=.3,scale=[.5,.1],roundness=.5)
+creditsButton = Button(text='CREDITS',y=-.15,scale=[.5,.1],roundness=.5)
+exitButton = Button(text='EXIT',y=-.30,scale=[.5,.1],roundness=.5)
 
 
 startButton.on_click = def():
@@ -40,6 +48,14 @@ startButton.on_click = def():
 settingsButton.on_click = def():
     click2.play();
     SmoothTransit("Settings")
+
+creditsButton.on_click = def():
+    click2.play()
+    SmoothTransit("Credits")
+
+exitButton.on_click = def():
+    requestAppClose()
+
 
 save_system_save('prevtab', "menu")
 

@@ -24,8 +24,9 @@ function toggleBackgroundColor() {
   isRed = !isRed;
 }
 
-setInterval(toggleBackgroundColor, 2000);
-
+var background = setInterval(toggleBackgroundColor, 2000);
+song = new Audio('assets/TheEnd.ogg')
+song.play()
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>
@@ -37,14 +38,22 @@ set_window_color('transparent')
 set_background_color('red')
 ASSETS_FOLDER = 'assets/'
 
-resetText = Text(x=0,y=-.2,z=-1,text='Are you sure you want to reset the game?\n           (All progress will be lost.)')
+resetText = Text(x=.2,y=-.2,z=-1,text='Are you sure you want to reset the game?\n           (All progress will be lost.)')
 resetBackground = Entity(scale=[1.2,.4],y=.15,z=-1,x=.06)
-yesResetGame = Button(text='yes',y=0.02,x=-.25,text_origin=[0,.1],scale=[.18,.08],color=color.red,text_color=color.white)
+yesResetGame = Button(text='yes',y=0.02,x=-.25,scale=[.18,.08],color=color.red,text_color=color.white)
 yesResetGame.on_click = def():
-    # TODO: Make cool ending thing
-    pass
+    song.pause()
+    clearInterval(background)
+    document.body.style.backgroundColor = 'black'
+    yesResetGame.enabled=False
+    noDontResetGame.enabled = False
+    after 3:
+        resetText.text = 'What have you done.'
+        resetText.xy = [.225,-.25]
+        after 2s:
+            SmoothTransit("TheEnd")
 
-noDontResetGame = Button(text='no',y=0.02,x=.35,text_origin=[0,.1],scale=[.18,.08],color=color.black,text_color=color.white)
+noDontResetGame = Button(text='no',y=0.02,x=.35,scale=[.18,.08],color=color.black,text_color=color.white)
 noDontResetGame.on_click = def():
     SmoothTransit('Settings')
 
