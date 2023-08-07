@@ -38,7 +38,7 @@ set_window_color('transparent')
 set_background_color('red')
 ASSETS_FOLDER = 'assets/'
 
-resetText = Text(x=.2,y=-.2,z=-1,text='Are you sure you want to reset the game?\n           (All progress will be lost.)')
+resetText = Text(x=.15,y=-.2,z=-1,text='Are you sure you want to reset the game?\n           (All progress will be lost.)')
 resetBackground = Entity(scale=[1.2,.4],y=.15,z=-1,x=.06)
 yesResetGame = Button(text='yes',y=0.02,x=-.25,scale=[.18,.08],color=color.red,text_color=color.white)
 yesResetGame.on_click = def():

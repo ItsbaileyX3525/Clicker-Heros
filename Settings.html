@@ -51,7 +51,45 @@ const fileInput = document.createElement('input');
       }
     });
 
-    </script>
+
+    // Function to fetch JSON data asynchronously
+    async function fetchJSONData(url) {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    }
+    
+    async function GetCodes(Input) {
+      try {
+        const jsonData = await fetchJSONData('https://raw.githubusercontent.com/ItsbaileyX3525/Clicker-Heros/main/ActiveCodes.json');
+        
+        if (localStorage.getItem(Input)) {
+            FYIText = new Text({name:'FYIText ', x:.15,y:-0.7,text : `Code already used!`,text_color:color.red})
+            FYIText.animate('alpha', 0, 2)
+            return;
+        }
+        
+        for (const key in jsonData) {
+          if (key === Input) {
+            let currentScore = parseInt(localStorage.getItem("score"))
+            currentScore = currentScore + parseInt(jsonData[key])
+            console.log(jsonData[key])
+            console.log(currentScore)
+            localStorage.setItem("score", currentScore)
+            localStorage.setItem(Input, jsonData[key]);
+            FYIText = new Text({name:'FYIText ', x:.15,y:-0.7,text : `Code redeemed!`,text_color:color.green})
+            FYIText.animate('alpha', 0, 2)
+          } else {
+            FYIText = new Text({name:'FYIText ', x:.15,y:-0.7,text : `Code doesn't exist or expired!`,text_color:color.red})
+            FYIText.animate('alpha', 0, 2)
+          }
+        }
+      } catch (error) {
+        FYIText = new Text({name:'FYIText ', x:.15,y:-0.7,text : `Failed to fetch codes ${error}, check Wi-Fi`,text_color:color.red})
+        FYIText.animate('alpha', 0, 2)
+      }after(2, function(){destroy(FYIText)})
+    }
+</script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>
 <script type="text/sunsnake">
@@ -75,8 +113,8 @@ GoBackButton.on_click = def():
     elif PrevTab == 'main':
         SmoothTransit('main')
 
-attackSFX = Checkbox(state=allowedAttackSFX,y=.165,x=-.22)
-attackSFXText = Text(text='Click sounds: ',y=-.31,x=-.048)
+attackSFX = Checkbox(state=allowedAttackSFX,y=.17,x=-.20)
+attackSFXText = Text(text='Click sounds: ',y=-.31,x=-.07)
 
 
 masterVolume = new Slider({y:.315,scale:[0.4,0.03],background_color:rgb(57, 66, 92)})
@@ -85,8 +123,14 @@ masterVolumeVolume = Text(text='',x=.365,y=-.1)
 masterVolumeVolume.update = def():
     masterVolumeVolume.text = masterVolume.value
 
-masterVolumeText = Text(text='Master volume: ',x=-.05,y=-.16)
+masterVolumeText = Text(text='Master volume: ',x=-.07,y=-.1625)
 masterVolume.setValue(volume)
+
+TwitterCodesText = Text(text='Code: ',y=-.482,x=-.068)
+TwitterCodes = InputField(x=-0.16,scale=[.4,.04],roundness=.1)
+TwitterCodesSubmit = Button(text='Submit',scale=[.12,.06],x=.125,y=-.004)
+TwitterCodesSubmit.on_click = def():
+    GetCodes(TwitterCodes.value)
 
 
 #Custom background
@@ -95,7 +139,7 @@ CustomBackground = Button(enabled=True,scale_y=.1,y=-0.4,x=-0.5,text='Change bac
 #CustomBackground.el.appendChild(fileInput)
 CustomBackground.fit_to_text()
 CustomBackground.on_click = def():
-    Sowwyppl = Text(text='Not supported yet',y=-0.45,x=.275,text_color=color.red)
+    Sowwyppl = Text(text='Not supported yet',y=-0.6,x=.275,text_color=color.red)
     after 2:
         destroy(Sowwyppl)
 

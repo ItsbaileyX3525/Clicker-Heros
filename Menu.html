@@ -26,12 +26,12 @@ const getVersion = async () => {
     .then(response => response.text())
     .then(text => {
         const fetchedVersion = text.trim();
-        const predefinedVersion = '1.1';
+        const predefinedVersion = '1.0';
 
         if (predefinedVersion === fetchedVersion) {
             ;
         } else {
-        FYIText = new Text({name:'FYIText ', x:-0.05,y:-0.9,text : 'Newer version of the game is available.',text_color:color.green})
+        FYIText = new Text({name:'FYIText ', x:.1,y:-0.9,text : 'Newer version of the game is available.',text_color:color.green})
         updateFYIText()
         }
     })
@@ -57,7 +57,7 @@ def updateFYIText():
             updateFYIText()
 
 #Menuscreen used for cool shit
-Title = Text(text='CLICKER HEROS!',xy=[.2,-0.025],text_color=color.red)
+Title = Text(text='CLICKER HEROS!',xy=[.25,-0.025],text_color=color.red)
 startButton = Button(text='START GAME',y=.15,scale=[.5,.1],roundness=.5)
 settingsButton = Button(text='SETTINGS',y=0,scale=[.5,.1],roundness=.5)
 #startButton = Button(text='',y=.3,scale=[.5,.1],roundness=.5)

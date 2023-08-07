@@ -72,6 +72,22 @@ const savedImageData = localStorage.getItem('customBG');
     if (savedImageData) {
       document.body.style.backgroundImage = `url(${savedImageData})`;    }
 
+function formatNumber(number) {
+  if (number >= 1000){
+  if (number >= 1e12) {
+    return (number / 1e12).toFixed(2) + 'T';
+  } else if (number >= 1e9) {
+    return (number / 1e9).toFixed(2) + 'B';
+  } else if (number >= 1e6) {
+    return (number / 1e6).toFixed(2) + 'M';
+  } else if (number >= 1e3) {
+    return (number / 1e3).toFixed(2) + 'K';
+  } else {
+    return number.toFixed(2);
+  }} else {return number}
+}
+
+
     </script>
 
     <script src="taptapir/taptapir.js"></script>
@@ -108,9 +124,10 @@ ClickerDude.on_click = def():
     score += 1
     Playwoosh()
 
-score_display = Text(text=`Clicks: ${score}`,x=.3)
+score_display = Text(text=`Clicks: ${score}`,xy=top)
 score_display.update = def():
-    score_display.text = `Clicks: ${score}`
+    Fscore = formatNumber(score);
+    score_display.text = `Clicks: ${Fscore}`
 
 settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
@@ -120,7 +137,7 @@ settingsButton.on_click = def():
 def update():
     save_system_save('score', score)
     
-
+ShopButton = Button(texture='shopCog.png',x=.75,scale=.2,y=-.02)
 
 
 
