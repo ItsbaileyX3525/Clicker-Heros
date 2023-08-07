@@ -15,11 +15,41 @@ body{
 music = new Audio('assets/settingsbgsong.ogg')
 
 music.play();
+music.loop = true;
 
 function setVolumeForAudioArray(volumee) {
     var vol = volumee/100
     music.volume = parseFloat(vol);
 }
+
+const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.style.borderRadius = '10px';
+    fileInput.style.opacity = 0;
+    
+    const uploadedImage = document.createElement('img');
+    uploadedImage.style.maxWidth = '100%';
+    uploadedImage.style.opacity = 0;
+    
+    fileInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        if (file.size <= 2 * 1024 * 1024) {
+          const reader = new FileReader();
+          
+          reader.onload = function(e) {
+            const imageData = e.target.result;
+            localStorage.setItem('customBG', imageData);
+            uploadedImage.src = imageData;
+          };
+          
+          reader.readAsDataURL(file);
+        } else {
+          fileInput.value = ''; // Clear the file input
+        }
+      }
+    });
 
     </script>
     <script src="taptapir/taptapir.js"></script>
@@ -38,7 +68,6 @@ if not volume:
 volume = volume * 100
 PrevTab = save_system_load('prevtab')
 allowedAttackSFX = save_system_load('attacksfx')
-print(allowedAttackSFX)
 GoBackButton = Button(texture='LeftArrow.webp',y=.425,x=-.8,scale=[.1,.1])
 GoBackButton.on_click = def():
     if PrevTab == 'menu':
@@ -46,7 +75,7 @@ GoBackButton.on_click = def():
     elif PrevTab == 'main':
         SmoothTransit('main')
 
-attackSFX = Checkbox(state=allowedAttackSFX,y=.165,x=-.24)
+attackSFX = Checkbox(state=allowedAttackSFX,y=.165,x=-.22)
 attackSFXText = Text(text='Click sounds: ',y=-.31,x=-.048)
 
 
@@ -60,6 +89,16 @@ masterVolumeText = Text(text='Master volume: ',x=-.05,y=-.16)
 masterVolume.setValue(volume)
 
 
+#Custom background
+
+CustomBackground = Button(enabled=True,scale_y=.1,y=-0.4,x=-0.5,text='Change background')
+#CustomBackground.el.appendChild(fileInput)
+CustomBackground.fit_to_text()
+CustomBackground.on_click = def():
+    Sowwyppl = Text(text='Not supported yet',y=-0.45,x=.275,text_color=color.red)
+    after 2:
+        destroy(Sowwyppl)
+
 Credits = Button(text='Credits',y=-.4,x=.5,scale=[.2,.1],color=color.gray,text_color=color.white)
 Credits.on_click = def():
     SmoothTransit('Credits')
@@ -71,7 +110,6 @@ entityUpdater.update = def():
     save_system_save("attacksfx", attackSFX.value)
     setVolumeForAudioArray(masterVolume.value);
     
-
 
 
 

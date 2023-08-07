@@ -10,7 +10,7 @@ body{
     <script src="Smooth.js"></script>
     <script>
 
-function random_int_(min, max) {
+function random_int_(min, max) {//In taptapir but taptap is defined before goodness
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -18,7 +18,7 @@ function random_int_(min, max) {
 
 function Playwoosh() {
    if (!allowedAttackSFX) {
-    console.log(allowedAttackSFX);
+    ;
    } else {
     swoosh = random_int_(1,3);
     if (swoosh === 1) {
@@ -51,8 +51,9 @@ function getRandomSong() {
   
 }
 
-StartedSong = getRandomSong()
-StartedSong.play()
+StartedSong = getRandomSong();
+StartedSong.play();
+StartedSong.loop = true;
 window.addEventListener('click', (event) => {
   if (StartedSong.paused) {
     StartedSong.play();
@@ -66,6 +67,10 @@ function setVolumeForAudioArrays(audioArrays, volume) {
         });
     });
 }
+
+const savedImageData = localStorage.getItem('customBG');
+    if (savedImageData) {
+      document.body.style.backgroundImage = `url(${savedImageData})`;    }
 
     </script>
 
@@ -98,10 +103,9 @@ if allowedAttackSFX == null:
     save_system_save('attacksfx', allowedAttackSFX)
 
 #Main clicker game
-ClickerDude = Button(texture='Clicker-idle.gif',scale=[.15,.15],y=.33)
+ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
     score += 1
-    print(allowedAttackSFX)
     Playwoosh()
 
 score_display = Text(text=`Clicks: ${score}`,x=.3)

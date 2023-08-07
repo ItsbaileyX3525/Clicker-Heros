@@ -13,6 +13,7 @@ body{
 music =  new Audio('assets/Creditsbg.ogg')
 music.play()
 music.volume = .1
+music.loop = true
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
@@ -45,7 +46,6 @@ Texts.append(Credit69)
 def update():
     for e in Texts:
         e.y+= .0005
-        print(e.y)
         if e.y >= 0.12:
             if Credit69.y >= 0.12:
                 Credit69.y=-999
