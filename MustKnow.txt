@@ -1,0 +1,8 @@
+Shop is where you develop the generators and all generators
+must follow the following formula:
+
+Price = Base cost x 1.15^M+1
+
+where M is the number of generators already owned
+so in javascript terms it will look like:
+Gen1.cost = 15 * Math.pow(1.15, Gen1Owned+1)

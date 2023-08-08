@@ -91,74 +91,17 @@ ASSETS_FOLDER = 'assets/'
 mainScene = []
 shopScene = []
 
-#For settings
-save_system_save('prevtab', "main")
-
-#Loading score and data etc.
-score = int(save_system_load('score'))
-if not score:
-    score = 0
-
-volume = parseFloat(save_system_load('mastervolume'))
-if not volume:
-  volume = 1
-  save_system_save('mastervolume', volume)
-
-Gen1Cost = int(save_system_load('gen1cost'))
-if not Gen1Cost or Gen1Cost == null:
-    Gen1Cost = 20
-
-SetVolumes(volume);
-  
-allowedAttackSFX = save_system_load('attacksfx')
-if allowedAttackSFX == null:
-    allowedAttackSFX = True
-    save_system_save('attacksfx', allowedAttackSFX)
-
-#Main clicker game
-ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
-ClickerDude.on_click = def():
-    score += 1
-    Playwoosh()
-mainScene.append(ClickerDude)
-
-score_display = Text(text=`Clicks: ${score}`,xy=[0.24,-.1],text_size=5)
-score_display.update = def():
-    Fscore = formatNumber(score);
-    score_display.text = `Clicks: ${Fscore}`
-
-settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
-settingsButton.on_click = def():
-    SmoothTransit("Settings")
-mainScene.append(settingsButton)
-
-#General updating stuff
-def update():
-    save_system_save('score', score)
-
-inShop = False
-ShopButton = Button(texture='shopCog.png',x=.75,scale=.2,y=-.02)
-ShopButton.on_click = def():
-    if not inShop:
-        inShop=True
-        for e in mainScene:
-            e.enabled=False
-        for e in shopScene:
-            e.enabled=True
-    else:
-        inShop = False
-        for e in mainScene:
-            e.enabled=True
-        for e in shopScene:
-            e.enabled=False
+score = 1000
 
 #Shop stuff & gens very annoying
+Gen1Cost = 15
+Gen2Cost = 100
 
-Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.png',enabled=False,x=-.8,y=.3)
+Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.png',enabled=True,x=-.8,y=.3)
 Gen1.on_click = def():
     if score >= Gen1.cost:
         score -= Gen1.cost
-        Gen1.cost *= 1.3
+        Gen1.cost = 15 * Math.pow(1.15,Gen1Owned+1)
         Gen1.cost = round(Gen1.cost)
         Gen1Owned += 1
         Fcost = formatNumber(Gen1.cost);
@@ -166,7 +109,21 @@ Gen1.on_click = def():
         save_system_save("gen1owned", Gen1Owned)
         save_system_save("gen1cost", Gen1.cost)
 
-Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${Gen1.cost}`,text_size=4.5,enabled=False)
+Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${Gen1.cost}`,text_size=4.5,enabled=True)
+
+Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.png',enabled=True,x=-.8,y=-.01)
+Gen2.on_click = def():
+    if score >= Gen1.cost:
+        score -= Gen1.cost
+        Gen2.cost = 100 * Math.pow(1.15,Gen2Owned+1)
+        Gen2.cost = round(Gen1.cost)
+        Gen1Owned += 1
+        Fcost = formatNumber(Gen2.cost);
+        Gen2Info.text = `Cost: ${Fcost}`
+        save_system_save("gen2owned", Gen2Owned)
+        save_system_save("gen2cost", Gen2.cost)
+
+Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${Gen2.cost}`,text_size=4.5,enabled=True)
 
 
 
