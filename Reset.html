@@ -27,6 +27,12 @@ function toggleBackgroundColor() {
 var background = setInterval(toggleBackgroundColor, 2000);
 song = new Audio('assets/TheEnd.ogg')
 song.play()
+function PauseSounds() {
+    song.pause()
+}
+function ResumeSounds() {
+    song.play()
+}
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>

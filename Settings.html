@@ -64,7 +64,7 @@ const fileInput = document.createElement('input');
         const jsonData = await fetchJSONData('https://raw.githubusercontent.com/ItsbaileyX3525/Clicker-Heros/main/ActiveCodes.json');
         
         if (localStorage.getItem(Input)) {
-            FYIText = new Text({name:'FYIText ', x:.15,y:-0.7,text : `Code already used!`,text_color:color.red})
+            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code already used!`,text_color:color.red})
             FYIText.animate('alpha', 0, 2)
             return;
         }
@@ -77,22 +77,31 @@ const fileInput = document.createElement('input');
             console.log(currentScore)
             localStorage.setItem("score", currentScore)
             localStorage.setItem(Input, jsonData[key]);
-            FYIText = new Text({name:'FYIText ', x:.15,y:-0.7,text : `Code redeemed!`,text_color:color.green})
+            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code redeemed!`,text_color:color.green})
             FYIText.animate('alpha', 0, 2)
           } else {
-            FYIText = new Text({name:'FYIText ', x:.15,y:-0.7,text : `Code doesn't exist or expired!`,text_color:color.red})
+            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code doesn't exist or expired!`,text_color:color.red})
             FYIText.animate('alpha', 0, 2)
           }
         }
       } catch (error) {
-        FYIText = new Text({name:'FYIText ', x:.15,y:-0.7,text : `Failed to fetch codes ${error}, check Wi-Fi`,text_color:color.red})
+        FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Failed to fetch codes ${error}, check Wi-Fi`,text_color:color.red})
         FYIText.animate('alpha', 0, 2)
       }after(2, function(){destroy(FYIText)})
     }
+    
+function PauseSounds() {
+    music.pause()
+}
+function ResumeSounds() {
+    music.play()
+}
 </script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>
 <script type="text/sunsnake">
+
+#TODO: Make it so clicks earn anywhere.
 
 #Global Functions
 set_orientation('horizontal')
@@ -113,7 +122,7 @@ GoBackButton.on_click = def():
     elif PrevTab == 'main':
         SmoothTransit('main')
 
-attackSFX = Checkbox(state=allowedAttackSFX,y=.17,x=-.20)
+attackSFX = Checkbox(state=allowedAttackSFX,y=.17,x=-.22)
 attackSFXText = Text(text='Click sounds: ',y=-.31,x=-.07)
 
 

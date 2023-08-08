@@ -36,22 +36,8 @@ function Playwoosh() {
     })};
 }
 
-const songs = {
-  song1: new Audio('assets/bgsong.ogg')
-}
 
-const songArray = Object.values(songs);
-
-function getRandomSong() {
-  const randomIndex = Math.floor(Math.random() * songArray.length);
-  const current = songArray[randomIndex]
-  if (current.paused) {
-    return current;
-  }
-  
-}
-
-StartedSong = getRandomSong();
+StartedSong = new Audio('assets/bgsong.ogg')
 StartedSong.play();
 StartedSong.loop = true;
 window.addEventListener('click', (event) => {
@@ -60,12 +46,9 @@ window.addEventListener('click', (event) => {
     //alert("Why was the audio paused?")
   }
 })
-function setVolumeForAudioArrays(audioArrays, volume) {
-    audioArrays.forEach(audioArray => {
-        audioArray.forEach(element => {
-            element.volume = volume;
-        });
-    });
+
+function SetVolumes(volume) {
+    StartedSong.volume = volume
 }
 
 const savedImageData = localStorage.getItem('customBG');
@@ -87,7 +70,12 @@ function formatNumber(number) {
   }} else {return number}
 }
 
-
+function PauseSounds() {
+    StartedSong.pause()
+}
+function ResumeSounds() {
+    StartedSong.play()
+}
     </script>
 
     <script src="taptapir/taptapir.js"></script>
@@ -98,6 +86,10 @@ set_orientation('horizontal')
 set_window_color('transparent')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
+
+#Global variables
+mainScene = []
+shopScene = []
 
 #For settings
 save_system_save('prevtab', "main")
@@ -111,7 +103,14 @@ volume = parseFloat(save_system_load('mastervolume'))
 if not volume:
   volume = 1
   save_system_save('mastervolume', volume)
-setVolumeForAudioArrays([songArray], volume);
+
+Gen1Owned = int(save_system_load("gen1owned"))
+Gen1Cost = int(save_system_load('gen1cost'))
+if not Gen1Owned or Gen1Owned == null:
+    Gen1Owned = 0
+    Gen1Cost = 20
+
+SetVolumes(volume);
   
 allowedAttackSFX = save_system_load('attacksfx')
 if allowedAttackSFX == null:
@@ -123,8 +122,9 @@ ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
     score += 1
     Playwoosh()
+mainScene.append(ClickerDude)
 
-score_display = Text(text=`Clicks: ${score}`,xy=top)
+score_display = Text(text=`Clicks: ${score}`,xy=[0.24,-.1],text_size=5)
 score_display.update = def():
     Fscore = formatNumber(score);
     score_display.text = `Clicks: ${Fscore}`
@@ -132,12 +132,43 @@ score_display.update = def():
 settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
     SmoothTransit("Settings")
+mainScene.append(settingsButton)
 
 #General updating stuff
 def update():
     save_system_save('score', score)
-    
+
+inShop = False
 ShopButton = Button(texture='shopCog.png',x=.75,scale=.2,y=-.02)
+ShopButton.on_click = def():
+    if not inShop:
+        inShop=True
+        for e in mainScene:
+            e.enabled=False
+        for e in shopScene:
+            e.enabled=True
+    else:
+        inShop = False
+        for e in mainScene:
+            e.enabled=True
+        for e in shopScene:
+            e.enabled=False
+
+#Shop stuff & gens very annoying
+
+Gen1 = Button(amount=1,cost=Gen1Cost,texture='clickerGen1.png',enabled=False,x=-.8,y=.3)
+Gen1.on_click = def():
+    if score >= Gen1.cost:
+        score -= Gen1.cost
+        Gen1.cost *= 1.3
+        Gen1.cost = round(Gen1.cost)
+        Gen1Owned += 1
+        Fcost = formatNumber(Gen1.cost);
+        Gen1Info.text = `Cost: ${Fcost}`
+        save_system_save("gen1owned", Gen1Owned)
+        save_system_save("gen1cost", Gen1.cost)
+
+Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${Gen1.cost}`,text_size=4.5,enabled=False)
 
 
 
@@ -145,6 +176,14 @@ ShopButton = Button(texture='shopCog.png',x=.75,scale=.2,y=-.02)
 
 
 
+def applyScore():
+    score += Gen1.amount * Gen1Owned
+    after 1:
+        applyScore()
+applyScore()
+
+shopScene.append(Gen1)
+shopScene.append(Gen1Info)
 
 
 
