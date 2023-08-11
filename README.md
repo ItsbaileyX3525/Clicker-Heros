@@ -1,6 +1,6 @@
 # Clicker heros
 
-![Game Logo](https://pasteboard.co/vNPC97AlrYFH.png)
+[Game Logo](https://pasteboard.co/vNPC97AlrYFH.png)
 
 ## Description
 
@@ -17,9 +17,9 @@ Clicker heros is an engaging and addictive clicker game designed for Android dev
 
 ## Screenshots
 
-![Screenshot 1](https://pasteboard.co/qIJhKgwYlTyM.png)
-![Screenshot 2](https://pasteboard.co/eol5LA3je1Z8.png)
-![Screenshot 3](https://pasteboard.co/Uh06t98T8QER.png)
+[Screenshot 1](https://pasteboard.co/qIJhKgwYlTyM.png)
+[Screenshot 2](https://pasteboard.co/eol5LA3je1Z8.png)
+[Screenshot 3](https://pasteboard.co/Uh06t98T8QER.png)
 
 ## Installation
 
@@ -46,7 +46,7 @@ Contributions are welcome! If you'd like to contribute to the project, follow th
 
 ## License
 
-This project is licensed under the [Your License Name] License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
