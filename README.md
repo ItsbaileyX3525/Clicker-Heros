@@ -1,7 +1,57 @@
 # Clicker heros
 
-Clicker heros (heroes) is a game developed by Bailey Miles otherwise known as Itsbailey X3525
-with the help of Ryan AKA RangerRhino23
+![Game Logo](https://pasteboard.co/vNPC97AlrYFH.png)
 
-The game will recieve regular updates and is being worked on most days of the week and you can contribute to development of the game if you want,
-all merge requests will be considered.
+## Description
+
+Clicker heros is an engaging and addictive clicker game designed for Android devices. In this game, players will embark on an exciting journey where every tap counts towards earning resources, upgrading characters, and unlocking new levels of excitement.
+
+## Features
+
+- Intuitive and responsive tap-based gameplay.
+- Unlockable characters, and upgrades to enhance the gameplay experience.
+- Vibrant and visually appealing graphics to keep players engaged.
+- In-game currency and score
+- Leaderboard system to compete with friends and other players globally. - In development
+- Offline progress - continue to accumulate resources even when the game is closed.
+
+## Screenshots
+
+![Screenshot 1](https://pasteboard.co/qIJhKgwYlTyM.png)
+![Screenshot 2](https://pasteboard.co/eol5LA3je1Z8.png)
+![Screenshot 3](https://pasteboard.co/Uh06t98T8QER.png)
+
+## Installation
+
+1. Go to the releases section of this github repo.
+2. Find the version you want to play.
+3. Install it too your android device and enjoy!
+
+## How to Play
+
+- Simply tap the screen to earn resources.
+- Use resources to unlock characters, upgrades, and power-ups.
+- Strategically manage your resources to optimize progress.
+- Compete with friends and players worldwide on the leaderboard.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to the project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature-new-feature`.
+3. Make your changes and commit them: `git commit -m 'Add a new feature'`.
+4. Push to the branch: `git push origin feature-new-feature`.
+5. Submit a pull request detailing your changes.
+
+## License
+
+This project is licensed under the [Your License Name] License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any inquiries or support, please contact us at baileyleah543@email.com.
+
+---
+
+Have fun playing Your Clicker Game Name and tap your way to victory! Don't forget to leave a ⭐️ if you enjoy the game.

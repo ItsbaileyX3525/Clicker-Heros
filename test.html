@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tab Focus Timer</title>
+</head>
+<body>
+  <p>Time elapsed since last tab focus: <span id="elapsed-time">0.0 seconds</span></p>
+<script>
+let lastFocusedTime = new Date();
+let elapsedTime = 0;
+
+function updateElapsedTime() {
+    const currentTime = new Date();
+    elapsedTime += (currentTime - lastFocusedTime) / 1000; // Convert to seconds
+    lastFocusedTime = currentTime;
+}
+
+window.addEventListener('focus', updateElapsedTime);
+
+window.addEventListener('blur', updateElapsedTime);
+
+setInterval(() => {
+    document.getElementById('elapsed-time').textContent = elapsedTime.toFixed(1) + ' seconds';
+}, 1000);
+</script>
+</body>
+</html>

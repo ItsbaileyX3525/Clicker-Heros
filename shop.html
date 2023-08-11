@@ -91,11 +91,12 @@ ASSETS_FOLDER = 'assets/'
 mainScene = []
 shopScene = []
 
-score = 1000
+score = 100000
 
 #Shop stuff & gens very annoying
 Gen1Cost = 15
 Gen2Cost = 100
+Gen3Cost = 1100
 
 Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.png',enabled=True,x=-.8,y=.3)
 Gen1.on_click = def():
@@ -113,17 +114,32 @@ Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${Gen1.cost}`,text_size=4.5,enabled=Tru
 
 Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.png',enabled=True,x=-.8,y=-.01)
 Gen2.on_click = def():
-    if score >= Gen1.cost:
-        score -= Gen1.cost
+    if score >= Gen2.cost:
+        score -= Gen2.cost
         Gen2.cost = 100 * Math.pow(1.15,Gen2Owned+1)
-        Gen2.cost = round(Gen1.cost)
-        Gen1Owned += 1
+        Gen2.cost = round(Gen2.cost)
+        Gen2Owned += 1
         Fcost = formatNumber(Gen2.cost);
         Gen2Info.text = `Cost: ${Fcost}`
         save_system_save("gen2owned", Gen2Owned)
         save_system_save("gen2cost", Gen2.cost)
 
 Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${Gen2.cost}`,text_size=4.5,enabled=True)
+
+Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.png',enabled=True,x=-.8,y=-.3)
+Gen3.on_click = def():
+    if score >= Gen3.cost:
+        score -= Gen3.cost
+        Gen3.cost = 1100 * Math.pow(1.15,Gen3Owned+1)
+        Gen3.cost = round(Gen3.cost)
+        Gen3Owned += 1
+        Fcost = formatNumber(Gen3.cost);
+        Gen3Info.text = `Cost: ${Fcost}`
+        save_system_save("gen3owned", Gen3Owned)
+        save_system_save("gen3cost", Gen3.cost)
+
+FormattedGen3 = formatNumber(Gen3Cost)
+Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${FormattedGen3}`,text_size=4.5,enabled=True)
 
 
 
@@ -133,7 +149,10 @@ Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${Gen2.cost}`,text_size=4.5,enabled=Tru
 #Appending shop items
 shopScene.append(Gen1)
 shopScene.append(Gen1Info)
-
+shopScene.append(Gen2)
+shopScene.append(Gen2Info)
+shopScene.append(Gen3)
+shopScene.append(Gen3Info)
 
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
