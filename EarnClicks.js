@@ -45,7 +45,7 @@ function getCurrentTimestamp() {
 function findLastTime() {
     const startTime = getCurrentTimestamp();
     const lastVisitTime = parseInt(localStorage.getItem('lastVisitTime'));
-    if (startTime - lastVisitTime > 1) {
+    if (startTime - lastVisitTime > 300) {
         if (startTime - lastVisitTime >= 259200) {
             const elapsedTime = 259200
             offlineEarn(elapsedTime)
@@ -62,7 +62,7 @@ function offlineEarn(time) {
         if (Gen1Owned > 0){
         let prevScore = score
         score = Math.round((score + 0.2 * Gen1Owned * time) * 10) / 10 ;
-        console.log("Diffence is: ", score - prevScore)}
+        }
         if (Gen2Owned > 0){
             score += 1 * Gen1Owned * time;}
         if (Gen3Owned > 0){

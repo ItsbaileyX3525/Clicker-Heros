@@ -56,18 +56,23 @@ const savedImageData = localStorage.getItem('customBG');
       document.body.style.backgroundImage = `url(${savedImageData})`;    }
 
 function formatNumber(number) {
-  if (number >= 1000){
-  if (number >= 1e12) {
-    return (number / 1e12).toFixed(2) + 'T';
-  } else if (number >= 1e9) {
-    return (number / 1e9).toFixed(2) + 'B';
-  } else if (number >= 1e6) {
-    return (number / 1e6).toFixed(2) + 'M';
-  } else if (number >= 1e3) {
-    return (number / 1e3).toFixed(2) + 'K';
+  const roundedNumber = Math.round(number * 100) / 100;
+
+  if (roundedNumber >= 1000) {
+    if (roundedNumber >= 1e12) {
+      return (roundedNumber / 1e12).toFixed(2) + 'T';
+    } else if (roundedNumber >= 1e9) {
+      return (roundedNumber / 1e9).toFixed(2) + 'B';
+    } else if (roundedNumber >= 1e6) {
+      return (roundedNumber / 1e6).toFixed(2) + 'M';
+    } else if (roundedNumber >= 1e3) {
+      return (roundedNumber / 1e3).toFixed(2) + 'K';
+    } else {
+      return roundedNumber.toFixed(2);
+    }
   } else {
-    return number.toFixed(2);
-  }} else {return number}
+    return roundedNumber.toString();
+  }
 }
 
 function PauseSounds() {

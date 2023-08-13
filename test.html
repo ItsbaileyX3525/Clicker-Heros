@@ -4,24 +4,24 @@
   <title>Tab Focus Timer</title>
 </head>
 <body>
-  <p>Time elapsed since last tab focus: <span id="elapsed-time">0.0 seconds</span></p>
+  <p><span id="number">0.0</span></p>
 <script>
-let lastFocusedTime = new Date();
-let elapsedTime = 0;
 
-function updateElapsedTime() {
-    const currentTime = new Date();
-    elapsedTime += (currentTime - lastFocusedTime) / 1000; // Convert to seconds
-    lastFocusedTime = currentTime;
+function after(delay, func) {
+    timeout_id = setTimeout(func, delay*1000)
 }
 
-window.addEventListener('focus', updateElapsedTime);
+function GeneratorFrenzy() {
+  document.getElementById("number").innerText = "Activated!"
+}
 
-window.addEventListener('blur', updateElapsedTime);
+function ActivateGenFrenzy() {
+    Android.loadReward()
+}
 
-setInterval(() => {
-    document.getElementById('elapsed-time').textContent = elapsedTime.toFixed(1) + ' seconds';
-}, 1000);
+after(8, function(){
+  ActivateGenFrenzy();
+})
 </script>
 </body>
 </html>

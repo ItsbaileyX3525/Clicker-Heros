@@ -56,20 +56,24 @@ const savedImageData = localStorage.getItem('customBG');
       document.body.style.backgroundImage = `url(${savedImageData})`;    }
 
 function formatNumber(number) {
-  if (number >= 1000){
-  if (number >= 1e12) {
-    return (number / 1e12).toFixed(2) + 'T';
-  } else if (number >= 1e9) {
-    return (number / 1e9).toFixed(2) + 'B';
-  } else if (number >= 1e6) {
-    return (number / 1e6).toFixed(2) + 'M';
-  } else if (number >= 1e3) {
-    return (number / 1e3).toFixed(2) + 'K';
-  } else {
-    return number.toFixed(2);
-  }} else {return number}
-}
+  const roundedNumber = Math.round(number * 100) / 100;
 
+  if (roundedNumber >= 1000) {
+    if (roundedNumber >= 1e12) {
+      return (roundedNumber / 1e12).toFixed(2) + 'T';
+    } else if (roundedNumber >= 1e9) {
+      return (roundedNumber / 1e9).toFixed(2) + 'B';
+    } else if (roundedNumber >= 1e6) {
+      return (roundedNumber / 1e6).toFixed(2) + 'M';
+    } else if (roundedNumber >= 1e3) {
+      return (roundedNumber / 1e3).toFixed(2) + 'K';
+    } else {
+      return roundedNumber.toFixed(2);
+    }
+  } else {
+    return roundedNumber.toString();
+  }
+}
 function PauseSounds() {
     StartedSong.pause()
 }
@@ -107,6 +111,13 @@ if not volume:
 Gen1Cost = int(save_system_load('gen1cost'))
 if not Gen1Cost or Gen1Cost == null:
     Gen1Cost = 20
+Gen1Cos2 = int(save_system_load('gen2cost'))
+if not Gen2Cost or Gen2Cost == null:
+    Gen2Cost = 100
+Gen3Cost = int(save_system_load('gen3cost'))
+if not Gen3Cost or Gen3Cost == null:
+    Gen3Cost = 1100
+
 
 SetVolumes(volume);
   
@@ -120,17 +131,26 @@ ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
     score += 1
     Playwoosh()
-mainScene.append(ClickerDude)
+
 
 score_display = Text(text=`Clicks: ${score}`,xy=[0.24,-.1],text_size=5)
 score_display.update = def():
     Fscore = formatNumber(score);
     score_display.text = `Clicks: ${Fscore}`
 
+cpsDisplay = Text(text='CpS: 0',xy=[0.24,-.1],text_size=3)
+cpsDisplay.update = def():
+    Gen1CPS = .2 * Gen1Owned
+    Gen2CPS = 1 * Gen2Owned
+    Gen3CPS = 8 * Gen3Owned
+    collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS
+    cpsDisplay.text = `CpS: ${formatNumber(collectiveCPS)}`
+
+
 settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
     SmoothTransit("Settings")
-mainScene.append(settingsButton)
+
 
 #General updating stuff
 def update():
@@ -152,6 +172,8 @@ ShopButton.on_click = def():
         for e in shopScene:
             e.enabled=False
 
+
+
 #Shop stuff & gens very annoying
 
 Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.png',enabled=False,x=-.8,y=.3)
@@ -171,11 +193,20 @@ Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${Gen1.cost}`,text_size=4.5,enabled=Fal
 
 
 
-
+#Appending main items
+mainScene.append(ClickerDude)
+mainScene.append(score_display)
+mainScene.append(settingsButton)
+mainScene.append(cpsDisplay)
 
 #Appending shop items
 shopScene.append(Gen1)
 shopScene.append(Gen1Info)
+shopScene.append(Gen2)
+shopScene.append(Gen2Info)
+shopScene.append(Gen3)
+shopScene.append(Gen3Info)
+
 
 
 
