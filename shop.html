@@ -102,6 +102,7 @@ score = 100000
 Gen1Cost = 15
 Gen2Cost = 100
 Gen3Cost = 1100
+Gen4Cost = 12000
 
 Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.png',enabled=True,x=-.8,y=.3)
 Gen1.on_click = def():
@@ -146,6 +147,21 @@ Gen3.on_click = def():
 FormattedGen3 = formatNumber(Gen3Cost)
 Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${FormattedGen3}`,text_size=4.5,enabled=True)
 
+Gen4 = Button(cost=Gen4Cost,texture='KarltonGen.png',enabled=True,x=-.3,y=.3)
+Gen4.on_click = def():
+    if score >= Gen4.cost:
+        score -= Gen4.cost
+        Gen4.cost = 12000 * Math.pow(1.15,Gen4Owned+1)
+        Gen4.cost = round(Gen4.cost)
+        Gen4Owned += 1
+        Fcost = formatNumber(Gen4.cost);
+        Gen4Info.text = `Cost: ${Fcost}`
+        save_system_save("gen4owned", Gen4Owned)
+        save_system_save("gen4cost", Gen4.cost)
+
+FormattedGen4 = formatNumber(Gen4Cost)
+Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${FormattedGen4}`,text_size=4.5,enabled=True)
+
 
 
 
@@ -158,6 +174,8 @@ shopScene.append(Gen2)
 shopScene.append(Gen2Info)
 shopScene.append(Gen3)
 shopScene.append(Gen3Info)
+shopScene.append(Gen4)
+shopScene.append(Gen4Info)
 
 
 _hidden_fullscreen_button.xy = [213213213,123123123]

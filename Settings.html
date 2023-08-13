@@ -73,8 +73,7 @@ const fileInput = document.createElement('input');
           if (key === Input) {
             let currentScore = parseInt(localStorage.getItem("score"))
             currentScore = currentScore + parseInt(jsonData[key])
-            console.log(jsonData[key])
-            console.log(currentScore)
+            score = currentScore
             localStorage.setItem("score", currentScore)
             localStorage.setItem(Input, jsonData[key]);
             FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code redeemed!`,text_color:color.green})
@@ -144,13 +143,16 @@ TwitterCodesSubmit.on_click = def():
 
 #Custom background
 
+sowwyppls = []
 CustomBackground = Button(enabled=True,scale_y=.1,y=-0.4,x=-0.5,text='Change background')
 #CustomBackground.el.appendChild(fileInput)
 CustomBackground.fit_to_text()
 CustomBackground.on_click = def():
     Sowwyppl = Text(text='Not supported yet',y=-0.6,x=.275,text_color=color.red)
+    sowwyppls.append(Sowwyppl)
     after 2:
-        destroy(Sowwyppl)
+        for e in sowwyppls:
+            destroy(e)
 
 Credits = Button(text='Credits',y=-.4,x=.5,scale=[.2,.1],color=color.gray,text_color=color.white)
 Credits.on_click = def():

@@ -111,12 +111,15 @@ if not volume:
 Gen1Cost = int(save_system_load('gen1cost'))
 if not Gen1Cost or Gen1Cost == null:
     Gen1Cost = 20
-Gen1Cos2 = int(save_system_load('gen2cost'))
+Gen2Cost = int(save_system_load('gen2cost'))
 if not Gen2Cost or Gen2Cost == null:
     Gen2Cost = 100
 Gen3Cost = int(save_system_load('gen3cost'))
 if not Gen3Cost or Gen3Cost == null:
     Gen3Cost = 1100
+Gen4Cost = int(save_system_load('gen4cost'))
+if not Gen4Cost or Gen4Cost == null:
+    Gen4Cost = 12000
 
 
 SetVolumes(volume);
@@ -138,14 +141,17 @@ score_display.update = def():
     Fscore = formatNumber(score);
     score_display.text = `Clicks: ${Fscore}`
 
-cpsDisplay = Text(text='CpS: 0',xy=[0.24,-.1],text_size=3)
+cpsDisplay = Text(text='CpS: 0',xy=[0.34,-.85],text_size=4)
 cpsDisplay.update = def():
-    Gen1CPS = .2 * Gen1Owned
-    Gen2CPS = 1 * Gen2Owned
-    Gen3CPS = 8 * Gen3Owned
-    collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS
-    cpsDisplay.text = `CpS: ${formatNumber(collectiveCPS)}`
-
+    try:
+        Gen1CPS = .1 * Gen1Owned
+        Gen2CPS = 1 * Gen2Owned
+        Gen3CPS = 8 * Gen3Owned
+        Gen4CPS = 47 * Gen4Owned
+    
+        collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS + Gen4CPS
+        cpsDisplay.text = `CpS: ${formatNumber(collectiveCPS)}`
+    catch (Error) {;}
 
 settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
@@ -180,7 +186,7 @@ Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.png',enabled=False,x=-.8,y=.3)
 Gen1.on_click = def():
     if score >= Gen1.cost:
         score -= Gen1.cost
-        Gen1.cost *= 1.3
+        Gen1.cost = 15 * Math.pow(1.15,Gen1Owned+1)
         Gen1.cost = round(Gen1.cost)
         Gen1Owned += 1
         Fcost = formatNumber(Gen1.cost);
@@ -190,14 +196,54 @@ Gen1.on_click = def():
 
 Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${Gen1.cost}`,text_size=4.5,enabled=False)
 
+Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.png',enabled=False,x=-.8,y=-.01)
+Gen2.on_click = def():
+    if score >= Gen2.cost:
+        score -= Gen2.cost
+        Gen2.cost = 100 * Math.pow(1.15,Gen2Owned+1)
+        Gen2.cost = round(Gen2.cost)
+        Gen2Owned += 1
+        Fcost = formatNumber(Gen2.cost);
+        Gen2Info.text = `Cost: ${Fcost}`
+        save_system_save("gen2owned", Gen2Owned)
+        save_system_save("gen2cost", Gen2.cost)
+
+Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${Gen2.cost}`,text_size=4.5,enabled=False)
+
+Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.png',enabled=False,x=-.8,y=-.3)
+Gen3.on_click = def():
+    if score >= Gen3.cost:
+        score -= Gen3.cost
+        Gen3.cost = 1100 * Math.pow(1.15,Gen3Owned+1)
+        Gen3.cost = round(Gen3.cost)
+        Gen3Owned += 1
+        Fcost = formatNumber(Gen3.cost);
+        Gen3Info.text = `Cost: ${Fcost}`
+        save_system_save("gen3owned", Gen3Owned)
+        save_system_save("gen3cost", Gen3.cost)
+
+FormattedGen3 = formatNumber(Gen3Cost)
+Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${FormattedGen3}`,text_size=4.5,enabled=False)
+
+Gen4 = Button(cost=Gen4Cost,texture='KarltonGen.png',enabled=False,x=-.3,y=.3)
+Gen4.on_click = def():
+    if score >= Gen4.cost:
+        score -= Gen4.cost
+        Gen4.cost = 12000 * Math.pow(1.15,Gen4Owned+1)
+        Gen4.cost = round(Gen4.cost)
+        Gen4Owned += 1
+        Fcost = formatNumber(Gen4.cost);
+        Gen4Info.text = `Cost: ${Fcost}`
+        save_system_save("gen4owned", Gen4Owned)
+        save_system_save("gen4cost", Gen4.cost)
+
+FormattedGen4 = formatNumber(Gen4Cost)
+Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${FormattedGen4}`,text_size=4.5,enabled=False)
 
 
 
-#Appending main items
-mainScene.append(ClickerDude)
-mainScene.append(score_display)
-mainScene.append(settingsButton)
-mainScene.append(cpsDisplay)
+
+
 
 #Appending shop items
 shopScene.append(Gen1)
@@ -206,6 +252,14 @@ shopScene.append(Gen2)
 shopScene.append(Gen2Info)
 shopScene.append(Gen3)
 shopScene.append(Gen3Info)
+shopScene.append(Gen4)
+shopScene.append(Gen4Info)
+
+#Appending main items
+mainScene.append(ClickerDude)
+mainScene.append(score_display)
+mainScene.append(settingsButton)
+mainScene.append(cpsDisplay)
 
 
 

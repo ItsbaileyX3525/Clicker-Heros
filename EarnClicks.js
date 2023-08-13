@@ -3,7 +3,8 @@ let score = int(save_system_load("score"));
 Gen1Owned = int(save_system_load("gen1owned"));
 Gen2Owned = int(save_system_load("gen2owned"));
 Gen3Owned = int(save_system_load("gen3owned"));
-const variablesToCheck = ['Gen1Owned', 'Gen2Owned', 'Gen3Owned'];
+Gen4Owned = int(save_system_load("gen4owned"));
+const variablesToCheck = ['Gen1Owned', 'Gen2Owned', 'Gen3Owned', 'Gen4Owned'];
 
 for (const variable of variablesToCheck) {
     if (!window[variable] || window[variable] === null) {
@@ -13,11 +14,13 @@ for (const variable of variablesToCheck) {
 function applyScore() {
     try {
     if (Gen1Owned > 0){
-    score = Math.round((score + 0.2 * Gen1Owned) * 10) / 10;}
+    score = Math.round((score + 0.1 * Gen1Owned) * 10) / 10;}
     if (Gen2Owned > 0){
-        score += 1 * Gen1Owned;}
+        score += 1 * Gen2Owned;}
     if (Gen3Owned > 0){
     score += 8 * Gen3Owned;}
+    if (Gen4Owned > 0){
+        score += 47 * Gen4Owned;}
     after(1, function() {
         save_system_save("score", score);
         applyScore();
@@ -58,15 +61,15 @@ function findLastTime() {
 
 function offlineEarn(time) {
     try {
-        console.log(time)
         if (Gen1Owned > 0){
-        let prevScore = score
-        score = Math.round((score + 0.2 * Gen1Owned * time) * 10) / 10 ;
+        score = Math.round((score + 0.1 * Gen1Owned * time) * 10) / 10 ;
         }
         if (Gen2Owned > 0){
             score += 1 * Gen1Owned * time;}
         if (Gen3Owned > 0){
         score += 8 * Gen3Owned * time;}
+        if (Gen4Owned > 0){
+            score += 47 * Gen4Owned;}
         save_system_save("score", score);
         } catch (err) {
             
