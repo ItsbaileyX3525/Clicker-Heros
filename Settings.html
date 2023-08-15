@@ -61,39 +61,53 @@ const fileInput = document.createElement('input');
     
     async function GetCodes(Input) {
       try {
+        let friends = localStorage.getItem("friendmodeactive")
+        if (friends === null || friends === "false") {friends=false}
         const jsonData = await fetchJSONData('https://raw.githubusercontent.com/ItsbaileyX3525/Clicker-Heros/main/ActiveCodes.json');
         
         if (localStorage.getItem(Input)) {
-            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code already used!`,text_color:color.red})
-            FYIText.animate('alpha', 0, 2)
+            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code already used!`,text_color:color.red});
+            FYIText.animate('alpha', 0, 2);
             return;
         }
-        
+        if (Input === 'FriendMode' && !friends) {
+            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Friend mode active!`,text_color:color.green});
+            FYIText.animate('alpha', 0, 2);
+            friendModeActive = new Checkbox({name:'friendModeActive ', x:-.3,y:-.2,state:True})
+            friendModeActiveInfo = new Text({name:'friendModeActiveInfo ', text:'Friend mode: ',x:-0.15,y:-.68})
+            localStorage.setItem("friendmodeactive", "true");
+            return;
+          } 
+          console.log(Input)
+          console.log(friends)
         for (const key in jsonData) {
           if (key === Input) {
             let currentScore = parseInt(localStorage.getItem("score"))
-            currentScore = currentScore + parseInt(jsonData[key])
-            score = currentScore
-            localStorage.setItem("score", currentScore)
+            currentScore = currentScore + parseInt(jsonData[key]);
+            score = currentScore;
+            localStorage.setItem("score", currentScore);
             localStorage.setItem(Input, jsonData[key]);
-            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code redeemed!`,text_color:color.green})
-            FYIText.animate('alpha', 0, 2)
-          } else {
-            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code doesn't exist or expired!`,text_color:color.red})
-            FYIText.animate('alpha', 0, 2)
+            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code redeemed!`,text_color:color.green});
+            FYIText.animate('alpha', 0, 2);
+            break;
+          } 
+          else {
+            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code doesn't exist or expired!`,text_color:color.red});
+            FYIText.animate('alpha', 0, 2);
+            break;
           }
         }
       } catch (error) {
-        FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Failed to fetch codes ${error}, check Wi-Fi`,text_color:color.red})
-        FYIText.animate('alpha', 0, 2)
+        FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Failed to fetch codes ${error}, check Wi-Fi`,text_color:color.red});
+        FYIText.animate('alpha', 0, 2);
       }after(2, function(){destroy(FYIText)})
     }
     
 function PauseSounds() {
-    music.pause()
+    music.pause();
 }
 function ResumeSounds() {
-    music.play()
+    music.play();
 }
 </script>
     <script src="taptapir/taptapir.js"></script>
@@ -158,11 +172,19 @@ Credits = Button(text='Credits',y=-.4,x=.5,scale=[.2,.1],color=color.gray,text_c
 Credits.on_click = def():
     SmoothTransit('Credits')
 
+friendmode = save_system_load("friendmodeactive")
+if friendmode != null and friendmode != false:
+    friendModeActive = Checkbox(x=-.3,y=-.2,state=True)
+    friendModeActiveInfo = Text(text='Friend mode: ',x=-0.15,y=-.68)
+
 #Because Rangers thing sucks
 entityUpdater = Entity(alpha=0)
 entityUpdater.update = def():
     save_system_save("mastervolume", masterVolume.value/100)
     save_system_save("attacksfx", attackSFX.value)
+    try{
+    save_system_save("friendmodeactive", friendModeActive.value)
+    }catch{;}
     setVolumeForAudioArray(masterVolume.value);
     
 
