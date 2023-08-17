@@ -97,6 +97,7 @@ shopScene = []
 
 #For settings
 save_system_save('prevtab', "main")
+save_system_save('currenttab', "main")
 
 #Loading score and data etc.
 score = int(save_system_load('score'))
@@ -178,8 +179,6 @@ ShopButton.on_click = def():
             e.enabled=True
         for e in shopScene:
             e.enabled=False
-
-
 
 #Shop stuff & gens very annoying
 

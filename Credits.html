@@ -25,6 +25,7 @@ set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
 PrevTab = save_system_load('prevtab')
+save_system_save('currenttab', "credits")
 if not PrevTab:
     alert("What tab did you come from???")
 

@@ -127,6 +127,7 @@ if not volume:
     volume = 1
 volume = volume * 100
 PrevTab = save_system_load('prevtab')
+save_system_save('currenttab', "settings")
 allowedAttackSFX = save_system_load('attacksfx')
 GoBackButton = Button(texture='LeftArrow.webp',y=.425,x=-.8,scale=[.1,.1])
 GoBackButton.on_click = def():
