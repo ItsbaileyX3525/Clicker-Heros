@@ -4,7 +4,11 @@ Gen1Owned = int(save_system_load("gen1owned"));
 Gen2Owned = int(save_system_load("gen2owned"));
 Gen3Owned = int(save_system_load("gen3owned"));
 Gen4Owned = int(save_system_load("gen4owned"));
-const variablesToCheck = ['Gen1Owned', 'Gen2Owned', 'Gen3Owned', 'Gen4Owned'];
+Gen5Owned = int(save_system_load("gen5owned"));
+Gen6Owned = int(save_system_load("gen6owned"));
+const variablesToCheck = ['Gen1Owned', 'Gen2Owned', 
+'Gen3Owned', 'Gen4Owned', 'Gen5Owned', 'Gen6Owned',
+];
 
 for (const variable of variablesToCheck) {
     if (!window[variable] || window[variable] === null) {
@@ -20,7 +24,11 @@ function applyScore() {
     if (Gen3Owned > 0){
     score += 8 * Gen3Owned;}
     if (Gen4Owned > 0){
-        score += 47 * Gen4Owned;}
+      score += 47 * Gen4Owned;}
+    if (Gen5Owned > 0){
+        score += 260 * Gen5Owned;}
+    if (Gen6Owned > 0){
+        score += 1400 * Gen6Owned;}
     after(1, function() {
         save_system_save("score", score);
         applyScore();
@@ -35,29 +43,22 @@ applyScore();
 
 
 //Used to credit player score if offline up to 3 days
+//Why? Because im kind :)
 const currentPath = window.location.pathname;
 const parts = currentPath.split('/');
 const afterSlash = parts[parts.length - 1];
 function _formatNumber(number) {
-    const roundedNumber = Math.round(number * 100) / 100;
+  const suffixes = ['', 'K', 'M', 'B', 'T', 'E', 'P', 'V', 'Dd', 'Qd', 'Sd', 'Td', 'Ud', 'Vd', 'Wd', 'Xd', 'Yd', 'Zd'];
   
-    if (roundedNumber >= 1000) {
-      if (roundedNumber >= 1e12) {
-        return (roundedNumber / 1e12).toFixed(2) + 'T';
-      } else if (roundedNumber >= 1e9) {
-        return (roundedNumber / 1e9).toFixed(2) + 'B';
-      } else if (roundedNumber >= 1e6) {
-        return (roundedNumber / 1e6).toFixed(2) + 'M';
-      } else if (roundedNumber >= 1e3) {
-        return (roundedNumber / 1e3).toFixed(2) + 'K';
-      } else {
-        return roundedNumber.toFixed(2);
-      }
-    } else {
-      return roundedNumber.toString();
-    }
+  let magnitude = 0;
+  while (number >= 1000 && magnitude < suffixes.length - 1) {
+      number /= 1000;
+      magnitude++;
   }
-
+  
+  const formattedNumber = number % 1 === 0 ? number.toFixed(0) : number.toFixed(2);
+  return formattedNumber + suffixes[magnitude];
+}
 function getCurrentTimestamp() {
     return Math.floor(Date.now() / 1000);
   }

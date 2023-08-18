@@ -56,24 +56,18 @@ const savedImageData = localStorage.getItem('customBG');
       document.body.style.backgroundImage = `url(${savedImageData})`;    }
 
 function formatNumber(number) {
-  const roundedNumber = Math.round(number * 100) / 100;
-
-  if (roundedNumber >= 1000) {
-    if (roundedNumber >= 1e12) {
-      return (roundedNumber / 1e12).toFixed(2) + 'T';
-    } else if (roundedNumber >= 1e9) {
-      return (roundedNumber / 1e9).toFixed(2) + 'B';
-    } else if (roundedNumber >= 1e6) {
-      return (roundedNumber / 1e6).toFixed(2) + 'M';
-    } else if (roundedNumber >= 1e3) {
-      return (roundedNumber / 1e3).toFixed(2) + 'K';
-    } else {
-      return roundedNumber.toFixed(2);
+    const suffixes = ['', 'K', 'M', 'B', 'T', 'E', 'P', 'V', 'Dd', 'Qd', 'Sd', 'Td', 'Ud', 'Vd', 'Wd', 'Xd', 'Yd', 'Zd'];
+    
+    let magnitude = 0;
+    while (number >= 1000 && magnitude < suffixes.length - 1) {
+        number /= 1000;
+        magnitude++;
     }
-  } else {
-    return roundedNumber.toString();
-  }
+    
+    const formattedNumber = number % 1 === 0 ? number.toFixed(0) : number.toFixed(2);
+    return formattedNumber + suffixes[magnitude];
 }
+
 
 function PauseSounds() {
     StartedSong.pause()
@@ -103,8 +97,10 @@ Gen1Cost = 15
 Gen2Cost = 100
 Gen3Cost = 1100
 Gen4Cost = 12000
+Gen5Cost = 130000
+Gen6Cost = 1400000
 
-Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.png',enabled=True,x=-.8,y=.3)
+Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=True,x=-.8,y=.3)
 Gen1.on_click = def():
     if score >= Gen1.cost:
         score -= Gen1.cost
@@ -118,7 +114,7 @@ Gen1.on_click = def():
 
 Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${Gen1.cost}`,text_size=4.5,enabled=True)
 
-Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.png',enabled=True,x=-.8,y=-.01)
+Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=True,x=-.8,y=-.01)
 Gen2.on_click = def():
     if score >= Gen2.cost:
         score -= Gen2.cost
@@ -132,7 +128,7 @@ Gen2.on_click = def():
 
 Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${Gen2.cost}`,text_size=4.5,enabled=True)
 
-Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.png',enabled=True,x=-.8,y=-.3)
+Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=True,x=-.8,y=-.3)
 Gen3.on_click = def():
     if score >= Gen3.cost:
         score -= Gen3.cost
@@ -144,10 +140,9 @@ Gen3.on_click = def():
         save_system_save("gen3owned", Gen3Owned)
         save_system_save("gen3cost", Gen3.cost)
 
-FormattedGen3 = formatNumber(Gen3Cost)
-Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${FormattedGen3}`,text_size=4.5,enabled=True)
+Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=True)
 
-Gen4 = Button(cost=Gen4Cost,texture='KarltonGen.png',enabled=True,x=-.3,y=.3)
+Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=True,x=-.3,y=.3)
 Gen4.on_click = def():
     if score >= Gen4.cost:
         score -= Gen4.cost
@@ -159,11 +154,42 @@ Gen4.on_click = def():
         save_system_save("gen4owned", Gen4Owned)
         save_system_save("gen4cost", Gen4.cost)
 
-FormattedGen4 = formatNumber(Gen4Cost)
-Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${FormattedGen4}`,text_size=4.5,enabled=True)
+Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=True)
 
+Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=True,x=-.3,y=-.01)
+Gen5.on_click = def():
+    if score >= Gen5.cost:
+        score -= Gen5.cost
+        Gen5.cost = 130000 * Math.pow(1.15,Gen5Owned+1)
+        Gen5.cost = round(Gen5.cost)
+        Gen5Owned += 1
+        Fcost = formatNumber(Gen5.cost);
+        Gen5Info.text = `Cost: ${Fcost}`
+        save_system_save("gen5owned", Gen5Owned)
+        save_system_save("gen5cost", Gen5.cost)
 
+Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=True)
 
+Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=True,x=-.3,y=-.3)
+Gen6.on_click = def():
+    if score >= Gen6.cost:
+        score -= Gen6.cost
+        Gen6.cost = 1400000 * Math.pow(1.15,Gen6Owned+1)
+        Gen6.cost = round(Gen6.cost)
+        Gen6Owned += 1
+        Fcost = formatNumber(Gen6.cost);
+        Gen5Info.text = `Cost: ${Fcost}`
+        save_system_save("gen6owned", Gen6Owned)
+        save_system_save("gen6cost", Gen6.cost)
+
+Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=True)
+if friendMode == 'true':
+    Gen1.texture = 'CallumGen.webp'
+    Gen2.texture = 'NathanielGen.webp'
+    Gen3.texture = 'TaylorGen.webp'
+    Gen4.texture = 'WilsonGen.webp'
+    Gen5.texture = 'KarltonGen.webp'
+    #Gen6.texture = 'KarltonGen.webp'
 
 
 
@@ -176,6 +202,10 @@ shopScene.append(Gen3)
 shopScene.append(Gen3Info)
 shopScene.append(Gen4)
 shopScene.append(Gen4Info)
+shopScene.append(Gen5)
+shopScene.append(Gen5Info)
+shopScene.append(Gen6)
+shopScene.append(Gen6Info)
 
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
