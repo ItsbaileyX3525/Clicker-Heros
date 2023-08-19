@@ -99,6 +99,7 @@ Gen3Cost = 1100
 Gen4Cost = 12000
 Gen5Cost = 130000
 Gen6Cost = 1400000
+Gen7Cost = 20000000
 
 Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=True,x=-.8,y=.3)
 Gen1.on_click = def():
@@ -178,12 +179,29 @@ Gen6.on_click = def():
         Gen6.cost = round(Gen6.cost)
         Gen6Owned += 1
         Fcost = formatNumber(Gen6.cost);
-        Gen5Info.text = `Cost: ${Fcost}`
+        Gen6Info.text = `Cost: ${Fcost}`
         save_system_save("gen6owned", Gen6Owned)
         save_system_save("gen6cost", Gen6.cost)
 
 Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=True)
-if friendMode == 'true':
+
+Gen7 = Button(cost=Gen7Cost,texture='ClickerGenFinal.webp',enabled=True,x=0.35,y=0,scale=.3)
+Gen7.on_click = def():
+    if score >= Gen7.cost:
+        score -= Gen7.cost
+        Gen7.cost = 20000000 * Math.pow(1.15,Gen7Owned+1)
+        Gen7.cost = round(Gen7.cost)
+        Gen7Owned += 1
+        Fcost = formatNumber(Gen7.cost);
+        Gen7Info.text = `Cost: ${Fcost}`
+        save_system_save("gen7owned", Gen7Owned)
+        save_system_save("gen7cost", Gen7.cost)
+
+Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=4.5,enabled=True)
+
+
+
+if friendMode == 'true' or friendMode == true:
     Gen1.texture = 'CallumGen.webp'
     Gen2.texture = 'NathanielGen.webp'
     Gen3.texture = 'TaylorGen.webp'

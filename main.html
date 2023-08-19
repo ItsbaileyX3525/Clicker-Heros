@@ -98,9 +98,11 @@ if not score:
     score = 0
 
 volume = parseFloat(save_system_load('mastervolume'))
-if not volume:
-  volume = 1
-  save_system_save('mastervolume', volume)
+if volume < 0 or volume > 1:
+    volume = 1
+    print("Essen")
+    save_system_save('mastervolume', volume)
+
 
 Gen1Cost = int(save_system_load('gen1cost'))
 if not Gen1Cost or Gen1Cost == null:
@@ -120,6 +122,9 @@ if not Gen5Cost or Gen5Cost == null:
 Gen6Cost = int(save_system_load('gen6cost'))
 if not Gen6Cost or Gen6Cost == null:
     Gen6Cost = 1400000
+Gen7Cost = int(save_system_load('gen7cost'))
+if not Gen7Cost or Gen7Cost == null:
+    Gen7Cost = 20000000
 
 friendMode = save_system_load("friendmodeactive")
 
@@ -142,15 +147,17 @@ score_display.update = def():
     Fscore = formatNumber(score);
     score_display.text = `Clicks: ${Fscore}`
 
-cpsDisplay = Text(text='CpS: 0',xy=[0.34,-.85],text_size=4)
+cpsDisplay = Text(text='CpS: 0',xy=[0.285,-.85],text_size=4)
 cpsDisplay.update = def():
     try:
         Gen1CPS = .1 * Gen1Owned
         Gen2CPS = 1 * Gen2Owned
         Gen3CPS = 8 * Gen3Owned
         Gen4CPS = 47 * Gen4Owned
-    
-        collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS + Gen4CPS
+        Gen5CPS = 260 * Gen5Owned
+        Gen6CPS = 1400 * Gen6Owned
+        Gen7CPS = 7800 * Gen7Owned
+        collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS + Gen4CPS + Gen5CPS + Gen6CPS + Gen7CPS
         cpsDisplay.text = `CpS: ${formatNumber(collectiveCPS)}`
     catch (Error) {;}
 
@@ -264,13 +271,31 @@ Gen6.on_click = def():
         save_system_save("gen6cost", Gen6.cost)
 
 Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=False)
-if friendMode == 'true':
+
+
+Gen7 = Button(cost=Gen7Cost,texture='ClickerGenFinal.webp',enabled=False,x=0.35,y=0,scale=.3)
+Gen7.on_click = def():
+    if score >= Gen7.cost:
+        score -= Gen7.cost
+        Gen7.cost = 20000000 * Math.pow(1.15,Gen7Owned+1)
+        Gen7.cost = round(Gen7.cost)
+        Gen7Owned += 1
+        Fcost = formatNumber(Gen7.cost);
+        Gen7Info.text = `Cost: ${Fcost}`
+        save_system_save("gen7owned", Gen7Owned)
+        save_system_save("gen7cost", Gen7.cost)
+
+Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=4.5,enabled=False)
+
+
+if friendMode == 'true' or friendMode == true:
     Gen1.texture = 'CallumGen.webp'
     Gen2.texture = 'NathanielGen.webp'
     Gen3.texture = 'TaylorGen.webp'
     Gen4.texture = 'WilsonGen.webp'
     Gen5.texture = 'KarltonGen.webp'
-    #Gen6.texture = 'KarltonGen.webp'
+    Gen6.texture = 'RyanGen.webp'
+    Gen7.texture = 'EthanGen.webp'
 
 
 
@@ -288,6 +313,8 @@ shopScene.append(Gen5)
 shopScene.append(Gen5Info)
 shopScene.append(Gen6)
 shopScene.append(Gen6Info)
+shopScene.append(Gen7)
+shopScene.append(Gen7Info)
 
 #Appending main items
 mainScene.append(ClickerDude)

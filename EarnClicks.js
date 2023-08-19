@@ -6,9 +6,10 @@ Gen3Owned = int(save_system_load("gen3owned"));
 Gen4Owned = int(save_system_load("gen4owned"));
 Gen5Owned = int(save_system_load("gen5owned"));
 Gen6Owned = int(save_system_load("gen6owned"));
+Gen7Owned = int(save_system_load("gen7owned"));
 const variablesToCheck = ['Gen1Owned', 'Gen2Owned', 
 'Gen3Owned', 'Gen4Owned', 'Gen5Owned', 'Gen6Owned',
-];
+'Gen7Owned'];
 
 for (const variable of variablesToCheck) {
     if (!window[variable] || window[variable] === null) {
@@ -22,13 +23,15 @@ function applyScore() {
     if (Gen2Owned > 0){
         score += 1 * Gen2Owned;}
     if (Gen3Owned > 0){
-    score += 8 * Gen3Owned;}
+        score += 8 * Gen3Owned;}
     if (Gen4Owned > 0){
       score += 47 * Gen4Owned;}
     if (Gen5Owned > 0){
         score += 260 * Gen5Owned;}
     if (Gen6Owned > 0){
         score += 1400 * Gen6Owned;}
+    if (Gen7Owned > 0){
+        score += 7800 * Gen7Owned;}
     after(1, function() {
         save_system_save("score", score);
         applyScore();
@@ -83,7 +86,9 @@ function findLastTime() {
     }
 }
 
-function doubleDaMoneyFunc() {score += TotalEarned *2
+function doubleDaMoneyFunc() {
+    score += TotalEarned *2
+    localStorage.setItem("score",score)
   for (var e of zeItems) {
     e.enabled = false
 }
@@ -92,7 +97,7 @@ function doubleDaMoneyFunc() {score += TotalEarned *2
 function displayOfflineEarnings() {
     const amount = TotalEarned;
     
-    lastplayedscreen = new Entity({name:'lastplayedscreen ', parent:camera.ui,texture:'earnedGradient.jpg',scale:[1.2,1],z:-2})
+    lastplayedscreen = new Entity({name:'lastplayedscreen ', parent:camera.ui,texture:'earnedGradient.webp',scale:[1.2,1],z:-2})
     earnedSinceLastPlayed = new Text({name:'earnedSinceLastPlayed ', xy:[.1,-.0],text_size:5,text:`Earned since last online:`,z:-2})
     totalAmountEarned = new Text({name:'totalAmountEarned ', text:`${_formatNumber(amount)}`,z:-2,text_size:8,xy:[.28,-.4],text_color:color.white})
     confirmDaMoney = new Button({name:'confirmDaMoney ', text:'OK',z:-2,scale:[.15,.1],y:-.4,x:.3})
