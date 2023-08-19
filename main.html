@@ -144,8 +144,7 @@ ClickerDude.on_click = def():
 
 score_display = Text(text=`Clicks: ${score}`,xy=[0.22,-.025],text_size=5)
 score_display.update = def():
-    Fscore = formatNumber(score);
-    score_display.text = `Clicks: ${Fscore}`
+    score_display.text = `Clicks: ${formatNumber(score)}`
 
 cpsDisplay = Text(text='CpS: 0',xy=[0.285,-.85],text_size=4)
 cpsDisplay.update = def():
@@ -200,7 +199,7 @@ Gen1.on_click = def():
         save_system_save("gen1owned", Gen1Owned)
         save_system_save("gen1cost", Gen1.cost)
 
-Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${Gen1.cost}`,text_size=4.5,enabled=False)
+Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=False)
 
 Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=False,x=-.8,y=-.01)
 Gen2.on_click = def():
@@ -214,7 +213,7 @@ Gen2.on_click = def():
         save_system_save("gen2owned", Gen2Owned)
         save_system_save("gen2cost", Gen2.cost)
 
-Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${Gen2.cost}`,text_size=4.5,enabled=False)
+Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=False)
 
 Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=False,x=-.8,y=-.3)
 Gen3.on_click = def():
@@ -266,7 +265,7 @@ Gen6.on_click = def():
         Gen6.cost = round(Gen6.cost)
         Gen6Owned += 1
         Fcost = formatNumber(Gen6.cost);
-        Gen5Info.text = `Cost: ${Fcost}`
+        Gen6Info.text = `Cost: ${Fcost}`
         save_system_save("gen6owned", Gen6Owned)
         save_system_save("gen6cost", Gen6.cost)
 

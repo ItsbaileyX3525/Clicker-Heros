@@ -64,7 +64,6 @@ const fileInput = document.createElement('input');
         let friends = localStorage.getItem("friendmodeactive")
         if (friends === null || friends === "false") {friends=false}
         const jsonData = await fetchJSONData('https://raw.githubusercontent.com/ItsbaileyX3525/Clicker-Heros/main/ActiveCodes.json');
-        
         if (localStorage.getItem(Input)) {
             FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code already used!`,text_color:color.red});
             FYIText.animate('alpha', 0, 2);
@@ -77,26 +76,49 @@ const fileInput = document.createElement('input');
             friendModeActiveInfo = new Text({name:'friendModeActiveInfo ', text:'Friend mode: ',x:-0.15,y:-.68})
             localStorage.setItem("friendmodeactive", "true");
             return;
-          } 
-          console.log(Input)
-          console.log(friends)
-        for (const key in jsonData) {
-          if (key === Input) {
-            let currentScore = parseInt(localStorage.getItem("score"))
-            currentScore = currentScore + parseInt(jsonData[key]);
-            score = currentScore;
-            localStorage.setItem("score", currentScore);
-            localStorage.setItem(Input, jsonData[key]);
-            FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code redeemed!`,text_color:color.green});
-            FYIText.animate('alpha', 0, 2);
-            break;
-          } 
+          } else if (Input === 'DebuggerMode') {
+            WARNINGBEWARECALLUMISWEARMANBEWARE = new Entity({name:'WARNINGBEWARECALLUMISWEARMANBEWARE ', parent:camera.ui,color:color.gray,scale:[2,1],z:-2})
+            WARNINGBEWARECALLUMISWEARMANBEWARE1 = new Text({name:'WARNINGBEWARECALLUMISWEARMANBEWARE1 ', text_size:5,text:'Are you sure you wanna enable the debug console?',x:-.25,y:-.2,z:-2})
+            WARNINGBEWARECALLUMISWEARMANBEWARE2 = new Button({name:'WARNINGBEWARECALLUMISWEARMANBEWARE2 ', text:'YES',scale:.2,x:.5,z:-2,color:color.red})
+            WARNINGBEWARECALLUMISWEARMANBEWARE3 = new Button({name:'WARNINGBEWARECALLUMISWEARMANBEWARE3 ', text:'NO',scale:.2,x:-.5,z:-2,color:color.green})
+            WARNINGBEWARECALLUMISWEARMANBEWARE2.on_click = function() {
+              destroy(WARNINGBEWARECALLUMISWEARMANBEWARE);
+              destroy(WARNINGBEWARECALLUMISWEARMANBEWARE1);
+              destroy(WARNINGBEWARECALLUMISWEARMANBEWARE2);
+              destroy(WARNINGBEWARECALLUMISWEARMANBEWARE3);
+              DebugConsole = new InputField({name:'DebugConsole ', x:.4,y:.15,scale:[.4,.06],roundness:.1})
+              DebugConsoleSubmit = new Button({name:'DebugConsoleSubmit ', text:'Submit',scale:[.12,.06],x:.7,y:.145})
+              DebugConsoleSubmit.on_click = function() {
+                eval(DebugConsole.value)
+              }
+            }
+            WARNINGBEWARECALLUMISWEARMANBEWARE3.on_click = function() {
+              destroy(WARNINGBEWARECALLUMISWEARMANBEWARE);
+              destroy(WARNINGBEWARECALLUMISWEARMANBEWARE1);
+              destroy(WARNINGBEWARECALLUMISWEARMANBEWARE2);
+              destroy(WARNINGBEWARECALLUMISWEARMANBEWARE3);
+            }
+            return;
+          }
+        if (Input in jsonData) {
+          for (const key in jsonData) {
+            if (key === Input) {
+              let currentScore = parseInt(localStorage.getItem("score"))
+              currentScore = currentScore + parseInt(jsonData[key]);
+              score = currentScore;
+              localStorage.setItem("score", currentScore);
+              localStorage.setItem(Input, jsonData[key]);
+              FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code redeemed!`,text_color:color.green});
+              FYIText.animate('alpha', 0, 2);
+              break;
+            } else {
+              continue;
+            }
+          }}
           else {
             FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Code doesn't exist or expired!`,text_color:color.red});
             FYIText.animate('alpha', 0, 2);
-            break;
           }
-        }
       } catch (error) {
         FYIText = new Text({name:'FYIText ', x:.2,y:-0.6,text : `Failed to fetch codes ${error}, check Wi-Fi`,text_color:color.red});
         FYIText.animate('alpha', 0, 2);
@@ -114,8 +136,6 @@ function ResumeSounds() {
 <script src="taptapir-utility/slider.js"></script>
 <script type="text/sunsnake">
 
-#TODO: Make it so clicks earn anywhere.
-
 #Global Functions
 set_orientation('horizontal')
 set_window_color('transparent')
@@ -123,7 +143,7 @@ set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
 volume = round(parseFloat(save_system_load('mastervolume')), 10)
-if not volume:
+if volume < 0 or volume > 1:
     volume = 1
 volume = volume * 100
 PrevTab = save_system_load('prevtab')
@@ -188,9 +208,6 @@ entityUpdater.update = def():
     }catch{;}
     setVolumeForAudioArray(masterVolume.value);
     
-
-
-
 
 #Reset game stuff (very dangerous all progress lost)
 resetGame = Button(y=-.4,text='RESET',scale=[.2,.1],color=color.red)
