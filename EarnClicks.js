@@ -11,6 +11,15 @@ const variablesToCheck = ['Gen1Owned', 'Gen2Owned',
 'Gen3Owned', 'Gen4Owned', 'Gen5Owned', 'Gen6Owned',
 'Gen7Owned'];
 
+let globalMultiplier = 1
+let gen1Multiplier = 1
+let gen2Multiplier = 1
+let gen3Multiplier = 1
+let gen4Multiplier = 1
+let gen5Multiplier = 1
+let gen6Multiplier = 1
+let gen7Multiplier = 1
+
 for (const variable of variablesToCheck) {
     if (!window[variable] || window[variable] === null) {
         window[variable] = 0;
@@ -19,19 +28,19 @@ for (const variable of variablesToCheck) {
 function applyScore() {
     try {
     if (Gen1Owned > 0){
-    score = Math.round((score + 0.1 * Gen1Owned) * 10) / 10;}
+    score = Math.round((score + 0.1 * Gen1Owned * gen1Multiplier * globalMultiplier) * 10) / 10;}
     if (Gen2Owned > 0){
-        score += 1 * Gen2Owned;}
-    if (Gen3Owned > 0){
-        score += 8 * Gen3Owned;}
+        score += 1 * Gen2Owned * gen2Multiplier * globalMultiplier;}
+    if (Gen3Owned > 0 * gen2Multiplier * globalMultiplier){
+        score += 8 * Gen3Owned * gen3Multiplier * globalMultiplier;}
     if (Gen4Owned > 0){
-      score += 47 * Gen4Owned;}
+      score += 47 * Gen4Owned * gen4Multiplier * globalMultiplier;}
     if (Gen5Owned > 0){
-        score += 260 * Gen5Owned;}
+        score += 260 * Gen5Owned * gen6Multiplier * globalMultiplier;}
     if (Gen6Owned > 0){
-        score += 1400 * Gen6Owned;}
+        score += 1400 * Gen6Owned * gen6Multiplier * globalMultiplier;}
     if (Gen7Owned > 0){
-        score += 7800 * Gen7Owned;}
+        score += 7800 * Gen7Owned * gen7Multiplier * globalMultiplier;}
     after(1, function() {
         save_system_save("score", score);
         applyScore();
@@ -75,7 +84,7 @@ function getCurrentTimestamp() {
 function findLastTime() {
     const startTime = getCurrentTimestamp();
     const lastVisitTime = parseInt(localStorage.getItem('lastVisitTime'));
-    if (startTime - lastVisitTime > 500) {
+    if (startTime - lastVisitTime > 2) {
         if (startTime - lastVisitTime >= 259200) {
             const elapsedTime = 259200
             offlineEarn(elapsedTime)
@@ -87,11 +96,13 @@ function findLastTime() {
 }
 
 function doubleDaMoneyFunc() {
-    score += TotalEarned *2
-    localStorage.setItem("score",score)
-  for (var e of zeItems) {
-    e.enabled = false
-}
+    console.log(score)
+    console.log(score += TotalEarned * 2)
+    score += TotalEarned * 2
+    
+    for (var e of zeItems) {
+        e.enabled = false
+    }
 }
 
 function displayOfflineEarnings() {
@@ -110,6 +121,7 @@ function displayOfflineEarnings() {
         }
     }
     doubleDaMoney.on_click = function(){
+        doubleDaMoneyFunc()
         AndroidApp.loadReward(2)
     }
 

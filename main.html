@@ -149,13 +149,13 @@ score_display.update = def():
 cpsDisplay = Text(text='CpS: 0',xy=[0.285,-.85],text_size=4)
 cpsDisplay.update = def():
     try:
-        Gen1CPS = .1 * Gen1Owned
-        Gen2CPS = 1 * Gen2Owned
-        Gen3CPS = 8 * Gen3Owned
-        Gen4CPS = 47 * Gen4Owned
-        Gen5CPS = 260 * Gen5Owned
-        Gen6CPS = 1400 * Gen6Owned
-        Gen7CPS = 7800 * Gen7Owned
+        Gen1CPS = .1 * Gen1Owned * gen1Multiplier * globalMultiplier
+        Gen2CPS = 1 * Gen2Owned * gen2Multiplier * globalMultiplier
+        Gen3CPS = 8 * Gen3Owned * gen3Multiplier * globalMultiplier
+        Gen4CPS = 47 * Gen4Owned * gen4Multiplier * globalMultiplier
+        Gen5CPS = 260 * Gen5Owned * gen5Multiplier * globalMultiplier
+        Gen6CPS = 1400 * Gen6Owned * gen6Multiplier * globalMultiplier
+        Gen7CPS = 7800 * Gen7Owned * gen7Multiplier * globalMultiplier
         collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS + Gen4CPS + Gen5CPS + Gen6CPS + Gen7CPS
         cpsDisplay.text = `CpS: ${formatNumber(collectiveCPS)}`
     catch (Error) {;}
@@ -297,7 +297,26 @@ if friendMode == 'true' or friendMode == true:
     Gen7.texture = 'EthanGen.webp'
 
 
+#TODO: Make the ascend button neon and cool
 
+prestigeStuff = Button(color=color.pink,text='ascension',xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)
+prestigeStuff.on_click = def():
+    ;
+    DoYouReallyWantToAscend = Entity(parent=camera.ui,scale=[2,1],z=-1,color=hsv(0,0,.18))
+    InfoForAscend1 = Text(text='Are you sure you want to ascend?',text_color=color.white,text_size=6,x=-.1,y=-.04)
+    InfoForAscend2 = Text(text='By ascending you will lose all progress in\nexchange for a multiplier.',text_color=color.white,text_size=4.5,x=-.08,y=-.15)
+    InfoForAscend3 = Text(text=`Your current multiplier is ${formatNumber(globalMultiplier)}`,text_color=color.white,text_size=4,x=.15,y=-.4)
+    YesIReallyWantToAscend = Button(text="Ascend",z=-1,scale=[.3,.125],y=-.15)
+    NoIReallyDontWantToAscend = Button(text="Cancel",z=-1,color,scale=[.17,.08],x=.5,y=-.4)
+    YesIReallyWantToAscend.on_click = def():
+        ;
+    NoIReallyDontWantToAscend.on_click = def():
+        destroy(DoYouReallyWantToAscend)
+        destroy(InfoForAscend1)
+        destroy(InfoForAscend2)
+        destroy(InfoForAscend3)
+        destroy(YesIReallyWantToAscend)
+        destroy(NoIReallyDontWantToAscend)
 
 #Appending shop items
 shopScene.append(Gen1)
