@@ -1,3 +1,5 @@
+//Make sure to make the offline earn from 5 to 500
+
 
 let score = int(save_system_load("score"));
 Gen1Owned = int(save_system_load("gen1owned"));
@@ -10,19 +12,25 @@ Gen7Owned = int(save_system_load("gen7owned"));
 const variablesToCheck = ['Gen1Owned', 'Gen2Owned', 
 'Gen3Owned', 'Gen4Owned', 'Gen5Owned', 'Gen6Owned',
 'Gen7Owned'];
-
-let globalMultiplier = 1
-let gen1Multiplier = 1
-let gen2Multiplier = 1
-let gen3Multiplier = 1
-let gen4Multiplier = 1
-let gen5Multiplier = 1
-let gen6Multiplier = 1
-let gen7Multiplier = 1
-
 for (const variable of variablesToCheck) {
     if (!window[variable] || window[variable] === null) {
         window[variable] = 0;
+    }
+}
+globalMultiplier = int(save_system_load('globalmultiplier'))
+gen1Multiplier = int(save_system_load('gen1multiplier'))
+gen2Multiplier = int(save_system_load('gen2multiplier'))
+gen3Multiplier = int(save_system_load('gen3multiplier'))
+gen4Multiplier = int(save_system_load('gen4multiplier'))
+gen5Multiplier = int(save_system_load('gen5multiplier'))
+gen6Multiplier = int(save_system_load('gen6multiplier'))
+gen7Multiplier = int(save_system_load('gen7multiplier'))
+const vars2 = ['globalMultiplier', 'gen1Multiplier'
+, 'gen2Multiplier', 'gen3Multiplier', 'gen4Multiplier'
+, 'gen5Multiplier', 'gen6Multiplier', 'gen7Multiplier']
+for (const variable of vars2) {
+    if (!window[variable] || window[variable] === null) {
+        window[variable] = 1;
     }
 }
 function applyScore() {
@@ -96,8 +104,6 @@ function findLastTime() {
 }
 
 function doubleDaMoneyFunc() {
-    console.log(score)
-    console.log(score += TotalEarned * 2)
     score += TotalEarned * 2
     
     for (var e of zeItems) {
@@ -121,7 +127,7 @@ function displayOfflineEarnings() {
         }
     }
     doubleDaMoney.on_click = function(){
-        doubleDaMoneyFunc()
+        //doubleDaMoneyFunc()
         AndroidApp.loadReward(2)
     }
 

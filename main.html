@@ -48,7 +48,12 @@ window.addEventListener('click', (event) => {
 })
 
 function SetVolumes(volume) {
+    try {
     StartedSong.volume = volume
+    } catch (TypeError) {
+        StartedSong.volume = 1
+        localStorage.setItem("mastervolume", 1) 
+    }
 }
 
 const savedImageData = localStorage.getItem('customBG');
@@ -87,6 +92,7 @@ ASSETS_FOLDER = 'assets/'
 #Global variables
 mainScene = []
 shopScene = []
+levelUps = []
 
 #For settings
 save_system_save('prevtab', "main")
@@ -97,10 +103,13 @@ score = int(save_system_load('score'))
 if not score:
     score = 0
 
+godlyClicks = int(save_system_save('godlyclicks'))
+if not godlyClicks or godlyClicks == null:
+    godlyClicks = 0
+
 volume = parseFloat(save_system_load('mastervolume'))
 if volume < 0 or volume > 1:
     volume = 1
-    print("Essen")
     save_system_save('mastervolume', volume)
 
 
@@ -125,6 +134,29 @@ if not Gen6Cost or Gen6Cost == null:
 Gen7Cost = int(save_system_load('gen7cost'))
 if not Gen7Cost or Gen7Cost == null:
     Gen7Cost = 20000000
+Gen1LevelUpCost = int(save_system_load('gen1upgradecost'))
+if not Gen1LevelUpCost or Gen1LevelUpCost == null:
+    Gen1LevelUpCost = 1
+Gen2LevelUpCost = int(save_system_load('gen2upgradecost'))
+if not Gen2LevelUpCost or Gen2LevelUpCost == null:
+    Gen2LevelUpCost = 1
+Gen3LevelUpCost = int(save_system_load('gen3upgradecost'))
+if not Gen3LevelUpCost or Gen3LevelUpCost == null:
+    Gen3LevelUpCost = 1
+Gen4LevelUpCost = int(save_system_load('gen4upgradecost'))
+if not Gen4LevelUpCost or Gen4LevelUpCost == null:
+    Gen4LevelUpCost = 1
+Gen5LevelUpCost = int(save_system_load('gen5upgradecost'))
+if not Gen5LevelUpCost or Gen5LevelUpCost == null:
+    Gen5LevelUpCost = 1
+Gen6LevelUpCost = int(save_system_load('gen6upgradecost'))
+if not Gen6LevelUpCost or Gen6LevelUpCost == null:
+    Gen6LevelUpCost = 1
+Gen7LevelUpCost = int(save_system_load('gen7upgradecost'))
+if not Gen7LevelUpCost or Gen7LevelUpCost == null:
+    Gen7LevelUpCost = 1
+
+
 
 friendMode = save_system_load("friendmodeactive")
 
@@ -165,10 +197,6 @@ settingsButton.on_click = def():
     SmoothTransit("Settings")
 
 
-#General updating stuff
-def update():
-    save_system_save('score', score)
-
 inShop = False
 ShopButton = Button(texture='shopCog.webp',x=.75,scale=.2,y=-.02)
 ShopButton.on_click = def():
@@ -199,6 +227,10 @@ Gen1.on_click = def():
         save_system_save("gen1owned", Gen1Owned)
         save_system_save("gen1cost", Gen1.cost)
 
+Gen1LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
+Gen1LevelUp.on_click = def():
+    gen1Multiplier += .01
+    Gen1LevelUp.cost += 1
 Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=False)
 
 Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=False,x=-.8,y=-.01)
@@ -213,6 +245,10 @@ Gen2.on_click = def():
         save_system_save("gen2owned", Gen2Owned)
         save_system_save("gen2cost", Gen2.cost)
 
+Gen2LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
+Gen2LevelUp.on_click = def():
+    gen2Multiplier += .01
+    Gen2LevelUp.cost += 1
 Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=False)
 
 Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=False,x=-.8,y=-.3)
@@ -227,6 +263,10 @@ Gen3.on_click = def():
         save_system_save("gen3owned", Gen3Owned)
         save_system_save("gen3cost", Gen3.cost)
 
+Gen3LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
+Gen3LevelUp.on_click = def():
+    gen3Multiplier += .01
+    Gen3LevelUp.cost += 1
 Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=False)
 
 Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=False,x=-.3,y=.3)
@@ -241,6 +281,10 @@ Gen4.on_click = def():
         save_system_save("gen4owned", Gen4Owned)
         save_system_save("gen4cost", Gen4.cost)
 
+Gen4LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
+Gen4LevelUp.on_click = def():
+    gen4Multiplier += .01
+    Gen4LevelUp.cost += 1
 Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=False)
 
 Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=False,x=-.3,y=-.01)
@@ -255,6 +299,10 @@ Gen5.on_click = def():
         save_system_save("gen5owned", Gen5Owned)
         save_system_save("gen5cost", Gen5.cost)
 
+Gen5LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
+Gen5LevelUp.on_click = def():
+    gen5Multiplier += .01
+    Gen5LevelUp.cost += 1
 Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=False)
 
 Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=False,x=-.3,y=-.3)
@@ -269,6 +317,10 @@ Gen6.on_click = def():
         save_system_save("gen6owned", Gen6Owned)
         save_system_save("gen6cost", Gen6.cost)
 
+Gen6LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
+Gen6LevelUp.on_click = def():
+    gen6Multiplier += .01
+    Gen6LevelUp.cost += 1
 Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=False)
 
 
@@ -284,6 +336,10 @@ Gen7.on_click = def():
         save_system_save("gen7owned", Gen7Owned)
         save_system_save("gen7cost", Gen7.cost)
 
+Gen7LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
+Gen7LevelUp.on_click = def():
+    gen7Multiplier += .01
+    Gen7LevelUp.cost += 1
 Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=4.5,enabled=False)
 
 
@@ -301,7 +357,6 @@ if friendMode == 'true' or friendMode == true:
 
 prestigeStuff = Button(color=color.pink,text='ascension',xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)
 prestigeStuff.on_click = def():
-    ;
     DoYouReallyWantToAscend = Entity(parent=camera.ui,scale=[2,1],z=-1,color=hsv(0,0,.18))
     InfoForAscend1 = Text(text='Are you sure you want to ascend?',text_color=color.white,text_size=6,x=-.1,y=-.04)
     InfoForAscend2 = Text(text='By ascending you will lose all progress in\nexchange for a multiplier.',text_color=color.white,text_size=4.5,x=-.08,y=-.15)
@@ -333,14 +388,53 @@ shopScene.append(Gen6)
 shopScene.append(Gen6Info)
 shopScene.append(Gen7)
 shopScene.append(Gen7Info)
+shopScene.append(Gen1LevelUp)
+shopScene.append(Gen2LevelUp)
+shopScene.append(Gen3LevelUp)
+shopScene.append(Gen4LevelUp)
+shopScene.append(Gen5LevelUp)
+shopScene.append(Gen6LevelUp)
+shopScene.append(Gen7LevelUp)
+levelUps.append(Gen1LevelUp)
+levelUps.append(Gen2LevelUp)
+levelUps.append(Gen3LevelUp)
+levelUps.append(Gen4LevelUp)
+levelUps.append(Gen5LevelUp)
+levelUps.append(Gen6LevelUp)
+levelUps.append(Gen7LevelUp)
 
 #Appending main items
 mainScene.append(ClickerDude)
 mainScene.append(settingsButton)
 mainScene.append(cpsDisplay)
+mainScene.append(prestigeStuff)
 
 
 
+def update():
+    try:
+        save_system_save('score', score)
+        save_system_save('gen1multiplier', gen1Multiplier)
+        save_system_save('gen2multiplier', gen2Multiplier)
+        save_system_save('gen3multiplier', gen3Multiplier)
+        save_system_save('gen4multiplier', gen4Multiplier)
+        save_system_save('gen5multiplier', gen5Multiplier)
+        save_system_save('gen6multiplier', gen6Multiplier)
+        save_system_save('gen7multiplier', gen7Multiplier)
+        save_system_save('gen1upgradecost', Gen1LevelUp.cost)
+        save_system_save('gen2upgradecost', Gen2LevelUp.cost)
+        save_system_save('gen3upgradecost', Gen3LevelUp.cost)
+        save_system_save('gen4upgradecost', Gen4LevelUp.cost)
+        save_system_save('gen5upgradecost', Gen5LevelUp.cost)
+        save_system_save('gen6upgradecost', Gen6LevelUp.cost)
+        save_system_save('gen7upgradecost', Gen7LevelUp.cost)
+        save_system_save('godlyclicks', godlyClicks)
+    catch (err) {;}
+    for e in levelUps:
+        if godlyClicks >= e.cost
+            e.texture = 'GenUpgradeArrow.webp'
+        else:
+            e.texture = 'GenUpgradeArrowU.webp'
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
