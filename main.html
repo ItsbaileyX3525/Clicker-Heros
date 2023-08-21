@@ -36,16 +36,10 @@ function Playwoosh() {
     })};
 }
 
-
+petergriffin = new Audio('assets/PeterMorshu.wav')
 StartedSong = new Audio('assets/bgsong.ogg')
 StartedSong.play();
 StartedSong.loop = true;
-window.addEventListener('click', (event) => {
-  if (StartedSong.paused) {
-    StartedSong.play();
-    //alert("Why was the audio paused?")
-  }
-})
 
 function SetVolumes(volume) {
     try {
@@ -78,6 +72,13 @@ function PauseSounds() {
 function ResumeSounds() {
     StartedSong.play()
 }
+function removeSpans(id='msgboxgodly '){
+    var list1 = document.getElementById(id);
+    var list = parenter.querySelector("entity")
+    while (list.hasChildNodes()) {
+        list.removeChild(list.firstChild);
+    }
+}
     </script>
 
     <script src="taptapir/taptapir.js"></script>   
@@ -93,6 +94,7 @@ ASSETS_FOLDER = 'assets/'
 mainScene = []
 shopScene = []
 levelUps = []
+noInteract = False
 
 #For settings
 save_system_save('prevtab', "main")
@@ -106,6 +108,11 @@ if not score:
 godlyClicks = int(save_system_save('godlyclicks'))
 if not godlyClicks or godlyClicks == null:
     godlyClicks = 0
+    print("egg")
+
+startEarningGodlyClicks = int(save_system_load("earninggodlyclicks"))
+if not startEarningGodlyClicks:
+    startEarningGodlyClicks = 0
 
 volume = parseFloat(save_system_load('mastervolume'))
 if volume < 0 or volume > 1:
@@ -156,8 +163,6 @@ Gen7LevelUpCost = int(save_system_load('gen7upgradecost'))
 if not Gen7LevelUpCost or Gen7LevelUpCost == null:
     Gen7LevelUpCost = 1
 
-
-
 friendMode = save_system_load("friendmodeactive")
 
 SetVolumes(volume);
@@ -194,24 +199,35 @@ cpsDisplay.update = def():
 
 settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
-    SmoothTransit("Settings")
-
+    if not noInteract:
+        SmoothTransit("Settings")
 
 inShop = False
 ShopButton = Button(texture='shopCog.webp',x=.75,scale=.2,y=-.02)
 ShopButton.on_click = def():
-    if not inShop:
-        inShop=True
-        for e in mainScene:
-            e.enabled=False
-        for e in shopScene:
-            e.enabled=True
-    else:
-        inShop = False
-        for e in mainScene:
-            e.enabled=True
-        for e in shopScene:
-            e.enabled=False
+    if not noInteract:
+        metMorshu = save_system_load('metmorshu')
+        if not metMorshu:
+            save_system_save("metmorshu", 1)
+            morshu = Entity(scale=[2,1],z=-1,parent=camera.ui,texture='morshuCUM.gif')
+            petergriffin.play()
+            StartedSong.pause()
+            after 3:
+                destroy(morshu)
+                StartedSong.play()
+                StartedSong.loop = True
+        if not inShop:
+            inShop=True
+            for e in mainScene:
+                e.enabled=False
+            for e in shopScene:
+                e.enabled=True
+        else:
+            inShop = False
+            for e in mainScene:
+                e.enabled=True
+            for e in shopScene:
+                e.enabled=False
 
 #Shop stuff & gens very annoying
 
@@ -229,8 +245,10 @@ Gen1.on_click = def():
 
 Gen1LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
 Gen1LevelUp.on_click = def():
-    gen1Multiplier += .01
-    Gen1LevelUp.cost += 1
+    if godlyClicks >= Gen1LevelUp.cost:
+        gen1Multiplier += .01
+        Gen1LevelUp.cost += 1
+        godlyClicks -= Gen1LevelUp.cost
 Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=False)
 
 Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=False,x=-.8,y=-.01)
@@ -247,8 +265,10 @@ Gen2.on_click = def():
 
 Gen2LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
 Gen2LevelUp.on_click = def():
-    gen2Multiplier += .01
-    Gen2LevelUp.cost += 1
+    if godlyClicks >= Gen2LevelUp.cost:
+        gen2Multiplier += .01
+        Gen2LevelUp.cost += 1
+        godlyClicks -= Gen2LevelUp.cost
 Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=False)
 
 Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=False,x=-.8,y=-.3)
@@ -265,8 +285,10 @@ Gen3.on_click = def():
 
 Gen3LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
 Gen3LevelUp.on_click = def():
-    gen3Multiplier += .01
-    Gen3LevelUp.cost += 1
+    if godlyClicks >= Gen3LevelUp.cost:
+        gen3Multiplier += .01
+        Gen3LevelUp.cost += 1
+        godlyClicks -= Gen3LevelUp.cost
 Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=False)
 
 Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=False,x=-.3,y=.3)
@@ -283,8 +305,10 @@ Gen4.on_click = def():
 
 Gen4LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
 Gen4LevelUp.on_click = def():
-    gen4Multiplier += .01
-    Gen4LevelUp.cost += 1
+    if godlyClicks >= Gen4LevelUp.cost:
+        gen4Multiplier += .01
+        Gen4LevelUp.cost += 1
+        godlyClicks -= Gen4LevelUp.cost
 Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=False)
 
 Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=False,x=-.3,y=-.01)
@@ -301,8 +325,10 @@ Gen5.on_click = def():
 
 Gen5LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
 Gen5LevelUp.on_click = def():
-    gen5Multiplier += .01
-    Gen5LevelUp.cost += 1
+    if godlyClicks >= Gen5LevelUp.cost:
+        gen5Multiplier += .01
+        Gen5LevelUp.cost += 1
+        godlyClicks -= Gen5LevelUp.cost
 Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=False)
 
 Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=False,x=-.3,y=-.3)
@@ -319,8 +345,10 @@ Gen6.on_click = def():
 
 Gen6LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
 Gen6LevelUp.on_click = def():
-    gen6Multiplier += .01
-    Gen6LevelUp.cost += 1
+    if godlyClicks >= Gen6LevelUp.cost:
+        gen6Multiplier += .01
+        Gen6LevelUp.cost += 1
+        godlyClicks -= Gen6LevelUp.cost
 Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=False)
 
 
@@ -338,8 +366,10 @@ Gen7.on_click = def():
 
 Gen7LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
 Gen7LevelUp.on_click = def():
-    gen7Multiplier += .01
-    Gen7LevelUp.cost += 1
+    if godlyClicks >= Gen7LevelUp.cost:
+        gen7Multiplier += .01
+        Gen7LevelUp.cost += 1
+        godlyClicks -= Gen7LevelUp.cost
 Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=4.5,enabled=False)
 
 
@@ -353,25 +383,25 @@ if friendMode == 'true' or friendMode == true:
     Gen7.texture = 'EthanGen.webp'
 
 
-#TODO: Make the ascend button neon and cool
-
-prestigeStuff = Button(color=color.pink,text='ascension',xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)
+prestigeStuffbg = Entity(parent=camera.ui,color=color.black,roundness=.1,xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)
+prestigeStuff = Button(color=color.clear,text='ascension',xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)
 prestigeStuff.on_click = def():
-    DoYouReallyWantToAscend = Entity(parent=camera.ui,scale=[2,1],z=-1,color=hsv(0,0,.18))
-    InfoForAscend1 = Text(text='Are you sure you want to ascend?',text_color=color.white,text_size=6,x=-.1,y=-.04)
-    InfoForAscend2 = Text(text='By ascending you will lose all progress in\nexchange for a multiplier.',text_color=color.white,text_size=4.5,x=-.08,y=-.15)
-    InfoForAscend3 = Text(text=`Your current multiplier is ${formatNumber(globalMultiplier)}`,text_color=color.white,text_size=4,x=.15,y=-.4)
-    YesIReallyWantToAscend = Button(text="Ascend",z=-1,scale=[.3,.125],y=-.15)
-    NoIReallyDontWantToAscend = Button(text="Cancel",z=-1,color,scale=[.17,.08],x=.5,y=-.4)
-    YesIReallyWantToAscend.on_click = def():
-        ;
-    NoIReallyDontWantToAscend.on_click = def():
-        destroy(DoYouReallyWantToAscend)
-        destroy(InfoForAscend1)
-        destroy(InfoForAscend2)
-        destroy(InfoForAscend3)
-        destroy(YesIReallyWantToAscend)
-        destroy(NoIReallyDontWantToAscend)
+    if not noInteract:
+        DoYouReallyWantToAscend = Entity(parent=camera.ui,scale=[2,1],z=-1,color=hsv(0,0,.18))
+        InfoForAscend1 = Text(text='Are you sure you want to ascend?',text_color=color.white,text_size=6,x=-.1,y=-.04)
+        InfoForAscend2 = Text(text='By ascending you will lose all progress in\nexchange for a multiplier.',text_color=color.white,text_size=4.5,x=-.08,y=-.15)
+        InfoForAscend3 = Text(text=`Your current multiplier is ${formatNumber(globalMultiplier)}`,text_color=color.white,text_size=4,x=.15,y=-.4)
+        YesIReallyWantToAscend = Button(text="Ascend",z=-1,scale=[.3,.125],y=-.15)
+        NoIReallyDontWantToAscend = Button(text="Cancel",z=-1,color,scale=[.17,.08],x=.5,y=-.4)
+        YesIReallyWantToAscend.on_click = def():
+            SmoothTransit("Prestige")
+        NoIReallyDontWantToAscend.on_click = def():
+            destroy(DoYouReallyWantToAscend)
+            destroy(InfoForAscend1)
+            destroy(InfoForAscend2)
+            destroy(InfoForAscend3)
+            destroy(YesIReallyWantToAscend)
+            destroy(NoIReallyDontWantToAscend)
 
 #Appending shop items
 shopScene.append(Gen1)
@@ -408,12 +438,12 @@ mainScene.append(ClickerDude)
 mainScene.append(settingsButton)
 mainScene.append(cpsDisplay)
 mainScene.append(prestigeStuff)
+mainScene.append(prestigeStuffbg)
 
 
 
 def update():
     try:
-        save_system_save('score', score)
         save_system_save('gen1multiplier', gen1Multiplier)
         save_system_save('gen2multiplier', gen2Multiplier)
         save_system_save('gen3multiplier', gen3Multiplier)
@@ -435,10 +465,189 @@ def update():
             e.texture = 'GenUpgradeArrow.webp'
         else:
             e.texture = 'GenUpgradeArrowU.webp'
+    if score >= 1:
+        after .5s:
+            if not startEarningGodlyClicks:
+                if inShop:
+                    inShop = False
+                    for e in mainScene:
+                        e.enabled=True
+                    for e in shopScene:
+                        e.enabled=False
+                cpsDisplay.enabled=False
+                msgboxgodly.enabled=True
+                after 1:
+                    msgboxArrow.enabled=True
+                noInteract=True
+                startEarningGodlyClicks = 1
+                save_system_save("earninggodlyclicks", 1)
+                revealOneCharacter(characters)
+
+msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
+msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
+
+onCurrent=1
+msgboxgodly.on_click = def():
+    if onCurrent == 1:
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nGodly clicks can be used to upgrade your generators." },
+        { speed: speeds.pause, string: "", pause: true },
+        { speed: speeds.fast, string: "\nThis makes them generate clicks a lot faster!" },
+        
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent += 1
+    elif onCurrent == 2:
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nI have given you 1 godly click for free that you can\nuse in the shop to upgrade any gen of your choice." },        
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent +=1
+        if godlyClicks >= 0:
+            godlyClicks = 1
+    elif onCurrent == 3:
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: '\nGodly clicks can be collected every 5 minutes of consecutive\nplaytime and can grant 1-2 godly clicks per harvest.' },        
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent +=1
+    elif onCurrent == 4:
+        destroy(msgboxgodly)
+        msgboxArrow.enabled=False
+        noInteract = False
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
+<script>
+
+var shadowBox = document.getElementById("prestigeStuff ");
+var rainbowText = shadowBox.querySelector("entity")
+
+rainbowText.style.fontSize = "20px";
+rainbowText.style.fontFamily = "monospace";
+rainbowText.style.letterSpacing = "0px";
+rainbowText.style.background = "linear-gradient(to right, #6666ff, #0099ff , #00ff00, #202a44, #6666ff)";
+rainbowText.style.WebkitBackgroundClip = "text";
+rainbowText.style.backgroundClip = "text";
+rainbowText.style.color = "transparent";
+rainbowText.style.animation = "rainbow_animation 6s ease-in-out infinite";
+rainbowText.style.backgroundSize = "400% 100%";
+
+const keyframes = `
+    0%, 100% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 0;
+    }
+`;
+
+const styleSheet = document.styleSheets[0];
+styleSheet.insertRule(`@keyframes rainbow_animation { ${keyframes} }`, styleSheet.cssRules.length);
+
+
+
+var parenter = document.getElementById("msgboxgodly ");
+var container = parenter.querySelector("entity")
+var speeds = {
+   pause: 500, //Higher number = longer delay
+   slow: 120,
+   normal: 90,
+   fast: 40,
+   superFast: 10
+};
+
+
+var textLines = [
+   { speed: speeds.normal, string: "\nYo!" },
+   { speed: speeds.pause, string: "", pause: true },
+   { speed: speeds.fast, string: "You've reached 100M clicks!" },
+   { speed: speeds.pause, string: "", pause: true },
+   { speed: speeds.fast, string: "Congrats by the way.\nThis" },
+   { speed: speeds.fast, string: "means you can now" },
+   { speed: speeds.fast, string: "start earning godly clicks" },
+];
+var characters = [];
+function createText() {
+if (characters != []){characters = []}
+textLines.forEach((line, index) => {
+   if (index < textLines.length - 1) {
+      line.string += " "; //Add a space between lines
+   }
+
+   line.string.split("").forEach((character) => {
+      var span = document.createElement("span");
+      span.style.zIndex = 10
+      span.style.opacity = 0
+      span.style.fontSize = "x-large"
+      span.textContent = character;
+      container.appendChild(span);
+      characters.push({
+         span: span,
+         isSpace: character === " " && !line.pause,
+         delayAfter: line.speed,
+         classes: line.classes || []
+      });
+   });
+});}
+createText();
+function revealOneCharacter(list) {
+   var next = list.splice(0, 1)[0];
+   next.span.classList.add("revealed");
+   next.span.style.opacity = 1
+   next.classes.forEach((c) => {
+      next.span.classList.add(c);
+      
+   });
+   var delay = next.isSpace && !next.pause ? 0 : next.delayAfter;
+
+   if (list.length > 0) {
+      setTimeout(function () {
+         revealOneCharacter(list);
+      }, delay);
+   }
+}    
+function randomRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+const maxRangeX = .8
+const minRangeX = -.8
+const maxRangeY = .3
+const minRangeY = -.3
+function earnGodly() {
+    const choices = random_int_(0,1)
+    const randomY = Math.random() * (maxRangeY - minRangeY) + minRangeY;
+    const randomX = Math.random() * (maxRangeX - minRangeX) + minRangeX;
+
+    if (choices === 0) {
+    godlyClicksEarnBubble = new Button({name:'godlyClicksEarnBubble ', texture:'GodlyClick.png',xy:[randomX,randomY]})
+    godlyClicksEarnBubble.on_click = function() {
+        godlyClicks += 1
+        destroy(godlyClicksEarnBubble)
+    }}
+    else if (choices === 1) {
+    godlyClicksEarnBubble2 = new Button({name:'godlyClicksEarnBubble2 ', texture:'GodlyClick.png',xy:[randomX,randomY]})
+    godlyClicksEarnBubble2.on_click = function() {
+        godlyClicks += 2
+        destroy(godlyClicksEarnBubble2)
+    }}
+}
+
+const interval = setInterval(earnGodly, 5 * 60 * 1000);
+
+function stopInterval() {
+  clearInterval(interval);
+  console.log("Interval stopped after " + numberOfRepetitions + " repetitions.");
+}
+
+</script>
 <script src="EarnClicks.js"></script>
 </body>
 </html>

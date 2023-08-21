@@ -1,7 +1,8 @@
 //Make sure to make the offline earn from 5 to 500
 
-
-let score = int(save_system_load("score"));
+try{
+if (!score){;}
+} catch {score = int(save_system_load("score"))}
 Gen1Owned = int(save_system_load("gen1owned"));
 Gen2Owned = int(save_system_load("gen2owned"));
 Gen3Owned = int(save_system_load("gen3owned"));
@@ -49,8 +50,8 @@ function applyScore() {
         score += 1400 * Gen6Owned * gen6Multiplier * globalMultiplier;}
     if (Gen7Owned > 0){
         score += 7800 * Gen7Owned * gen7Multiplier * globalMultiplier;}
-    after(1, function() {
-        save_system_save("score", score);
+    save_system_save("score", score);
+        after(1, function() {
         applyScore();
     })} catch (err) {
         
@@ -104,7 +105,7 @@ function findLastTime() {
 }
 
 function doubleDaMoneyFunc() {
-    score += TotalEarned * 2
+    score += TotalEarned / 2
     
     for (var e of zeItems) {
         e.enabled = false
@@ -112,7 +113,7 @@ function doubleDaMoneyFunc() {
 }
 
 function displayOfflineEarnings() {
-    const amount = TotalEarned;
+    const amount = TotalEarned / 4;
     
     lastplayedscreen = new Entity({name:'lastplayedscreen ', parent:camera.ui,texture:'earnedGradient.webp',scale:[1.2,1],z:-2})
     earnedSinceLastPlayed = new Text({name:'earnedSinceLastPlayed ', xy:[.1,-.0],text_size:5,text:`Earned since last online:`,z:-2})
@@ -120,8 +121,7 @@ function displayOfflineEarnings() {
     confirmDaMoney = new Button({name:'confirmDaMoney ', text:'OK',z:-2,scale:[.15,.1],y:-.4,x:.3})
     doubleDaMoney = new Button({name:'doubleDaMoney ', text:'X2 money',z:-2,scale:[.16,.1],color:color.green,xy:[-.3,-.4]})
     confirmDaMoney.on_click = function() {
-        score += amount
-        save_system_save("score", amount);
+        score += amount / 4
         for (var e of zeItems) {
             e.enabled = false
         }
