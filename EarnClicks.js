@@ -2,7 +2,7 @@
 
 try{
 if (!score){;}
-} catch {score = int(save_system_load("score"))}
+} catch {score = parseFloat(save_system_load("score"))}
 Gen1Owned = int(save_system_load("gen1owned"));
 Gen2Owned = int(save_system_load("gen2owned"));
 Gen3Owned = int(save_system_load("gen3owned"));
@@ -60,11 +60,12 @@ function applyScore() {
     }
    
 }
+
 applyScore();
 
 
 //Used to credit player score if offline up to 3 days
-//Why? Because im kind :)
+//Why? Because im kind :) also you get 1/4 of the real amount.
 const currentPath = window.location.pathname;
 const parts = currentPath.split('/');
 const afterSlash = parts[parts.length - 1];
@@ -149,7 +150,7 @@ function offlineEarn(time) {
         TotalEarned += 8 * Gen3Owned * time;}
         if (Gen4Owned > 0){
         TotalEarned += 47 * Gen4Owned;}
-        if (afterSlash === "main.html" || afterSlash === 'Menu.html'){displayOfflineEarnings()}
+        if (afterSlash === "main.html" || afterSlash === 'Menu.html'){if (TotalEarned > 0) {displayOfflineEarnings()}}
         } catch (err) {
 
             console.log("error" , err);

@@ -79,6 +79,9 @@ function removeSpans(id='msgboxgodly '){
         list.removeChild(list.firstChild);
     }
 }
+function figureOutPrestige() {
+
+}
     </script>
 
     <script src="taptapir/taptapir.js"></script>   
@@ -101,14 +104,19 @@ save_system_save('prevtab', "main")
 save_system_save('currenttab', "main")
 
 #Loading score and data etc.
-score = int(save_system_load('score'))
+score = parseFloat(save_system_load('score'))
 if not score:
     score = 0
+print(score)
 
-godlyClicks = int(save_system_save('godlyclicks'))
+godlyClicks = int(save_system_load('godlyclicks'))
 if not godlyClicks or godlyClicks == null:
     godlyClicks = 0
     print("egg")
+
+prestigeLevel = int(save_system_load('prestigelevel'))
+if not prestigeLevel or prestigeLevel == null:
+    prestigeLevel = 0
 
 startEarningGodlyClicks = int(save_system_load("earninggodlyclicks"))
 if not startEarningGodlyClicks:
@@ -246,9 +254,9 @@ Gen1.on_click = def():
 Gen1LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
 Gen1LevelUp.on_click = def():
     if godlyClicks >= Gen1LevelUp.cost:
-        gen1Multiplier += .01
-        Gen1LevelUp.cost += 1
+        gen1Multiplier += .1
         godlyClicks -= Gen1LevelUp.cost
+        Gen1LevelUp.cost += 1
 Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=False)
 
 Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=False,x=-.8,y=-.01)
@@ -266,9 +274,9 @@ Gen2.on_click = def():
 Gen2LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
 Gen2LevelUp.on_click = def():
     if godlyClicks >= Gen2LevelUp.cost:
-        gen2Multiplier += .01
-        Gen2LevelUp.cost += 1
+        gen2Multiplier += .1
         godlyClicks -= Gen2LevelUp.cost
+        Gen2LevelUp.cost += 1
 Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=False)
 
 Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=False,x=-.8,y=-.3)
@@ -286,9 +294,9 @@ Gen3.on_click = def():
 Gen3LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
 Gen3LevelUp.on_click = def():
     if godlyClicks >= Gen3LevelUp.cost:
-        gen3Multiplier += .01
-        Gen3LevelUp.cost += 1
+        gen3Multiplier += .1
         godlyClicks -= Gen3LevelUp.cost
+        Gen3LevelUp.cost += 1
 Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=False)
 
 Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=False,x=-.3,y=.3)
@@ -306,9 +314,9 @@ Gen4.on_click = def():
 Gen4LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
 Gen4LevelUp.on_click = def():
     if godlyClicks >= Gen4LevelUp.cost:
-        gen4Multiplier += .01
-        Gen4LevelUp.cost += 1
+        gen4Multiplier += .1
         godlyClicks -= Gen4LevelUp.cost
+        Gen4LevelUp.cost += 1
 Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=False)
 
 Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=False,x=-.3,y=-.01)
@@ -326,9 +334,9 @@ Gen5.on_click = def():
 Gen5LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
 Gen5LevelUp.on_click = def():
     if godlyClicks >= Gen5LevelUp.cost:
-        gen5Multiplier += .01
-        Gen5LevelUp.cost += 1
+        gen5Multiplier += .1
         godlyClicks -= Gen5LevelUp.cost
+        Gen5LevelUp.cost += 1
 Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=False)
 
 Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=False,x=-.3,y=-.3)
@@ -346,9 +354,9 @@ Gen6.on_click = def():
 Gen6LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
 Gen6LevelUp.on_click = def():
     if godlyClicks >= Gen6LevelUp.cost:
-        gen6Multiplier += .01
-        Gen6LevelUp.cost += 1
+        gen6Multiplier += .1
         godlyClicks -= Gen6LevelUp.cost
+        Gen6LevelUp.cost += 1   
 Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=False)
 
 
@@ -367,9 +375,9 @@ Gen7.on_click = def():
 Gen7LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
 Gen7LevelUp.on_click = def():
     if godlyClicks >= Gen7LevelUp.cost:
-        gen7Multiplier += .01
-        Gen7LevelUp.cost += 1
+        gen7Multiplier += .1
         godlyClicks -= Gen7LevelUp.cost
+        Gen7LevelUp.cost += 1
 Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=4.5,enabled=False)
 
 
@@ -390,7 +398,7 @@ prestigeStuff.on_click = def():
         DoYouReallyWantToAscend = Entity(parent=camera.ui,scale=[2,1],z=-1,color=hsv(0,0,.18))
         InfoForAscend1 = Text(text='Are you sure you want to ascend?',text_color=color.white,text_size=6,x=-.1,y=-.04)
         InfoForAscend2 = Text(text='By ascending you will lose all progress in\nexchange for a multiplier.',text_color=color.white,text_size=4.5,x=-.08,y=-.15)
-        InfoForAscend3 = Text(text=`Your current multiplier is ${formatNumber(globalMultiplier)}`,text_color=color.white,text_size=4,x=.15,y=-.4)
+        InfoForAscend3 = Text(text=`Your current multiplier is ${formatNumber(globalMultiplier)}\n*Prestiging now will grant\nyou no bonus.*`,text_color=color.white,text_size=4,x=.15,y=-.4)
         YesIReallyWantToAscend = Button(text="Ascend",z=-1,scale=[.3,.125],y=-.15)
         NoIReallyDontWantToAscend = Button(text="Cancel",z=-1,color,scale=[.17,.08],x=.5,y=-.4)
         YesIReallyWantToAscend.on_click = def():
@@ -479,6 +487,7 @@ def update():
                 after 1:
                     msgboxArrow.enabled=True
                 noInteract=True
+                cpsDisplay.enabled=True
                 startEarningGodlyClicks = 1
                 save_system_save("earninggodlyclicks", 1)
                 revealOneCharacter(characters)
@@ -621,7 +630,10 @@ const maxRangeX = .8
 const minRangeX = -.8
 const maxRangeY = .3
 const minRangeY = -.3
+let bubbleExists = false
 function earnGodly() {
+    if (!bubbleExists){
+    bubbleExists=true
     const choices = random_int_(0,1)
     const randomY = Math.random() * (maxRangeY - minRangeY) + minRangeY;
     const randomX = Math.random() * (maxRangeX - minRangeX) + minRangeX;
@@ -630,14 +642,16 @@ function earnGodly() {
     godlyClicksEarnBubble = new Button({name:'godlyClicksEarnBubble ', texture:'GodlyClick.png',xy:[randomX,randomY]})
     godlyClicksEarnBubble.on_click = function() {
         godlyClicks += 1
+        bubbleExists=false
         destroy(godlyClicksEarnBubble)
     }}
     else if (choices === 1) {
     godlyClicksEarnBubble2 = new Button({name:'godlyClicksEarnBubble2 ', texture:'GodlyClick.png',xy:[randomX,randomY]})
     godlyClicksEarnBubble2.on_click = function() {
         godlyClicks += 2
+        bubbleExists=false
         destroy(godlyClicksEarnBubble2)
-    }}
+    }}}
 }
 
 const interval = setInterval(earnGodly, 5 * 60 * 1000);
