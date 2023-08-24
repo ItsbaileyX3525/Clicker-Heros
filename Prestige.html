@@ -38,7 +38,7 @@ const shellyscream = new Audio('assets/sheldonscream.mp3')
 let gainedPrestiges = 0
 let currentPrestiges = localStorage.getItem("prestigelevel")
 let clicks = parseFloat(localStorage.getItem('score'))
-    </script>
+</script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>
 <script type="text/sunsnake">
@@ -52,6 +52,14 @@ ASSETS_FOLDER = 'assets/'
 #TODO: Make cool prestige thing
 
 canPres = True
+resets = save_system_load('resets')
+metMorshu = save_system_load('metmorshu')
+startEarningGodlyClicks = int(save_system_load("earninggodlyclicks"))
+if not startEarningGodlyClicks:
+    startEarningGodlyClicks = 0
+donePrestigeSpeech = save_system_load('doneprestalk')
+allowedAttackSFX = save_system_load('attacksfx')
+volume = parseFloat(save_system_load('mastervolume'))
 clickerman = Entity(texture='Clicker-idle.gif',scale=.5)
 after 2.1s:
     destroy(clickerman)
@@ -70,7 +78,14 @@ after 2.1s:
                     mendButton.animate('scale_y', .2, .5)
                     mendButton.animate('text_size', 8, .5)
                     after 1.5s:
+                        save_system_clear()
+                        save_system_save('resets',resets)
                         save_system_save('prestigelevel', currentPrestiges)
+                        save_system_save('attacksfx', allowedAttackSFX)
+                        save_system_save('metmorshu', metMorshu)
+                        save_system_save('mastervolume', volume)
+                        save_system_save('earninggodlyclicks',startEarningGodlyClicks)
+                        save_system_save('doneprestalk',donePrestigeSpeech)
                         SmoothTransit('Menu')
 
 
@@ -80,5 +95,5 @@ after 2.1s:
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
-<script src="EarnClicks.js"></script></body>
+</body>
 </html>

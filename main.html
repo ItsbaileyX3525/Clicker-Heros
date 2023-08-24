@@ -79,6 +79,13 @@ function removeSpans(id='msgboxgodly '){
         list.removeChild(list.firstChild);
     }
 }
+function canPrestigeFunc(level) {
+    const cost = Math.pow(level+1, 3) * 1000000000000
+    if (score >= cost)
+    {return true;}
+    else
+    {return false}
+}
 
     </script>
 
@@ -105,16 +112,18 @@ save_system_save('currenttab', "main")
 score = parseFloat(save_system_load('score'))
 if not score:
     score = 0
-print(score)
 
 godlyClicks = int(save_system_load('godlyclicks'))
 if not godlyClicks or godlyClicks == null:
     godlyClicks = 0
-    print("egg")
 
 prestigeLevel = int(save_system_load('prestigelevel'))
 if not prestigeLevel or prestigeLevel == null:
     prestigeLevel = 0
+elif prestigeLevel >= 1:
+    after .2s:
+        globalMultiplier = 1 + prestigeLevel / 5
+        save_system_save('globalmultiplier', globalMultiplier)
 
 startEarningGodlyClicks = int(save_system_load("earninggodlyclicks"))
 if not startEarningGodlyClicks:
@@ -168,6 +177,10 @@ if not Gen6LevelUpCost or Gen6LevelUpCost == null:
 Gen7LevelUpCost = int(save_system_load('gen7upgradecost'))
 if not Gen7LevelUpCost or Gen7LevelUpCost == null:
     Gen7LevelUpCost = 1
+
+unlockedGenLevels = save_system_load('unlockedgenlevels')
+if not unlockedGenLevels or unlockedGenLevels == null:
+    unlockedGenLevels = False
 
 friendMode = save_system_load("friendmodeactive")
 
@@ -228,13 +241,17 @@ ShopButton.on_click = def():
                 e.enabled=False
             for e in shopScene:
                 e.enabled=True
+            if unlockedGenLevels:
+                for e in levelUps:
+                    e.enabled=True
         else:
             inShop = False
             for e in mainScene:
                 e.enabled=True
             for e in shopScene:
                 e.enabled=False
-
+            for e in levelUps:
+                e.enabled=False
 #Shop stuff & gens very annoying
 
 Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=False,x=-.8,y=.3)
@@ -388,15 +405,20 @@ if friendMode == 'true' or friendMode == true:
     Gen6.texture = 'RyanGen.webp'
     Gen7.texture = 'EthanGen.webp'
 
-
+canPrestige = False
 prestigeStuffbg = Entity(parent=camera.ui,color=color.black,roundness=.1,xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)
 prestigeStuff = Button(color=color.clear,text='ascension',xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)
+prestigeStuff.update = def():
+    canPrestige = canPrestigeFunc(prestigeLevel)
 prestigeStuff.on_click = def():
     if not noInteract:
         DoYouReallyWantToAscend = Entity(parent=camera.ui,scale=[2,1],z=-1,color=hsv(0,0,.18))
         InfoForAscend1 = Text(text='Are you sure you want to ascend?',text_color=color.white,text_size=6,x=-.1,y=-.04)
         InfoForAscend2 = Text(text='By ascending you will lose all progress in\nexchange for a multiplier.',text_color=color.white,text_size=4.5,x=-.08,y=-.15)
-        InfoForAscend3 = Text(text=`Your current multiplier is ${formatNumber(globalMultiplier)}\n*Prestiging now will grant\nyou no bonus.*`,text_color=color.white,text_size=4,x=.15,y=-.4)
+        if canPrestige:
+            InfoForAscend3 = Text(text=`Your current multiplier is ${formatNumber(globalMultiplier)}.`,text_color=color.white,text_size=4,x=.15,y=-.4)
+        else:
+            InfoForAscend3 = Text(text=`Your current multiplier is ${formatNumber(globalMultiplier)}\n*Prestiging now will grant\nyou no bonus.*`,text_color=color.white,text_size=4,x=.15,y=-.4)
         YesIReallyWantToAscend = Button(text="Ascend",z=-1,scale=[.3,.125],y=-.15)
         NoIReallyDontWantToAscend = Button(text="Cancel",z=-1,color,scale=[.17,.08],x=.5,y=-.4)
         YesIReallyWantToAscend.on_click = def():
@@ -424,13 +446,6 @@ shopScene.append(Gen6)
 shopScene.append(Gen6Info)
 shopScene.append(Gen7)
 shopScene.append(Gen7Info)
-shopScene.append(Gen1LevelUp)
-shopScene.append(Gen2LevelUp)
-shopScene.append(Gen3LevelUp)
-shopScene.append(Gen4LevelUp)
-shopScene.append(Gen5LevelUp)
-shopScene.append(Gen6LevelUp)
-shopScene.append(Gen7LevelUp)
 levelUps.append(Gen1LevelUp)
 levelUps.append(Gen2LevelUp)
 levelUps.append(Gen3LevelUp)
@@ -465,6 +480,7 @@ def update():
         save_system_save('gen6upgradecost', Gen6LevelUp.cost)
         save_system_save('gen7upgradecost', Gen7LevelUp.cost)
         save_system_save('godlyclicks', godlyClicks)
+        save_system_save('prestigelevel', prestigeLevel)
     catch (err) {;}
     for e in levelUps:
         if godlyClicks >= e.cost
@@ -480,6 +496,8 @@ def update():
                         e.enabled=True
                     for e in shopScene:
                         e.enabled=False
+                    for e in levelUps:
+                        e.enabled=False
                 cpsDisplay.enabled=False
                 msgboxgodly.enabled=True
                 after 1:
@@ -494,7 +512,6 @@ def update():
                 { speed: speeds.fast, string: "start earning godly clicks" },
                 ];
                 noInteract=True
-                cpsDisplay.enabled=True
                 startEarningGodlyClicks = 1
                 save_system_save("earninggodlyclicks", 1)
                 revealOneCharacter(characters)
@@ -505,8 +522,8 @@ msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-
 onCurrent=1
 msgboxgodly.on_click = def():
     if onCurrent == 1:
-        var parenter = document.getElementById("msgboxgodly ");
-        var container = parenter.querySelector("entity")
+        parenter = document.getElementById("msgboxgodly ");
+        container = parenter.querySelector("entity")
         removeSpans()
         textLines = [
         { speed: speeds.fast, string: "\nGodly clicks can be used to upgrade your generators." },
@@ -530,7 +547,7 @@ msgboxgodly.on_click = def():
     elif onCurrent == 3:
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: '\nGodly clicks can be collected every 5 minutes of consecutive\nplaytime and can grant 1-2 godly clicks per harvest.' },        
+        { speed: speeds.fast, string: '\nGodly clicks can be collected every 5 minutes of\nplaytime and can grant 1-2 godly clicks per harvest.' },        
         ];
         createText()
         revealOneCharacter(characters)
@@ -538,15 +555,18 @@ msgboxgodly.on_click = def():
     elif onCurrent == 4:
         destroy(msgboxgodly)
         msgboxArrow.enabled=False
+        cpsDisplay.enabled=True
         noInteract = False
         onCurrent = 1
+        unlockedGenLevels = True
+        save_system_save('unlockedgenlevels', 1)
 
 donePrestigeSpeech = save_system_load('doneprestalk')
 
 msgboxprestige = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
 msgboxprestige.on_click = def():
     if onCurrent == 1:
-        removeSpans()
+        removeSpans(id='msgboxprestige ')
         textLines = [
         { speed: speeds.fast, string: "\nYour global multiplier affects all your generators\nthat you own." },
         
@@ -555,9 +575,9 @@ msgboxprestige.on_click = def():
         revealOneCharacter(characters)
         onCurrent += 1
     elif onCurrent == 2:
-        removeSpans()
+        removeSpans(id='msgboxprestige ')
         textLines = [
-        { speed: speeds.fast, string: "\nEach ascension level you earn will increase\nyour multipler by 0.1." },        
+        { speed: speeds.fast, string: "\nEach ascension level you earn will increase\nyour multipler by 0.2 up to 3x." },        
         ];
         createText()
         revealOneCharacter(characters)
@@ -578,6 +598,8 @@ after .2s:
         for e in mainScene:
             e.enabled=True
         for e in shopScene:
+            e.enabled=False
+        for e in levelUps:
             e.enabled=False
         cpsDisplay.enabled=False
         noInteract = True

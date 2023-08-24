@@ -18,14 +18,14 @@ for (const variable of variablesToCheck) {
         window[variable] = 0;
     }
 }
-globalMultiplier = int(save_system_load('globalmultiplier'))
-gen1Multiplier = int(save_system_load('gen1multiplier'))
-gen2Multiplier = int(save_system_load('gen2multiplier'))
-gen3Multiplier = int(save_system_load('gen3multiplier'))
-gen4Multiplier = int(save_system_load('gen4multiplier'))
-gen5Multiplier = int(save_system_load('gen5multiplier'))
-gen6Multiplier = int(save_system_load('gen6multiplier'))
-gen7Multiplier = int(save_system_load('gen7multiplier'))
+globalMultiplier = parseFloat(save_system_load('globalmultiplier'))
+gen1Multiplier = parseFloat(save_system_load('gen1multiplier'))
+gen2Multiplier = parseFloat(save_system_load('gen2multiplier'))
+gen3Multiplier = parseFloat(save_system_load('gen3multiplier'))
+gen4Multiplier = parseFloat(save_system_load('gen4multiplier'))
+gen5Multiplier = parseFloat(save_system_load('gen5multiplier'))
+gen6Multiplier = parseFloat(save_system_load('gen6multiplier'))
+gen7Multiplier = parseFloat(save_system_load('gen7multiplier'))
 const vars2 = ['globalMultiplier', 'gen1Multiplier'
 , 'gen2Multiplier', 'gen3Multiplier', 'gen4Multiplier'
 , 'gen5Multiplier', 'gen6Multiplier', 'gen7Multiplier']

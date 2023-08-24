@@ -26,7 +26,7 @@ const getVersion = async () => {
     .then(response => response.text())
     .then(text => {
         const fetchedVersion = text.trim();
-        const predefinedVersion = '1.1';
+        const predefinedVersion = '1.4';
 
         if (predefinedVersion === fetchedVersion) {
             ;
