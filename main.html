@@ -79,9 +79,7 @@ function removeSpans(id='msgboxgodly '){
         list.removeChild(list.firstChild);
     }
 }
-function figureOutPrestige() {
 
-}
     </script>
 
     <script src="taptapir/taptapir.js"></script>   
@@ -473,7 +471,7 @@ def update():
             e.texture = 'GenUpgradeArrow.webp'
         else:
             e.texture = 'GenUpgradeArrowU.webp'
-    if score >= 1:
+    if score >= 100000000:
         after .5s:
             if not startEarningGodlyClicks:
                 if inShop:
@@ -486,6 +484,15 @@ def update():
                 msgboxgodly.enabled=True
                 after 1:
                     msgboxArrow.enabled=True
+                var textLines = [
+                { speed: speeds.normal, string: "\nYo!" },
+                { speed: speeds.pause, string: "", pause: true },
+                { speed: speeds.fast, string: "You've reached 100M clicks!" },
+                { speed: speeds.pause, string: "", pause: true },
+                { speed: speeds.fast, string: "Congrats by the way.\nThis" },
+                { speed: speeds.fast, string: "means you can now" },
+                { speed: speeds.fast, string: "start earning godly clicks" },
+                ];
                 noInteract=True
                 cpsDisplay.enabled=True
                 startEarningGodlyClicks = 1
@@ -498,6 +505,8 @@ msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-
 onCurrent=1
 msgboxgodly.on_click = def():
     if onCurrent == 1:
+        var parenter = document.getElementById("msgboxgodly ");
+        var container = parenter.querySelector("entity")
         removeSpans()
         textLines = [
         { speed: speeds.fast, string: "\nGodly clicks can be used to upgrade your generators." },
@@ -530,7 +539,63 @@ msgboxgodly.on_click = def():
         destroy(msgboxgodly)
         msgboxArrow.enabled=False
         noInteract = False
+        onCurrent = 1
 
+donePrestigeSpeech = save_system_load('doneprestalk')
+
+msgboxprestige = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
+msgboxprestige.on_click = def():
+    if onCurrent == 1:
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nYour global multiplier affects all your generators\nthat you own." },
+        
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent += 1
+    elif onCurrent == 2:
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nEach ascension level you earn will increase\nyour multipler by 0.1." },        
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent +=1
+        if godlyClicks >= 0:
+            godlyClicks = 1
+    elif onCurrent == 3:
+        destroy(msgboxprestige)
+        msgboxArrow.enabled=False
+        noInteract = False
+        onCurrent = 1
+        save_system_save('doneprestalk', 1)
+
+after .2s:
+    if prestigeLevel >= 1 and not donePrestigeSpeech:
+        if inShop:
+        inShop = False
+        for e in mainScene:
+            e.enabled=True
+        for e in shopScene:
+            e.enabled=False
+        cpsDisplay.enabled=False
+        noInteract = True
+        msgboxprestige.enabled=True
+        after 1:
+            msgboxArrow.enabled=True
+        removeSpans()
+        parenter = document.getElementById("msgboxprestige ");
+        container = parenter.querySelector("entity")
+        textLines = [
+        { speed: speeds.fast, string: "\nNice, you did your first ascension!" },
+        { speed: speeds.pause, string: "", pause: true },
+        { speed: speeds.fast, string: "\nYou've unlocked the global mutliplier." },
+        
+        ];
+        createText()
+        revealOneCharacter(characters)
+    
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>

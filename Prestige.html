@@ -11,6 +11,33 @@ function PauseSounds() {
 function ResumeSounds() {
     song.play()
 }
+const maxPrestigeLevels = 10;
+
+function calculatePrestigeCost(level) {
+  return Math.pow(level, 3) * 1000000000000;
+}
+
+function calculatePrestiges(clicks, currentPrestiges) {
+  let prestiges = currentPrestiges;
+
+  if (prestiges >= maxPrestigeLevels) {
+    return 0;
+  }
+
+  let gainedPrestiges = 0;
+
+  while (clicks >= calculatePrestigeCost(prestiges + 1) && prestiges < maxPrestigeLevels) {
+    clicks -= calculatePrestigeCost(prestiges + 1);
+    prestiges++;
+    gainedPrestiges++;
+  }
+
+  return gainedPrestiges;
+}
+const shellyscream = new Audio('assets/sheldonscream.mp3')
+let gainedPrestiges = 0
+let currentPrestiges = localStorage.getItem("prestigelevel")
+let clicks = parseFloat(localStorage.getItem('score'))
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>
@@ -23,6 +50,28 @@ set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
 #TODO: Make cool prestige thing
+
+canPres = True
+clickerman = Entity(texture='Clicker-idle.gif',scale=.5)
+after 2.1s:
+    destroy(clickerman)
+    clickerman2 = Entity(texture='ClickerPrestige.gif',scale=.5)
+    after .9s:
+        shellyscream.play()
+        after 1s:
+            mendButton = Button(text='Prestige',scale=[.2,.1],y=-.4)
+            mendButton.on_click = def():
+                if canPres:
+                    gainedPrestiges = calculatePrestiges(clicks, currentPrestiges);
+                    currentPrestiges = currentPrestiges + gainedPrestiges;
+                    clickerman2.animate('alpha', 0, .25)
+                    mendButton.animate('y', 0, .5)
+                    mendButton.animate('scale_x', .4, .5)
+                    mendButton.animate('scale_y', .2, .5)
+                    mendButton.animate('text_size', 8, .5)
+                    after 1.5s:
+                        save_system_save('prestigelevel', currentPrestiges)
+                        SmoothTransit('Menu')
 
 
 

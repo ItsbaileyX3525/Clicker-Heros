@@ -94,7 +94,7 @@ function getCurrentTimestamp() {
 function findLastTime() {
     const startTime = getCurrentTimestamp();
     const lastVisitTime = parseInt(localStorage.getItem('lastVisitTime'));
-    if (startTime - lastVisitTime > 2) {
+    if (startTime - lastVisitTime > 500) {
         if (startTime - lastVisitTime >= 259200) {
             const elapsedTime = 259200
             offlineEarn(elapsedTime)
@@ -118,7 +118,7 @@ function displayOfflineEarnings() {
     
     lastplayedscreen = new Entity({name:'lastplayedscreen ', parent:camera.ui,texture:'earnedGradient.webp',scale:[1.2,1],z:-2})
     earnedSinceLastPlayed = new Text({name:'earnedSinceLastPlayed ', xy:[.1,-.0],text_size:5,text:`Earned since last online:`,z:-2})
-    totalAmountEarned = new Text({name:'totalAmountEarned ', text:`${_formatNumber(amount)}`,z:-2,text_size:8,xy:[.28,-.4],text_color:color.white})
+    totalAmountEarned = new Text({name:'totalAmountEarned ', text:`${_formatNumber(amount/4)}`,z:-2,text_size:8,xy:[.28,-.4],text_color:color.white})
     confirmDaMoney = new Button({name:'confirmDaMoney ', text:'OK',z:-2,scale:[.15,.1],y:-.4,x:.3})
     doubleDaMoney = new Button({name:'doubleDaMoney ', text:'X2 money',z:-2,scale:[.16,.1],color:color.green,xy:[-.3,-.4]})
     confirmDaMoney.on_click = function() {
