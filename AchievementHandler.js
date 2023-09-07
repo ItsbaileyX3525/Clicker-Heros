@@ -1,6 +1,6 @@
 let achievementInProgress = false;
 const achievementQueue = [];
-
+let volume = 1
 class AchievementShower extends Entity {
     constructor(options = false) {
         let settings = {parent:camera.ui,title:'',scale:[.4,.25],xy:[0.688,-.63],icon:'',roundness:.1,color:color.black}
@@ -47,9 +47,8 @@ AchievementHandler = new Entity({ alpha: 0 });
 AchievementHandler.update = function () {
     if (score >= 1 && !achievement1unlocked) {
         achievement1unlocked = 1;
-        console.log('saved');
         save_system_save('achievement1unlocked', achievement1unlocked);
-        achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'First click!' });        
+        achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'First click!' });
     } 
 
 
