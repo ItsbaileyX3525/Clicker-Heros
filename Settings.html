@@ -143,8 +143,7 @@ set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
 volume = round(parseFloat(save_system_load('mastervolume')), 10)
-print(volume)
-if volume < 0 or volume > 1 or volume == null:
+if volume < 0 or volume > 1 or volume == null or isNaN(volume):
     volume = 1
 volume = volume * 100
 print(volume)

@@ -130,10 +130,13 @@ if not startEarningGodlyClicks:
     startEarningGodlyClicks = 0
 
 volume = parseFloat(save_system_load('mastervolume'))
-if volume < 0 or volume > 1:
+if volume < 0 or volume > 1 or volume == null or isNaN(volume):
     volume = 1
     save_system_save('mastervolume', volume)
 
+godlyClicksTracker = int(save_system_load('godlyclickstracker'))
+if not godlyClicksTracker or godlyClicksTracker == null:
+    godlyClicksTracker = 0
 
 Gen1Cost = int(save_system_load('gen1cost'))
 if not Gen1Cost or Gen1Cost == null:
@@ -230,6 +233,7 @@ ShopButton.on_click = def():
             save_system_save("metmorshu", 1)
             morshu = Entity(scale=[2,1],z=-1,parent=camera.ui,texture='morshuCUM.gif')
             petergriffin.play()
+            petergriffin.volume = volume
             StartedSong.pause()
             after 3:
                 destroy(morshu)
@@ -272,6 +276,7 @@ Gen1LevelUp.on_click = def():
         gen1Multiplier += .1
         godlyClicks -= Gen1LevelUp.cost
         Gen1LevelUp.cost += 1
+        godlyClicksTracker += 1
 Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=False)
 
 Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=False,x=-.8,y=-.01)
@@ -292,6 +297,7 @@ Gen2LevelUp.on_click = def():
         gen2Multiplier += .1
         godlyClicks -= Gen2LevelUp.cost
         Gen2LevelUp.cost += 1
+        godlyClicksTracker += 1
 Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=False)
 
 Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=False,x=-.8,y=-.3)
@@ -312,6 +318,7 @@ Gen3LevelUp.on_click = def():
         gen3Multiplier += .1
         godlyClicks -= Gen3LevelUp.cost
         Gen3LevelUp.cost += 1
+        godlyClicksTracker += 1
 Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=False)
 
 Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=False,x=-.3,y=.3)
@@ -332,6 +339,7 @@ Gen4LevelUp.on_click = def():
         gen4Multiplier += .1
         godlyClicks -= Gen4LevelUp.cost
         Gen4LevelUp.cost += 1
+        godlyClicksTracker += 1
 Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=False)
 
 Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=False,x=-.3,y=-.01)
@@ -352,6 +360,7 @@ Gen5LevelUp.on_click = def():
         gen5Multiplier += .1
         godlyClicks -= Gen5LevelUp.cost
         Gen5LevelUp.cost += 1
+        godlyClicksTracker += 1
 Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=False)
 
 Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=False,x=-.3,y=-.3)
@@ -371,7 +380,8 @@ Gen6LevelUp.on_click = def():
     if godlyClicks >= Gen6LevelUp.cost:
         gen6Multiplier += .1
         godlyClicks -= Gen6LevelUp.cost
-        Gen6LevelUp.cost += 1   
+        Gen6LevelUp.cost += 1  
+        godlyClicksTracker += 1 
 Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=False)
 
 
@@ -393,6 +403,7 @@ Gen7LevelUp.on_click = def():
         gen7Multiplier += .1
         godlyClicks -= Gen7LevelUp.cost
         Gen7LevelUp.cost += 1
+        godlyClicksTracker += 1
 Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=4.5,enabled=False)
 
 
@@ -480,6 +491,7 @@ def update():
         save_system_save('gen6upgradecost', Gen6LevelUp.cost)
         save_system_save('gen7upgradecost', Gen7LevelUp.cost)
         save_system_save('godlyclicks', godlyClicks)
+        save_system_save('godlyclickstracker', godlyClicksTracker)
         save_system_save('prestigelevel', prestigeLevel)
     catch (err) {;}
     for e in levelUps:
