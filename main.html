@@ -41,6 +41,11 @@ StartedSong = new Audio('assets/bgsong.ogg')
 StartedSong.play();
 StartedSong.loop = true;
 
+myAudio.addEventListener('ended', function() {
+this.currentTime = 0;
+alert("ended");
+}, false);
+
 function SetVolumes(volume) {
     try {
     StartedSong.volume = volume
@@ -134,7 +139,7 @@ if volume < 0 or volume > 1 or volume == null or isNaN(volume):
     volume = 1
     save_system_save('mastervolume', volume)
 
-godlyClicksTracker = int(save_system_load('godlyclickstracker'))
+godlyClicksTracker = 50
 if not godlyClicksTracker or godlyClicksTracker == null:
     godlyClicksTracker = 0
 
