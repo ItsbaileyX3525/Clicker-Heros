@@ -11,7 +11,7 @@ class AchievementShower extends Entity {
     super(settings)
     this.iconShower = new Entity({parent:this,texture:this.icon,scale:[.5,.5]})
     this.animate('y', -.4, 1.5)
-    this.soundfx = new Audio('assets/rising.wav')
+    this.soundfx = new Audio('assets/rising.ogg')
     this.soundfx.play()
     this.soundfx.volume = volume
     this.texts = new Text({text:'ACHIEVEMENT UNLOCKED!',text_size:2.725,x:-.1,y:-.05,parent:this,text_color:color.green})
@@ -113,7 +113,7 @@ AchievementHandler.update = function () {
     if (godlyClicksTracker >= 1 && !spent1godlyclick){
         spent1godlyclick = 1;
         //save_system_save('spent1godlyclicks', spent1godlyclick);
-        achievementQueue.push({ alpha: 1, icon: 'GodlyClick.png', title:'First godly click!' });
+        achievementQueue.push({ alpha: 1, icon: 'GodlyClick.webp', title:'First godly click!' });
     }
 
 

@@ -1,0 +1,25 @@
+<input type="file" id="musicFile" accept=".mp3,.ogg">
+
+<audio id="musicPlayer" controls></audio>
+
+<script>
+    function PauseSounds() {
+;}
+function ResumeSounds() {
+;}
+  function readData(data){
+    const musicPlayer = document.getElementById("musicPlayer");
+    musicPlayer.src = data;
+    musicPlayer.play();  
+const existingInput = document.getElementById('musicFile');
+if (existingInput) {
+  existingInput.parentNode.removeChild(existingInput);
+}
+const newInput = document.createElement('input');
+newInput.type = 'file';
+newInput.id = 'musicFile';
+newInput.accept = '.mp3,.ogg';
+document.body.appendChild(newInput);
+  }
+
+</script>

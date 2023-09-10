@@ -36,14 +36,17 @@ function Playwoosh() {
     })};
 }
 
-petergriffin = new Audio('assets/PeterMorshu.wav')
+petergriffin = new Audio('assets/PeterMorshu.ogg')
 StartedSong = new Audio('assets/bgsong.ogg')
 StartedSong.play();
-StartedSong.loop = true;
-
-myAudio.addEventListener('ended', function() {
+StartedSong.loop = false;
+StartedSong.currentTime = 92
+StartedSong.addEventListener('ended', function() {
 this.currentTime = 0;
-alert("ended");
+this.src = 'assets/bgsong1.ogg';
+console.log(volume)
+SetVolumes(volume);
+this.play();
 }, false);
 
 function SetVolumes(volume) {
@@ -743,14 +746,14 @@ function earnGodly() {
     const randomX = Math.random() * (maxRangeX - minRangeX) + minRangeX;
 
     if (choices === 0) {
-    godlyClicksEarnBubble = new Button({name:'godlyClicksEarnBubble ', texture:'GodlyClick.png',xy:[randomX,randomY]})
+    godlyClicksEarnBubble = new Button({name:'godlyClicksEarnBubble ', texture:'GodlyClick.webp',xy:[randomX,randomY]})
     godlyClicksEarnBubble.on_click = function() {
         godlyClicks += 1
         bubbleExists=false
         destroy(godlyClicksEarnBubble)
     }}
     else if (choices === 1) {
-    godlyClicksEarnBubble2 = new Button({name:'godlyClicksEarnBubble2 ', texture:'GodlyClick.png',xy:[randomX,randomY]})
+    godlyClicksEarnBubble2 = new Button({name:'godlyClicksEarnBubble2 ', texture:'GodlyClick.webp',xy:[randomX,randomY]})
     godlyClicksEarnBubble2.on_click = function() {
         godlyClicks += 2
         bubbleExists=false
