@@ -142,7 +142,7 @@ if volume < 0 or volume > 1 or volume == null or isNaN(volume):
     volume = 1
     save_system_save('mastervolume', volume)
 
-godlyClicksTracker = 50
+godlyClicksTracker = int(save_system_load("godlyclickstracker"))
 if not godlyClicksTracker or godlyClicksTracker == null:
     godlyClicksTracker = 0
 
@@ -423,6 +423,7 @@ if friendMode == 'true' or friendMode == true:
     Gen5.texture = 'KarltonGen.webp'
     Gen6.texture = 'RyanGen.webp'
     Gen7.texture = 'EthanGen.webp'
+    ClickerDude.texture='LeonGen.webp'
 
 canPrestige = False
 prestigeStuffbg = Entity(parent=camera.ui,color=color.black,roundness=.1,xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)
