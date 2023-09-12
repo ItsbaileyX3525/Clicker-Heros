@@ -195,6 +195,10 @@ if not unlockedGenLevels or unlockedGenLevels == null:
 
 friendMode = save_system_load("friendmodeactive")
 
+clickMultiplier = parseFloat(save_system_load('clickmultiplier'))
+if not clickMultiplier:
+    clickMultiplier = 1
+
 SetVolumes(volume);
   
 allowedAttackSFX = save_system_load('attacksfx')
@@ -202,10 +206,13 @@ if allowedAttackSFX == null:
     allowedAttackSFX = True
     save_system_save('attacksfx', allowedAttackSFX)
 
+#TODO: Create proper click multipler because i didnt have time to do it in the lunch break :(
+
 #Main clicker game
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
-    score += 1
+    collectiveClick = Gen1Earn/2 * Gen1Owned + Gen2Earn/2 * Gen2Owned + Gen3Earn/2 * Gen3Owned + Gen4Earn/2 * Gen4Owned + Gen5Earn/2 * Gen5Owned + Gen6Earn/2 * Gen6Owned + Gen7Earn/2 * Gen7Owned
+    score += 1 + collectiveClick * clickMultiplier * globalMultiplier 
     Playwoosh()
 
 
