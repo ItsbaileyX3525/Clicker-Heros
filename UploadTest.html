@@ -1,4 +1,4 @@
-<input type="file" id="musicFile" accept=".mp3,.ogg">
+<input type="file" id="musicFile" accept=".mp3,.ogg,.wav">
 
 <audio id="musicPlayer" controls></audio>
 
@@ -18,7 +18,7 @@ if (existingInput) {
 const newInput = document.createElement('input');
 newInput.type = 'file';
 newInput.id = 'musicFile';
-newInput.accept = '.mp3,.ogg';
+newInput.accept = '.mp3,.ogg,.wav';
 document.body.appendChild(newInput);
   }
 

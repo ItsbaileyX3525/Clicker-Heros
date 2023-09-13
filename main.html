@@ -44,7 +44,6 @@ StartedSong.currentTime = 92
 StartedSong.addEventListener('ended', function() {
 this.currentTime = 0;
 this.src = 'assets/bgsong1.ogg';
-console.log(volume)
 SetVolumes(volume);
 this.play();
 }, false);
@@ -94,7 +93,20 @@ function canPrestigeFunc(level) {
     else
     {return false}
 }
-
+function createSong(data){
+    try{
+    egggg = new Text({text:"loaded"})
+    
+    music = new Audio()
+    music.src = data
+    music.play()
+    music.loop = true
+    StartedSong.pause()}
+    catch(err){console.log(err)}
+}
+let storedFileURL = localStorage.getItem('audioFile')
+if (storedFileURL){
+    createSong(storedFileURL)}else{console.log("No data")}
     </script>
 
     <script src="taptapir/taptapir.js"></script>   
@@ -211,7 +223,7 @@ if allowedAttackSFX == null:
 #Main clicker game
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
-    collectiveClick = Gen1Earn/2 * Gen1Owned + Gen2Earn/2 * Gen2Owned + Gen3Earn/2 * Gen3Owned + Gen4Earn/2 * Gen4Owned + Gen5Earn/2 * Gen5Owned + Gen6Earn/2 * Gen6Owned + Gen7Earn/2 * Gen7Owned
+    collectiveClick = Gen1Earn/5 * Gen1Owned + Gen2Earn/5 * Gen2Owned + Gen3Earn/5 * Gen3Owned + Gen4Earn/5 * Gen4Owned + Gen5Earn/5 * Gen5Owned + Gen6Earn/5 * Gen6Owned + Gen7Earn/5 * Gen7Owned
     score += 1 + collectiveClick * clickMultiplier * globalMultiplier 
     Playwoosh()
 
