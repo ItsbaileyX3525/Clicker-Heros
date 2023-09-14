@@ -133,11 +133,7 @@ function ResumeSounds() {
 }
 function readData(data){
     const musicPlayer = document.getElementById("musicPlayer");
-    egggg = new Text({text:data})
     localStorage.setItem('audioFile', data);
-    egg= new Audio(data)
-    egg.play()
-    music.pause()
 const existingInput = document.getElementById('musicFile');
 if (existingInput) {
   existingInput.parentNode.removeChild(existingInput);

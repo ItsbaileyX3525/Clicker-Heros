@@ -23,13 +23,51 @@ function ResumeSounds() {
 
 #Global Functions
 set_orientation('horizontal')
-set_window_color('white')
+set_window_color('rgb(131,139,142)')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
+
+coolTextThatsTotallyNeeded = Text(text='My Achievements.',text_color=color.white,xy=[-.35,-.025])
+
+progressBarAndDatPlaceHolder = Entity(scale=[1.2,.1],xy=[0,0.25],alpha=0)
+const progressBarContainer = document.createElement('div');
+progressBarContainer.className = 'progress-bar';
+progressBarContainer.style.width = '100%';
+progressBarContainer.style.height = '30px';
+progressBarContainer.style.backgroundColor = '#ccc';
+progressBarContainer.style.borderRadius = '5px';
+progressBarContainer.style.overflow = 'hidden';
+const progressBar = document.createElement('div');
+progressBar.id = 'progress';
+progressBar.className = 'progress';
+progressBar.style.height = '100%';
+progressBar.style.width = '0';
+progressBar.style.backgroundColor = '#4caf50';
+progressBar.style.textAlign = 'center';
+progressBar.style.lineHeight = '30px';
+progressBar.style.color = 'white';
+progressBarContainer.appendChild(progressBar);
+progressBarAndDatPlaceHolder.el.appendChild(progressBarContainer);
+
+currentValue = save_system_load('achievementcounter');
+if not currentValue or currentValue == null:
+    currentValue=0
+maxValue = 6;
+
+// Function to update the progress bar
+function updateProgressBar() {
+  const percentage = (currentValue / maxValue) * 100;
+  progressBar.style.width = `${percentage}%`;
+  progressBar.textContent = `${currentValue}/${maxValue}`;
+}
+updateProgressBar();
+
+progressBarBackground = Entity(color=[27,25,27],scale=[1.3,.175],xy=[0,.285],z=1)
+TotallyNeededProgressBarText = Text(text='Total Achievements Earned.',text_color=color.white,xy=[-.2,-.145])
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
-<script src="EarnClicks.js"></script><script src="AchievementHandler.js"></script>
+<script src="EarnClicks.js"></script>
 </body>
 </html>
