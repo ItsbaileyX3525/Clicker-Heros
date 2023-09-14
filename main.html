@@ -223,8 +223,15 @@ if allowedAttackSFX == null:
 #Main clicker game
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
-    collectiveClick = Gen1Earn/5 * Gen1Owned + Gen2Earn/5 * Gen2Owned + Gen3Earn/5 * Gen3Owned + Gen4Earn/5 * Gen4Owned + Gen5Earn/5 * Gen5Owned + Gen6Earn/5 * Gen6Owned + Gen7Earn/5 * Gen7Owned
-    score += 1 + collectiveClick * clickMultiplier * globalMultiplier 
+    Gen1CPS = .1 * Gen1Owned * gen1Multiplier * globalMultiplier
+    Gen2CPS = 1 * Gen2Owned * gen2Multiplier * globalMultiplier
+    Gen3CPS = 8 * Gen3Owned * gen3Multiplier * globalMultiplier
+    Gen4CPS = 47 * Gen4Owned * gen4Multiplier * globalMultiplier
+    Gen5CPS = 260 * Gen5Owned * gen5Multiplier * globalMultiplier
+    Gen6CPS = 1400 * Gen6Owned * gen6Multiplier * globalMultiplier
+    Gen7CPS = 7800 * Gen7Owned * gen7Multiplier * globalMultiplier
+    collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS + Gen4CPS + Gen5CPS + Gen6CPS + Gen7CPS
+    score += collectiveCPS/5 + 1
     Playwoosh()
 
 
@@ -250,6 +257,10 @@ settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
     if not noInteract:
         SmoothTransit("Settings")
+
+AchievementsButton = Button(scale=[.1,.1],texture='trophy.webp',xy=[.65,.45])
+AchievementsButton.on_click = def():
+    SmoothTransit('Achievements')
 
 inShop = False
 ShopButton = Button(texture='shopCog.webp',x=.75,scale=.2,y=-.02)
