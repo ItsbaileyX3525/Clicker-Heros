@@ -1,8 +1,7 @@
 //Make sure to make the offline earn from 5 to 500
 
-try{
-if (!score){;}
-} catch {score = parseFloat(save_system_load("score"))}
+try{if(!score){;}}catch{score = parseFloat(save_system_load("score"))}
+try{if(!overallScoreEarned){;}}catch{overallScoreEarned=parseFloat(save_system_load('overallscoreearned'))}
 Gen1Owned = int(save_system_load("gen1owned"));
 Gen2Owned = int(save_system_load("gen2owned"));
 Gen3Owned = int(save_system_load("gen3owned"));
@@ -44,20 +43,28 @@ let Gen7Earn = 7800
 function applyScore() {
     try {
     if (Gen1Owned > 0){
-    score = Math.round((score + Gen1Earn * Gen1Owned * gen1Multiplier * globalMultiplier) * 10) / 10;}
+    score = Math.round((score + Gen1Earn * Gen1Owned * gen1Multiplier * globalMultiplier) * 10) / 10;
+    overallScoreEarned = Math.round((overallScoreEarned + Gen1Earn * Gen1Owned * gen1Multiplier * globalMultiplier) * 10) / 10;}
     if (Gen2Owned > 0){
-        score += Gen2Earn * Gen2Owned * gen2Multiplier * globalMultiplier;}
+        score += Gen2Earn * Gen2Owned * gen2Multiplier * globalMultiplier;
+        overallScoreEarned += Gen2Earn * Gen2Owned * gen2Multiplier * globalMultiplier;}
     if (Gen3Owned > 0 * gen2Multiplier * globalMultiplier){
-        score += Gen3Earn * Gen3Owned * gen3Multiplier * globalMultiplier;}
+        score += Gen3Earn * Gen3Owned * gen3Multiplier * globalMultiplier;
+        overallScoreEarned += Gen3Earn * Gen3Owned * gen3Multiplier * globalMultiplier;}
     if (Gen4Owned > 0){
-      score += Gen4Earn * Gen4Owned * gen4Multiplier * globalMultiplier;}
+      score += Gen4Earn * Gen4Owned * gen4Multiplier * globalMultiplier;
+      overallScoreEarned += Gen4Earn * Gen4Owned * gen4Multiplier * globalMultiplier;}
     if (Gen5Owned > 0){
-        score += Gen5Earn * Gen5Owned * gen6Multiplier * globalMultiplier;}
+        score += Gen5Earn * Gen5Owned * gen6Multiplier * globalMultiplier;
+        overallScoreEarned += Gen5Earn * Gen5Owned * gen6Multiplier * globalMultiplier;}
     if (Gen6Owned > 0){
-        score += Gen6Earn * Gen6Owned * gen6Multiplier * globalMultiplier;}
+        score += Gen6Earn * Gen6Owned * gen6Multiplier * globalMultiplier;
+        overallScoreEarned += Gen6Earn * Gen6Owned * gen6Multiplier * globalMultiplier;}
     if (Gen7Owned > 0){
-        score += Gen7Earn * Gen7Owned * gen7Multiplier * globalMultiplier;}
-    save_system_save("score", score);
+        score += Gen7Earn * Gen7Owned * gen7Multiplier * globalMultiplier;
+        overallScoreEarned += Gen7Earn * Gen7Owned * gen7Multiplier * globalMultiplier;}
+        save_system_save("score", score);
+        save_system_save("overallscoreearned", overallScoreEarned);
         after(1, function() {
         applyScore();
     })} catch (err) {

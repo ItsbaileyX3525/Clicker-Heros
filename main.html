@@ -205,6 +205,14 @@ unlockedGenLevels = save_system_load('unlockedgenlevels')
 if not unlockedGenLevels or unlockedGenLevels == null:
     unlockedGenLevels = False
 
+timesClicked = int(save_system_load('timesclicked'))
+if not timesClicked or timesClicked == null:
+    timesClicked = 0
+
+overallScoreEarned = parseFloat(save_system_load('overallscoreearned'))
+if not overallScoreEarned or overallScoreEarned == null:
+    overallScoreEarned = 0
+
 friendMode = save_system_load("friendmodeactive")
 
 clickMultiplier = parseFloat(save_system_load('clickmultiplier'))
@@ -231,6 +239,9 @@ ClickerDude.on_click = def():
     Gen6CPS = 1400 * Gen6Owned * gen6Multiplier * globalMultiplier
     Gen7CPS = 7800 * Gen7Owned * gen7Multiplier * globalMultiplier
     collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS + Gen4CPS + Gen5CPS + Gen6CPS + Gen7CPS
+    timesClicked+=1
+    save_system_save('timesclicked', timesClicked)
+    overallScoreEarned += collectiveCPS/5 + 1
     score += collectiveCPS/5 + 1
     Playwoosh()
 
@@ -532,6 +543,7 @@ def update():
         save_system_save('godlyclicks', godlyClicks)
         save_system_save('godlyclickstracker', godlyClicksTracker)
         save_system_save('prestigelevel', prestigeLevel)
+        save_system_save("overallscoreearned", overallScoreEarned);
     catch (err) {;}
     for e in levelUps:
         if godlyClicks >= e.cost

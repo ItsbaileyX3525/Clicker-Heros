@@ -82,8 +82,12 @@ class AchievementShowerMAX extends Entity {
 }
 
 clicked1achievement = save_system_load('clickedonceachievement') || 0;
-clicked5000achievement = save_system_load('clicked5000achievement') || 0;
-clicked500000achievement = save_system_load('clicked500000achievement') || 0;
+clicked2500achievement = save_system_load('clicked5000achievement') || 0;
+clicked10000achievement = save_system_load('clicked500000achievement') || 0;
+
+amountEarned100 = save_system_load('amountearned100') || 0;
+amountEarned50000 = save_system_load('amountearned5000') || 0;
+amountEarned250000 = save_system_load('amountearned250000') || 0;
 
 spent1godlyclick = save_system_load('spent1godlyclicks') || 0;
 spent10godlyclick = save_system_load('spent10godlyclicks') || 0;
@@ -95,23 +99,44 @@ if (!achievementCounter || achievementCounter === null){
 }
 AchievementHandler = new Entity({ alpha: 0 });
 AchievementHandler.update = function () {
-    if (score >= 1 && !clicked1achievement) {
+    if (overallScoreEarned >= 100 && !amountEarned100){
+        amountEarned100 = 1;
+        save_system_save('amountearned100', amountEarned100);
+        achievementCounter+=1
+        save_system_save('achievementcounter', achievementCounter);
+        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'100 score earnt!' });  
+    }    
+    if (overallScoreEarned >= 50000 && !amountEarned50000){
+        amountEarned50000 = 1;
+        save_system_save('amountearned50000', amountEarned50000);
+        achievementCounter+=1
+        save_system_save('achievementcounter', achievementCounter);
+        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'50000 score earnt!' });  
+    }
+    if (overallScoreEarned >= 2500000 && !amountEarned250000){
+        amountEarned250000 = 1;
+        save_system_save('amountearned250000', amountEarned250000);
+        achievementCounter+=1
+        save_system_save('achievementcounter', achievementCounter);
+        achievementQueueMAX.push({ alpha: 1, icon: 'clickerGen1.webp', title:'250000 score earnt!' });  
+    }
+    if (timesClicked >= 1 && !clicked1achievement) {
         clicked1achievement = 1;
         save_system_save('clickedonceachievement', clicked1achievement);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
         achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'First click!' });
     } 
-    if (score >= 5000 && !clicked5000achievement) {
-        clicked5000achievement = 1;
-        save_system_save('clicked5000achievement', clicked5000achievement);
+    if (timesClicked >= 2500 && !clicked2500achievement) {
+        clicked2500achievement = 1;
+        save_system_save('clicked2500achievement', clicked2500achievement);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
         achievementQueue.push({ alpha: 1, icon: 'clickerManLevel2.webp', title:'5000 clicks!' });
     } 
-    if (score >= 500000 && !clicked500000achievement) {
-        clicked500000achievement = 1;
-        save_system_save('clicked500000achievement', clicked500000achievement);
+    if (timesClicked >= 10000 && !clicked10000achievement) {
+        clicked10000achievement = 1;
+        save_system_save('clicked10000achievement', clicked10000achievement);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
         achievementQueueMAX.push({alpha: 1, icon: 'clickerManLevel3.webp', title:'Reached 500k clicks!' });
