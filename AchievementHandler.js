@@ -86,7 +86,7 @@ clicked2500achievement = save_system_load('clicked5000achievement') || 0;
 clicked10000achievement = save_system_load('clicked500000achievement') || 0;
 
 amountEarned100 = save_system_load('amountearned100') || 0;
-amountEarned50000 = save_system_load('amountearned5000') || 0;
+amountEarned50000 = save_system_load('amountearned50000') || 0;
 amountEarned250000 = save_system_load('amountearned250000') || 0;
 
 spent1godlyclick = save_system_load('spent1godlyclicks') || 0;
