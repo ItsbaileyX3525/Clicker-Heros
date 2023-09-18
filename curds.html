@@ -6,6 +6,23 @@
     <title>Document</title>
 </head>
 <body>
+  <style>
+    @keyframes rainbow {
+      0% { background-color: red; }
+      14% { background-color: orange; }
+      28% { background-color: yellow; }
+      42% { background-color: green; }
+      57% { background-color: blue; }
+      71% { background-color: indigo; }
+      85% { background-color: violet; }
+      100% { background-color: red; }
+    }
+    
+    .rainbow-animation {
+      animation: rainbow 2s linear infinite;
+    }
+    
+    </style>
     <script>
         // Create the progress bar container
 const progressBarContainer = document.createElement('div');
@@ -42,13 +59,13 @@ document.body.appendChild(updateButton);
 let currentValue = 3;
 const maxValue = 6;
 
-// Function to update the progress bar
 function updateProgressBar() {
+    if (currentValue === maxValue){
+    progressBar.classList.add('rainbow-animation');}
   const percentage = (currentValue / maxValue) * 100;
   progressBar.style.width = `${percentage}%`;
   progressBar.textContent = `${currentValue}/${maxValue}`;
 }
-
 // Function to increase the progress
 function updateProgress() {
   if (currentValue < maxValue) {

@@ -4,6 +4,23 @@
 body{
     background-image:url('assets/bg.webp');
 }
+@font-face{
+    font-family: MainFont;
+    src: url('assets/MainFont.ttf')
+}
+@keyframes rainbow {
+  0% { background-color: red; }
+  14% { background-color: orange; }
+  28% { background-color: yellow; }
+  42% { background-color: green; }
+  57% { background-color: blue; }
+  71% { background-color: indigo; }
+  85% { background-color: violet; }
+  100% { background-color: red; }
+}
+html * {
+    font-family: MainFont;
+}
 </style>
 <body>
     <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
@@ -576,7 +593,7 @@ def update():
                 ];
                 noInteract=True
                 startEarningGodlyClicks = 1
-                save_system_save("earninggodlyclicks", 1)
+                save_system_save("earninggodlyclicks", startEarningGodlyClicks)
                 revealOneCharacter(characters)
 
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
@@ -782,6 +799,7 @@ const maxRangeY = .3
 const minRangeY = -.3
 let bubbleExists = false
 function earnGodly() {
+    if(startEarningGodlyClicks || startEarningGodlyClicks === 1){
     if (!bubbleExists){
     bubbleExists=true
     const choices = random_int_(0,1)
@@ -801,7 +819,7 @@ function earnGodly() {
         godlyClicks += 2
         bubbleExists=false
         destroy(godlyClicksEarnBubble2)
-    }}}
+    }}}}
 }
 
 const interval = setInterval(earnGodly, 5 * 60 * 1000);
