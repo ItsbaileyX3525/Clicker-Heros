@@ -75,6 +75,12 @@ firstTimePlayed = save_system_load('firsttimeplayed')
 if firstTimePlayed == null:
     firstTimePlayed = 0
 
+joinDate = round(int(save_system_load('joindate')))
+if not joinDate or joinDate == null:
+    joinDate = Date.now() / 1000
+    round(joinDate)
+    save_system_save('joindate', joinDate)
+
 def updateFYIText():
     FYIText.animate('alpha', 0, 1)
     after 1s:

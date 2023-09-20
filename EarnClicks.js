@@ -2,6 +2,8 @@
 
 try{if(!score){;}}catch{score = parseFloat(save_system_load("score"))}
 try{if(!overallScoreEarned){;}}catch{overallScoreEarned=parseFloat(save_system_load('overallscoreearned'))}
+try{if(!joinDate){;}}catch{round(joinDate=int(save_system_load('joindate')))}
+
 Gen1Owned = int(save_system_load("gen1owned"));
 Gen2Owned = int(save_system_load("gen2owned"));
 Gen3Owned = int(save_system_load("gen3owned"));
@@ -101,7 +103,8 @@ function getCurrentTimestamp() {
   
   function updateElapsedTime() {
     const currentTime = getCurrentTimestamp();
-    
+    timeCounter = currentTime - joinDate
+    print("time played", timeCounter)
     localStorage.setItem('lastVisitTime', currentTime.toString());
   }
 
