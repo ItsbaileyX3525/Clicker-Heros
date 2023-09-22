@@ -85,9 +85,9 @@ clicked1achievement = save_system_load('clickedonceachievement') || 0;
 clicked2500achievement = save_system_load('clicked5000achievement') || 0;
 clicked10000achievement = save_system_load('clicked500000achievement') || 0;
 
-playedforhour = save_system_load('playedforhour')
-playedfor3day = save_system_load('playedfor3day')
-playedforweek = save_system_load('playedforweek')
+playedforhour = save_system_load('playedforhour') || 0
+playedfor3day = save_system_load('playedfor3day') || 0
+playedforweek = save_system_load('playedforweek') || 0
 
 amountEarned100 = save_system_load('amountearned100') || 0;
 amountEarned50000 = save_system_load('amountearned50000') || 0;
@@ -103,26 +103,27 @@ if (!achievementCounter || achievementCounter === null){
 }
 AchievementHandler = new Entity({ alpha: 0 });
 AchievementHandler.update = function () {
-    if (joinDate >= 60 * 60 && !playedforhour) {
+    if (timeCounter >= 60 * 60 && !playedforhour) {
         playedforhour = 1;
         save_system_save('playedforhour', playedforhour);
         achievementCounter+=1
+        console.log("Earned")
         save_system_save('achievementcounter', achievementCounter);
-        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'100 score earnt!' });  
+        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'Played for an hour!' });  
     } 
-    if (joinDate >= 3 * 24 * 60 * 60 && !playedfor3day) {
+    if (timeCounter >= 3 * 24 * 60 * 60 && !playedfor3day) {
         playedfor3day = 1;
         save_system_save('playedfor3day', playedfor3day);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
-        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'100 score earnt!' });  
+        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'Played for 3 days!' });  
     }
-    if (joinDate >= 7 * 24 * 60 * 60 && !playedforweek) {
+    if (timeCounter >= 7 * 24 * 60 * 60 && !playedforweek) {
         playedforweek = 1;
         save_system_save('playedforweek', playedforweek);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
-        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'100 score earnt!' });  
+        achievementQueueMAX.push({ alpha: 1, icon: 'clickerGen1.webp', title:'Played for a week!' });  
     } 
     if (overallScoreEarned >= 100 && !amountEarned100){
         amountEarned100 = 1;

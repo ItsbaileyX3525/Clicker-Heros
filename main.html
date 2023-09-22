@@ -57,11 +57,12 @@ petergriffin = new Audio('assets/PeterMorshu.ogg')
 StartedSong = new Audio('assets/bgsong.ogg')
 StartedSong.play();
 StartedSong.loop = false;
-StartedSong.addEventListener('ended', function() {
+StartedSong.currentTime = 92;
+StartedSong.addEventListener('ended', function() { // volume not settings after chainging.
 this.currentTime = 0;
 this.src = 'assets/bgsong1.ogg';
-SetVolumes(volume);
 this.play();
+this.volume=volume
 }, false);
 
 function SetVolumes(volume) {
