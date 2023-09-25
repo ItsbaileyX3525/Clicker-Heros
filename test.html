@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .claimed {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: green;
+      animation: claim 3s ease-in-out forwards;
+    }
+
+    @keyframes claim {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 100%);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+function claimAnimation() {
+      const element = document.createElement('div')
+      document.body.appendChild(element)
+      element.innerText = 'Claimed successfully';
+      element.classList.add('claimed');
+      after(3, function() {element.remove()})
+    }
+    function after(delay, func) {
+    timeout_id = setTimeout(func, delay*1000)
+}
+    claimAnimation()
+  </script>
+</body>
+</html>
