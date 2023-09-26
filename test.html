@@ -1,45 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <style>
-    .claimed {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: green;
-      animation: claim 3s ease-in-out forwards;
-    }
-
-    @keyframes claim {
-      0% {
-        opacity: 0;
-        transform: translate(-50%, 100%);
-      }
-      50% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -100%);
-      }
-    }
-  </style>
-</head>
-<body>
-  <script>
-function claimAnimation() {
-      const element = document.createElement('div')
-      document.body.appendChild(element)
-      element.innerText = 'Claimed successfully';
-      element.classList.add('claimed');
-      after(3, function() {element.remove()})
-    }
-    function after(delay, func) {
-    timeout_id = setTimeout(func, delay*1000)
+<style>
+body{
+    background-image:url('assets/bg.webp');
 }
-    claimAnimation()
-  </script>
+</style>
+<body>
+    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+    <script src="Smooth.js"></script>
+    <script>
+
+function PauseSounds() {
+    StartedSong.pause()
+}
+function ResumeSounds() {
+    StartedSong.play()
+}
+
+    </script>
+
+    <script src="taptapir/taptapir.js"></script> 
+    <script>
+      //TODO: Organise on mobile when home/ access to phone web
+class AchievementEntity extends Entity{
+  constructor(options) {
+        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,color:color.black, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward'};
+        for (const [key, value] of Object.entries(options)) {
+            if (value !== false) {
+                settings[key] = value;
+            }
+        }
+        super(settings);
+        this.achievementIcon = new Entity({name:'achievementIcon ',parent:this,scale:[.125,.8],texture:'Clicker-idle.gif',x:-.445})
+        this.achievementTitle = new Text({name:'achievementTitle ',parent:this, text:this.title,text_color:color.gray,y:.15})
+        this.achievementDescription = new Text({name:'achievementDescription ',parent:this, text:this.descriptor,text_color:color.gray,text_size:2,y:-.5})
+        this.achievementRewardInfo = new Text({name:'achievementRewardInfo ',parent:this, text:this.rewardDescriptor,text_size:2,text_color:color.gray, xy:[.5,-.5]})
+        //this.claim = new Button({name:'claim ', text:'claim', color:color.gray,scale:[.1,.1]})
+      }
+}
+    </script>  
+<script type="text/sunsnake">
+
+#Global Functions
+set_orientation('horizontal')
+set_window_color('white')
+set_background_color('white')
+ASSETS_FOLDER = 'assets/'
+
+#Achievement 1 - 1
+
+achievement1 = AchievementEntity(alpha=1)
+_hidden_fullscreen_button.xy = [213213213,123123123]
+</script>
+<script src="taptapir/sunsnake_compiler.js"></script>
 </body>
 </html>
