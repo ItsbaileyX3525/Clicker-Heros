@@ -24,7 +24,7 @@ function ResumeSounds() {
       //TODO: Organise on mobile when home/ access to phone web
 class AchievementEntity extends Entity{
   constructor(options) {
-        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,color:color.black, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward'};
+        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,color:color.black, achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward'};
         for (const [key, value] of Object.entries(options)) {
             if (value !== false) {
                 settings[key] = value;
@@ -35,8 +35,20 @@ class AchievementEntity extends Entity{
         this.achievementTitle = new Text({name:'achievementTitle ',parent:this, text:this.title,text_color:color.gray,y:.15})
         this.achievementDescription = new Text({name:'achievementDescription ',parent:this, text:this.descriptor,text_color:color.gray,text_size:2,y:-.5})
         this.achievementRewardInfo = new Text({name:'achievementRewardInfo ',parent:this, text:this.rewardDescriptor,text_size:2,text_color:color.gray, xy:[.5,-.5]})
-        //this.claim = new Button({name:'claim ', text:'claim', color:color.gray,scale:[.1,.1]})
+        if (this.achievement && ! this.achievementClaimed) {
+            this.achievementClaim = new Button({name:'achievementClaim ', id:'claimable',text:"Claim",color:color.green,scale:[.175,.08],xy:[0.45,0]})
+        }
+        else if (this.achievement && this.achievementClaimed) {
+            this.achievementClaim = new Button({name:'achievement ', id:'unclaimable',text:"Claimed",color:color.gray,scale:[.175,.08],xy:[0.45,0]})
+        }
+        else {
+            this.achievementClaim = new Button({name:'achievement ', id:'unclaim',text:"Claimed",color:color.gray,scale:[.175,.08],xy:[0.45,0]})
+        }
+        this.achievementClaim.on_click = function(){
+            if (achievementClaim.id === 'claimable'){}
+        }
       }
+
 }
     </script>  
 <script type="text/sunsnake">
