@@ -24,7 +24,7 @@ function ResumeSounds() {
       //TODO: Organise on mobile when home/ access to phone web
 class AchievementEntity extends Entity{
   constructor(options) {
-        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,color:color.black, achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward'};
+        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,canClaim:false,color:color.black, achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward', reward: null};
         for (const [key, value] of Object.entries(options)) {
             if (value !== false) {
                 settings[key] = value;
@@ -36,19 +36,30 @@ class AchievementEntity extends Entity{
         this.achievementDescription = new Text({name:'achievementDescription ',parent:this, text:this.descriptor,text_color:color.gray,text_size:2,y:-.5})
         this.achievementRewardInfo = new Text({name:'achievementRewardInfo ',parent:this, text:this.rewardDescriptor,text_size:2,text_color:color.gray, xy:[.5,-.5]})
         if (this.achievement && ! this.achievementClaimed) {
-            this.achievementClaim = new Button({name:'achievementClaim ', id:'claimable',text:"Claim",color:color.green,scale:[.175,.08],xy:[0.45,0]})
+            print("Borger")
+            this.achievementClaim = new Button({name:'achievementClaim ',text:"Claim",color:color.green,scale:[.175,.08],xy:[0.45,0]});
+            this.canClaim = 'claimable';
+            print(this.canClaim)
         }
         else if (this.achievement && this.achievementClaimed) {
-            this.achievementClaim = new Button({name:'achievement ', id:'unclaimable',text:"Claimed",color:color.gray,scale:[.175,.08],xy:[0.45,0]})
+            this.achievementClaim = new Button({name:'achievementClaim ',text:"Claimed",color:color.gray,scale:[.175,.08],xy:[0.45,0]});
         }
         else {
-            this.achievementClaim = new Button({name:'achievement ', id:'unclaim',text:"Claimed",color:color.gray,scale:[.175,.08],xy:[0.45,0]})
+            this.achievementClaim = new Button({name:'achievementClaim ',text:"Claimed",color:color.gray,scale:[.175,.08],xy:[0.45,0]});
         }
         this.achievementClaim.on_click = function(){
-            if (achievementClaim.id === 'claimable'){}
+            print(this.canClaim)
+            if (this.canClaim === 'claimable'){
+                print("Hi")
+                eval(reward)
+                achievementClaimed = 1
+                claimAnimation();
+                localStorage.setItem(achievementClaimed, 1)
+                this.achievementClaim.color = color.gray
+                this.achievementClaim.text = 'Claimed'
+            }
         }
       }
-
 }
     </script>  
 <script type="text/sunsnake">
@@ -60,8 +71,9 @@ set_background_color('white')
 ASSETS_FOLDER = 'assets/'
 
 #Achievement 1 - 1
-
-achievement1 = AchievementEntity(alpha=1)
+clicked1achievement = true
+claimclickedonceachievement = save_system_load('claimclickedonceachievement') || 0
+achievement1 = AchievementEntity(alpha=1, title='Click 100 times', descriptor='Click the cliker 100 times', rewardDescriptor='20 clicks', achievement = clicked1achievement, achievementClaimed=claimclickedonceachievement, reward = 'console.log("Claimed")')
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
