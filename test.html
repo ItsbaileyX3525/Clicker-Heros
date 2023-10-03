@@ -1,10 +1,55 @@
 <!DOCTYPE html>
 <html>
-<style>
-body{
-    background-image:url('assets/bg.webp');
-}
-</style>
+    <style>
+
+        @font-face{
+            font-family: MainFont;
+            src: url('assets/MainFont.ttf')
+        }
+        @keyframes rainbow {
+          0% { background-color: red; }
+          14% { background-color: orange; }
+          28% { background-color: yellow; }
+          42% { background-color: green; }
+          57% { background-color: blue; }
+          71% { background-color: indigo; }
+          85% { background-color: violet; }
+          100% { background-color: red; }
+        }
+        html * {
+            font-family: MainFont;
+        }
+        body{
+            background-image:url('assets/bg.webp');
+        }
+        .rainbow-animation {
+          animation: rainbow 2s linear infinite;
+        }
+        .claimed {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            font-size: 24px;
+            transform: translate(-50%, -50%);
+            color: green;
+            animation: claim 3s ease-in-out forwards;
+        }
+        
+        @keyframes claim {
+            0% {
+            opacity: 0;
+            transform: translate(-50%, 100%);
+            }
+            50% {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            }
+            100% {
+            opacity: 0;
+            transform: translate(-50%, -100%);
+            }
+        }
+        </style>
 <body>
     <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
     <script src="Smooth.js"></script>
@@ -16,7 +61,14 @@ function PauseSounds() {
 function ResumeSounds() {
     StartedSong.play()
 }
-
+function claimAnimation() {
+      const element = document.createElement('div')
+      document.body.appendChild(element)
+      element.innerText = 'Claimed successfully';
+      element.classList.add('claimed');
+      after(3, function() {element.remove()})
+    }
+    
     </script>
 
     <script src="taptapir/taptapir.js"></script> 
@@ -36,10 +88,8 @@ class AchievementEntity extends Entity{
         this.achievementDescription = new Text({name:'achievementDescription ',parent:this, text:this.descriptor,text_color:color.gray,text_size:2,y:-.5})
         this.achievementRewardInfo = new Text({name:'achievementRewardInfo ',parent:this, text:this.rewardDescriptor,text_size:2,text_color:color.gray, xy:[.5,-.5]})
         if (this.achievement && ! this.achievementClaimed) {
-            print("Borger")
             this.achievementClaim = new Button({name:'achievementClaim ',text:"Claim",color:color.green,scale:[.175,.08],xy:[0.45,0]});
             this.canClaim = 'claimable';
-            print(this.canClaim)
         }
         else if (this.achievement && this.achievementClaimed) {
             this.achievementClaim = new Button({name:'achievementClaim ',text:"Claimed",color:color.gray,scale:[.175,.08],xy:[0.45,0]});
@@ -47,19 +97,18 @@ class AchievementEntity extends Entity{
         else {
             this.achievementClaim = new Button({name:'achievementClaim ',text:"Claimed",color:color.gray,scale:[.175,.08],xy:[0.45,0]});
         }
-        this.achievementClaim.on_click = function(){
-            print(this.canClaim)
+        this.achievementClaim.on_click = () => {
             if (this.canClaim === 'claimable'){
-                print("Hi")
-                eval(reward)
-                achievementClaimed = 1
+                if (this.canClaim === 'claimable'){
+                eval(this.reward)
+                this.achievementClaimed = 1
                 claimAnimation();
-                localStorage.setItem(achievementClaimed, 1)
+                localStorage.setItem(this.achievementClaimed, 1)
                 this.achievementClaim.color = color.gray
                 this.achievementClaim.text = 'Claimed'
             }
         }
-      }
+      }}
 }
     </script>  
 <script type="text/sunsnake">
