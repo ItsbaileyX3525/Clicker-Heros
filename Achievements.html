@@ -77,7 +77,44 @@ function claimAnimation() {
     
     </script>
 
-    <script src="taptapir/taptapir.js"></script>   
+<script src="taptapir/taptapir.js"></script>
+<script>
+class AchievementEntity extends Entity{
+  constructor(options) {
+        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,canClaim:false,color:color.black,achievementName: '', achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward', reward: null};
+        for (const [key, value] of Object.entries(options)) {
+            if (value !== false) {
+                settings[key] = value;
+            }
+        }
+        super(settings);
+        this.achievementIcon = new Entity({name:'achievementIcon ',parent:this,scale:[.125,.8],texture:'Clicker-idle.gif',x:-.445})
+        this.achievementTitle = new Text({name:'achievementTitle ',parent:this, text:this.title,text_color:color.gray,y:0})
+        this.achievementDescription = new Text({name:'achievementDescription ',parent:this, text:this.descriptor,text_color:color.gray,text_size:2,y:-.5})
+        this.achievementRewardInfo = new Text({name:'achievementRewardInfo ',parent:this, text:"Reward: "+this.rewardDescriptor,text_size:2,text_color:color.gray, xy:[.5,-.5]})
+        if (! this.achievement && this.achievementClaimed) {
+            this.achievementClaim = new Button({name:'achievementClaim ',parent:this,text:"Claim",color:color.green,scale:[.15,.7],xy:[0.4,0]});
+            this.canClaim = 'claimable';
+        }
+        else if (this.achievement && this.achievementClaimed) {
+            this.achievementClaim = new Button({name:'achievementClaim ',parent:this,text:"Claimed",color:color.gray,scale:[.15,.7],xy:[0.4,0]});
+        }
+        else {
+            this.achievementClaim = new Button({name:'achievementClaim ',parent:this,text:"Claim",color:color.gray,scale:[.15,.7],xy:[0.4,0]});
+        }
+        this.achievementClaim.on_click = () => {
+            if (this.canClaim === 'claimable'){
+                eval(this.reward)
+                claimAnimation();
+                localStorage.setItem(this.achievementName, 1)
+                this.achievement = 1
+                this.achievementClaim.color = color.gray
+                this.achievementClaim.text = 'Claimed'
+        }
+      }}
+}
+</script>
+
 <script type="text/sunsnake">
 
 #Global Functions
@@ -151,74 +188,29 @@ tab1.on_click = def():
     if not inTab1:
         print("egg")
 
-#Checking if the achievements have been earnt
-clicked1achievement = save_system_load('clickedonceachievement') || 0;
-clicked2500achievement = save_system_load('clicked5000achievement') || 0;
-clicked10000achievement = save_system_load('clicked500000achievement') || 0;
-claimedclicked1achievement = save_system_load('claimclickedonceachievement') || 0
-claimedclicked2500achievement = save_system_load('claimclicked5000achievement') || 0
-claimedclicked10000achievement = save_system_load('claimclicked500000achievement') || 0
-
-playedforhour = save_system_load('playedforhour') || 0
-playedfor3day = save_system_load('playedfor3day') || 0
-playedforweek = save_system_load('playedforweek') || 0
-
-amountEarned100 = save_system_load('amountearned100') || 0;
-amountEarned50000 = save_system_load('amountearned50000') || 0;
-amountEarned250000 = save_system_load('amountearned250000') || 0;
-
-spent1godlyclick = save_system_load('spent1godlyclicks') || 0;
-spent10godlyclick = save_system_load('spent10godlyclicks') || 0;
-spent50godlyclick = save_system_load('spent50godlyclicks') || 0;
-
-#Achievement sorting.
 #Achievement 1 - 1
-achievement1_1 = Entity(scale=[1.2,.1],y=-.05,color=color.black)
-achievement1_1_icon = Entity(scale=[.1,.1],texture='Clicker-idle.gif',y=-.05,x=-.55)
-achievement1_1_Title = Text(text='First click',xy=[-.1,-.5],text_color=color.gray)
-achievement1_1_Description = Text(text='Click the clicker once.',xy=[-.1,-.55],text_color=color.gray,text_size=2)
-achievement1_1_RewardInfo = Text(text='Reward: 100 clicks.',text_size=2,text_color=color.gray,xy=[.4,-.55])
-if clicked1achievement and not claimedclicked1achievement:
-    achievement1_1_Claim = Button(id='claimable',text="Claim",color=color.green,scale=[.14,.08],xy=[0.35,-.05])
-elif clicked1achievement and claimedclicked1achievement:
-    achievement1_1_Claim = Button(id='unclaimable',text="Claimed",color=color.gray,scale=[.14,.08],xy=[0.35,-.05])
-else:
-    achievement1_1_Claim = Button(id='unclaim',text="Claimed",color=color.gray,scale=[.14,.08],xy=[0.35,-.05])
-achievement1_1_Claim.on_click = def():
-    if achievement1_1_Claim.id == 'claimable':
-        score+=100
-        claimedclicked1achievement = True
-        save_system_save("score", score);
-        save_system_save('claimclickedonceachievement', 1)
-        achievement1_1_Claim.color=color.gray
-        achievement1_1_Claim.text = 'Claimed'
-        claimAnimation()
 
-#Achievement 1 - 2
-achievement2_1 = Entity(scale=[1.2,.1],y=-.2,color=color.black)
-achievement2_1_icon = Entity(scale=[.1,.1],texture='clickerManLevel2.webp',y=-.2,x=-.55)
-achievement2_1_Title = Text(text='First click',xy=[-.1,-.5],text_color=color.gray)
-achievement2_1_Description = Text(text='Click the clicker once.',xy=[-.1,-.55],text_color=color.gray,text_size=2)
-achievement2_1_RewardInfo = Text(text='Reward: 100 clicks.',text_size=2,text_color=color.gray,xy=[.4,-.55])
-if clicked2500achievement and not claimedclicked2500achievement:
-    achievement2_1_Claim = Button(id='claimable',text="Claim",color=color.green,scale=[.14,.08],xy=[0.35,-.0])
-elif clicked2500achievement and claimedclicked2500achievement:
-    achievement2_1_Claim = Button(id='unclaimable',text="Claimed",color=color.gray,scale=[.14,.08],xy=[0.35,-.05])
-else:
-    achievement2_1_Claim = Button(id='unclaim',text="Claimed",color=color.gray,scale=[.14,.08],xy=[0.35,-.05])
-achievement2_1_Claim.on_click = def():
-    if achievement2_1_Claim.id == 'claimable':
-        #Add reward here
-        claimedclicked2500achievement = True
-        save_system_save("score", score);
-        save_system_save('claimclicked5000achievement', 1)
-        achievement2_1_Claim.color=color.gray
-        achievement2_1_Claim.text = 'Claimed'
-        claimAnimation()
+#this is for testing when the achievement has been claimed.
+clicked1achievement = save_system_load('claimed1achievement') || 0
+clicked2500achievement = save_system_load('claimed2500achievement') || 0
+clicked10000achievement = save_system_load('claimed10000achievement') || 0
 
-#Achievement 1 - 3
-achievement3_1 = Entity(scale=[1.2,.1],y=-.35,color=color.black)
-achievement3_1_icon = Entity(scale=[.1,.1],texture='clickerManLevel3.webp',y=-.35,x=-.55)
+#Used for connecting the names together
+achievement1name = 'claimed1achievement'
+achievement2name = 'claimed2500achievement'
+achievement3name = 'claimed10000achievement'
+
+#This one is used for tracking when you achieve it
+claimclickedonceachievement = save_system_load('clickedonceachievement') || 0
+claimclicked2500achievement = save_system_load('clicked2500achievement') || 0
+claimclicked10000achievement = save_system_load('clicked10000achievement') || 0
+
+
+#Loading the achievement
+achievement1 = AchievementEntity(title='Clicked once', descriptor='Click the clicker 1 time', achievementName = achievement1name, rewardDescriptor='100 clicks', achievement = clicked1achievement, achievementClaimed=claimclickedonceachievement, reward = 'score+=100')
+achievement2 = AchievementEntity(y=-.2, title='Clicked 2500 times', descriptor='Click the clicker 2500 times', achievementName = achievement2name, rewardDescriptor='23000 clicks', achievement = clicked2500achievement, achievementClaimed=claimclicked2500achievement, reward = 'score+=23000')
+achievement3 = AchievementEntity(y=-.4, title='Clicked 10000 times', descriptor='Click the clicker 10000 times', achievementName = achievement3name, rewardDescriptor='250000 clicks', achievement = clicked10000achievement, achievementClaimed=claimclicked10000achievement, reward = 'score+=500000')
+
 
 
 

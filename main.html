@@ -261,6 +261,7 @@ ClickerDude.on_click = def():
     save_system_save('timesclicked', timesClicked)
     overallScoreEarned += collectiveCPS/5 + 1
     score += collectiveCPS/5 + 1
+    userClicksPerSecond += 1
     Playwoosh()
 
 
@@ -699,6 +700,29 @@ after .2s:
         createText()
         revealOneCharacter(characters)
     
+
+
+
+#Fuck ppl with a fast CPS, send them to the shadow realm
+userClicksPerSecond = 0
+def shadowRealm():
+    print(userClicksPerSecond)
+    if userClicksPerSecond >= 13 and userClicksPerSecond < 20:
+        ClickerDude.enabled = False
+        slowDownBuster = Entity(z=-1,scale=[.8,.3],color=color.gray)
+        slowDownBuster1 = Text(text="You're clicking too fast, Snoroz, slow down,\n you'll hurt your fingies.",xy=[0,-.4])
+        okSowwyMyBad = Button(text='Ok',color=color.green,scale=[.15,.1],xy=[-.2,-.07])
+        okSowwyMyBad.on_click = def():
+            destroy(slowDownBuster)
+            destroy(slowDownBuster1)
+            destroy(okSowwyMyBad)
+            ClickerDude.enabled=True
+    if userClicksPerSecond >= 20:
+        SmoothTransit('ShadowRealm')
+    userClicksPerSecond = 0
+    after 1:
+        shadowRealm()
+shadowRealm()
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>

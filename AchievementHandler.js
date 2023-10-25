@@ -1,3 +1,5 @@
+//Shout out to snoroz and mawdaw for creating the awesome sound effect for the achievement, love it
+
 let achievementInProgress = false;
 const achievementQueue = [];
 const achievementQueueMAX = [];
@@ -82,8 +84,8 @@ class AchievementShowerMAX extends Entity {
 }
 
 clicked1achievement = save_system_load('clickedonceachievement') || 0;
-clicked2500achievement = save_system_load('clicked5000achievement') || 0;
-clicked10000achievement = save_system_load('clicked500000achievement') || 0;
+clicked2500achievement = save_system_load('clicked2500achievement') || 0;
+clicked10000achievement = save_system_load('clicked10000achievement') || 0;
 
 playedforhour = save_system_load('playedforhour') || 0
 playedfor3day = save_system_load('playedfor3day') || 0
@@ -158,14 +160,14 @@ AchievementHandler.update = function () {
         save_system_save('clicked2500achievement', clicked2500achievement);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
-        achievementQueue.push({ alpha: 1, icon: 'clickerManLevel2.webp', title:'5000 clicks!' });
+        achievementQueue.push({ alpha: 1, icon: 'clickerManLevel2.webp', title:'2500 clicks!' });
     } 
     if (timesClicked >= 10000 && !clicked10000achievement) {
         clicked10000achievement = 1;
         save_system_save('clicked10000achievement', clicked10000achievement);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
-        achievementQueueMAX.push({alpha: 1, icon: 'clickerManLevel3.webp', title:'Reached 500k clicks!' });
+        achievementQueueMAX.push({alpha: 1, icon: 'clickerManLevel3.webp', title:'Reached 10k clicks!' });
     } 
     if (godlyClicksTracker >= 1 && !spent1godlyclick){
         spent1godlyclick = 1;
