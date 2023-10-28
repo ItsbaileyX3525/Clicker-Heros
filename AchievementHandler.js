@@ -78,7 +78,6 @@ class AchievementShowerMAX extends Entity {
             if (typeof callback === 'function') {
                 callback();
             }})
-            
         });
     } 
 }
@@ -111,21 +110,21 @@ AchievementHandler.update = function () {
         achievementCounter+=1
         console.log("Earned")
         save_system_save('achievementcounter', achievementCounter);
-        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'Played for an hour!' });  
+        achievementQueue.push({ alpha: 1, icon: 'Cock, i mean clock.webp', title:'Played for an hour!' });  
     } 
     if (timeCounter >= 3 * 24 * 60 * 60 && !playedfor3day) {
         playedfor3day = 1;
         save_system_save('playedfor3day', playedfor3day);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
-        achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'Played for 3 days!' });  
+        achievementQueue.push({ alpha: 1, icon: 'Cock, i mean clock.webp', title:'Played for 3 days!' });  
     }
     if (timeCounter >= 7 * 24 * 60 * 60 && !playedforweek) {
         playedforweek = 1;
         save_system_save('playedforweek', playedforweek);
         achievementCounter+=1
         save_system_save('achievementcounter', achievementCounter);
-        achievementQueueMAX.push({ alpha: 1, icon: 'clickerGen1.webp', title:'Played for a week!' });  
+        achievementQueueMAX.push({ alpha: 1, icon: 'Cock, i mean clock.webp', title:'Played for a week!' });  
     } 
     if (overallScoreEarned >= 100 && !amountEarned100){
         amountEarned100 = 1;
@@ -141,7 +140,7 @@ AchievementHandler.update = function () {
         save_system_save('achievementcounter', achievementCounter);
         achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'50000 score earnt!' });  
     }
-    if (overallScoreEarned >= 2500000 && !amountEarned250000){
+    if (overallScoreEarned >= 250000 && !amountEarned250000){
         amountEarned250000 = 1;
         save_system_save('amountearned250000', amountEarned250000);
         achievementCounter+=1
