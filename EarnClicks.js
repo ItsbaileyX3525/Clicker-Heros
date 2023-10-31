@@ -104,9 +104,8 @@ function getCurrentTimestamp() {
   function updateElapsedTime() {
     const currentTime = getCurrentTimestamp();
     timeCounter = currentTime - joinDate
-    print("time played", timeCounter)
     localStorage.setItem('lastVisitTime', currentTime.toString());
-  }
+}
 
 function findLastTime() {
     const startTime = getCurrentTimestamp();

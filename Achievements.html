@@ -106,6 +106,9 @@ class AchievementEntity extends Entity{
             if (this.canClaim === 'claimable'){
                 eval(this.reward)
                 claimAnimation();
+                achievementClaimed.pause()
+                achievementClaimed.currentTime = 0
+                achievementClaimed.play()
                 localStorage.setItem(this.achievementName, 1)
                 eval(`${this.achievementName} = 1;claim${this.achievementName} = 1`)
                 this.achievementClaim.color = color.gray
@@ -114,6 +117,7 @@ class AchievementEntity extends Entity{
       }}
 }
 let buttonPress = new Audio('assets/achievementPress.ogg')
+let achievementClaimed = new Audio('assets/AchievementClaim.ogg')
 </script>
 
 <script type="text/sunsnake">
@@ -209,7 +213,7 @@ inTab2 = False
 inTab3 = False
 tab1 = Entity(scale=[.1,.1],texture='Clicker-idle.gif',color=[178,190,181],x=-.6035,y=.152)
 tab2 = Entity(scale=[.1,.1],texture='clickerGen1.webp',color=[178,190,200],x=-.45,y=.152)
-tab3 = Entity(scale=[.1,.1],texture='Cock, i mean clock.webp',color=[178,190,181],x=-.3,y=.152)
+tab3 = Entity(scale=[.1,.1],texture='Cock, i mean clock.webp',color=[178,190,200],x=-.3,y=.152)
 
 sortOutTheOutlineTR(id='tab1 ', 2)
 sortOutTheOutlineL('tab1 ', 5)
@@ -225,7 +229,12 @@ tab2.on_click = def():
         tab2.color = [178,190,181]
         inTab2 = True
         loadTab2()
-
+tab3.on_click = def():
+    if not inTab3:
+        unloadTabs()
+        tab3.color = [178,190,181]
+        inTab3 = True
+        loadTab3()
 #Achievement 1
 
 #this is for testing when the achievement has been claimed.
@@ -260,17 +269,38 @@ claimearned100achievement = save_system_load('amountearned100') || 0
 claimearned50000achievement = save_system_load('amountearned50000') || 0
 claimearned250000achievement = save_system_load('amountearned250000') || 0
 
+#Achievement 3
+
+#this is for testing when the achievement has been claimed.
+played1_hour = save_system_load('played1_hour') || 0
+played3days = save_system_load('played3days') || 0
+played1week = save_system_load('played1week') || 0
+
+#Used for connecting the names together
+achievement7name = 'played1_hour'
+achievement8name = 'played3days'
+achievement9name = 'played1week'
+
+#This one is used for tracking when you achieve it
+claimplayed1_hour = save_system_load('playedforhour') || 0
+claimplayed3days = save_system_load('playedfor3day') || 0
+claimplayed1week = save_system_load('playedforweek') || 0
+
+
 def loadTab1():
-    #Loading the achievement
     achievement1 = AchievementEntity(title='Clicked once', descriptor='Click the clicker 1 time', achievementName = achievement1name, rewardDescriptor='100 clicks', achievement = Tclicked1achievement, achievementClaimed=claimTclicked1achievement, reward = 'score+=50;overallScoreEarned+=50')
     achievement2 = AchievementEntity(y=-.2, title='Clicked 2500 times', descriptor='Click the clicker 2500 times', achievementName = achievement2name, rewardDescriptor='23000 clicks', achievement = Tclicked2500achievement, achievementClaimed=claimTclicked2500achievement, reward = 'score+=23000;overallScoreEarned+=23000')
     achievement3 = AchievementEntity(y=-.4, title='Clicked 10000 times', descriptor='Click the clicker 10000 times', achievementName = achievement3name, rewardDescriptor='250000 clicks', achievement = Tclicked10000achievement, achievementClaimed=claimTclicked10000achievement, reward = 'score+=500000;overallScoreEarned+=50000')
 
 def loadTab2():
-    #Loading the achievement
     achievement4 = AchievementEntity(iconTexture = 'clickerGen1.webp',title='Earned 100 clicks', descriptor='Earn a total of 100 clicks', achievementName = achievement4name, rewardDescriptor='300 clicks', achievement = earned100achievement, achievementClaimed=claimearned100achievement, reward = 'score+=300;overallScoreEarned+=300')
     achievement5 = AchievementEntity(iconTexture = 'clickerGen1.webp',y=-.2, title='Earned 50000 clicks', descriptor='Earn a total of 50000 clicks', achievementName = achievement5name, rewardDescriptor='35000 clicks', achievement = earned50000achievement, achievementClaimed=claimearned50000achievement, reward = 'score+=35000;overallScoreEarned+=35000')
     achievement6 = AchievementEntity(iconTexture = 'clickerGen1.webp',y=-.4, title='Earned 250000 clicks', descriptor='Earn a total of 250000 clicks', achievementName = achievement6name, rewardDescriptor='200000 clicks', achievement = earned250000achievement, achievementClaimed=claimearned250000achievement, reward = 'score+=200000;overallScoreEarned+=200000')
+
+def loadTab3():
+    achievement7 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',title='Played for an hour', descriptor='Play/have the app for atleast an hour', achievementName = achievement7name, rewardDescriptor='300 clicks', achievement = played1_hour, achievementClaimed=claimplayed1_hour, reward = 'score+=300;overallScoreEarned+=300')
+    achievement8 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',y=-.2, title='Played for 3 days', descriptor='Play/have the app for atleast 3 days', achievementName = achievement8name, rewardDescriptor='35000 clicks', achievement = played3days, achievementClaimed=claimplayed3days, reward = 'score+=35000;overallScoreEarned+=35000')
+    achievement9 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',y=-.4, title='Played for a week', descriptor='Play/have the app for atleast a week', achievementName = achievement9name, rewardDescriptor='200000 clicks', achievement = played1week, achievementClaimed=claimplayed1week, reward = 'score+=200000;overallScoreEarned+=200000')
 
 
 loadTab1()

@@ -108,7 +108,6 @@ AchievementHandler.update = function () {
         playedforhour = 1;
         save_system_save('playedforhour', playedforhour);
         achievementCounter+=1
-        console.log("Earned")
         save_system_save('achievementcounter', achievementCounter);
         achievementQueue.push({ alpha: 1, icon: 'Cock, i mean clock.webp', title:'Played for an hour!' });  
     } 

@@ -538,6 +538,7 @@ levelUps.append(Gen7LevelUp)
 #Appending main items
 mainScene.append(ClickerDude)
 mainScene.append(settingsButton)
+mainScene.append(AchievementsButton)
 mainScene.append(cpsDisplay)
 mainScene.append(prestigeStuff)
 mainScene.append(prestigeStuffbg)
@@ -707,7 +708,6 @@ after .2s:
 #Fuck ppl with a fast CPS, send them to the shadow realm
 userClicksPerSecond = 0
 def shadowRealm():
-    print(userClicksPerSecond)
     if userClicksPerSecond >= 13 and userClicksPerSecond < 20:
         ClickerDude.enabled = False
         slowDownBuster = Entity(z=-1,scale=[.8,.3],color=color.gray)
