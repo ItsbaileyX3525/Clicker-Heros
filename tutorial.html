@@ -54,6 +54,16 @@ function removeSpans(id='msgboxgodly '){
     }
 }
 
+speaking = new Audio('assets/speaking.ogg')
+function keepTheAudioGoing() {
+    speaking.play()
+    speaking.addEventListener("ended", function(){
+    speaking.currentTime = 0;
+    speaking.play()
+    console.log("ended");
+});
+}
+
 function PauseSounds() {
 }
 function ResumeSounds() {
@@ -68,16 +78,29 @@ set_orientation('horizontal')
 set_window_color('transparent')
 ASSETS_FOLDER = 'assets/'
 
+onCurrent=1
+canContinue=False
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
-    Playwoosh()
-
+    if onCurrent == 4:
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nYou're a natural! You've got this." },
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent +=1
+        msgboxArrow.enabled=True
+        canContinue=True
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
 msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
 
-onCurrent=1
+
 msgboxgodly.on_click = def():
-    if onCurrent == 1:
+    if onCurrent == 1 and canContinue:
+        canContinue = False
+        speaking.pause()
+        speaking.currentTime = 0 
         parenter = document.getElementById("msgboxgodly ");
         container = parenter.querySelector("entity")
         removeSpans()
@@ -88,35 +111,69 @@ msgboxgodly.on_click = def():
         ];
         createText()
         revealOneCharacter(characters)
+        keepTheAudioGoing()
+        after 2.9s:
+            speaking.pause()
+            speaking.currentTime = 0
+            canContinue = True
         onCurrent += 1
-    elif onCurrent == 2:
+    elif onCurrent == 2 and canContinue:
+        canContinue=False
+        speaking.pause()
+        speaking.currentTime = 0 
+        thisGuyRightHere = Entity(texture='ThisDude.webp',scale=[.3,.3],xy=[0.25,0.18])
         removeSpans()
         textLines = [
         { speed: speeds.fast, string: "\nThis guy is simply called Clicker Dude." },        
         ];
         createText()
         revealOneCharacter(characters)
+        keepTheAudioGoing()
+        after 1.3s:
+            speaking.pause()
+            speaking.currentTime = 0
+            canContinue=True
         onCurrent +=1
-    elif onCurrent == 3:
+    elif onCurrent == 3 and canContinue:
+        canContinue=False
+        speaking.pause()
+        speaking.currentTime = 0 
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: '\nGodly clicks can be collected every 5 minutes of\nplaytime and can grant 1-2 godly clicks per harvest.' },        
+        { speed: speeds.fast, string: '\nThis is the guy you will click for more clicks' },
         ];
         createText()
         revealOneCharacter(characters)
         onCurrent +=1
-    elif onCurrent == 4:
-        destroy(msgboxgodly)
+        keepTheAudioGoing()
+        after 1.6s:
+            speaking.pause()
+            speaking.currentTime = 0
+            canContinue=True
+    elif onCurrent == 4 and canContinue:
+        removeSpans()
+        canContinue=False
+        speaking.pause()
+        speaking.currentTime = 0 
+        textLines = [
+        { speed: speeds.fast, string: '\nGo on, give it a try, click him.' },
+        ];
+        createText()
+        revealOneCharacter(characters)
         msgboxArrow.enabled=False
-        cpsDisplay.enabled=True
-        noInteract = False
-        onCurrent = 1
+        keepTheAudioGoing()
+        after 1s:
+            speaking.pause()
+            speaking.currentTime = 0
+            canContinue=True
+    elif onCurrent == 5 and canContinue:
+        ;
 
 msgboxgodly.enabled=True
-after 1:
+after 2:
     msgboxArrow.enabled=True
 
-after .1s:
+after 1s:
     parenter = document.getElementById("msgboxgodly ");
     container = parenter.querySelector("entity")
     removeSpans()
@@ -125,10 +182,13 @@ after .1s:
     ];
     createText()
     revealOneCharacter(characters)
-
-
-
-thisGuyRightHere = Entity(texture='ThisDude.webp',scale=[.3,.3],xy=[0.25,0.18])
+    keepTheAudioGoing()
+    after 1s:
+        speaking.pause()
+        speaking.currentTime = 0
+        canContinue = True
+ 
+ 
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>

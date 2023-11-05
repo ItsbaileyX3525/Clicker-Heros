@@ -101,15 +101,16 @@ else:
 save_system_save('firsttimeplayed',1)
 getVersion();
 
-startButton.on_click = def():
-    click.play()
-    candoshit = False
-    SmoothTransit('main')
-    startButton.ignore_collision = True
-    settingsButton.ignore_collision = True
-
+try:
+    startButton.on_click = def():
+        click.play()
+        candoshit = False
+        SmoothTransit('main')
+        startButton.ignore_collision = True
+        settingsButton.ignore_collision = True
+catch (Error) {;}
 startButtonUwU.on_click = def():
-click.play()
+    click.play()
     candoshit = False
     SmoothTransit('tutorial')
     startButton.ignore_collision = True
