@@ -121,21 +121,24 @@ function secondsToHoursAndMinutes() {
 
 #Global Functions
 set_orientation('horizontal')
-set_window_color('white')
+set_window_color('green')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
+realBackground = Entity(parent=camera.ui,texture = 'Green.webp',scale=[2,1])
 
 timeplayed = Text(xy=[-.4,-.15],text="playtime "+time['seconds']+" seconds")
 timeplayedFull = Text(z=-4,text_size=5,enabled=False,xy=[-.4,-.15],text="playtime "+time['seconds']+" seconds")
 returnButtonTime = Button(texture='LeftArrow.webp',scale=[.125,.125],xy=[-0.75,.45],z=-4,enabled=False)
 returnButtonTime.on_click = def():
-    destroy(tempBackground)
+    realBackground.texture = 'Green.webp'
+    realBackground.z=2
     timeplayedFull.enabled=False
     returnButtonTime.enabled=False
 expandTimePlayed = Button(color=color.white,texture='Expand.webp', scale=[.1,.1],xy=[0.025,0.325])
 expandTimePlayed.on_click = def():
-    tempBackground = Entity(z=-2,parent=camera.ui,scale=[2,1],color=color.gray)
+    realBackground.texture = 'LightGreen.webp'
+    realBackground.z=-2
     timeplayedFull.enabled=True
     returnButtonTime.enabled=True
 

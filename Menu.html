@@ -43,7 +43,7 @@ const getVersion = async () => {
     .then(response => response.text())
     .then(text => {
         const fetchedVersion = text.trim();
-        const predefinedVersion = '1.4';
+        const predefinedVersion = '2';
 
         if (predefinedVersion === fetchedVersion) {
             ;
@@ -91,7 +91,7 @@ def updateFYIText():
 #Menuscreen used for cool shit
 Title = Text(text='CLICKER HEROS!',xy=[.04,-0.025],text_color=color.red,text_size=8)
 if not firstTimePlayed:
-    startButton = Button(text='START GAME',y=0,scale=[.5,.1],roundness=.5)
+    startButtonUwU = Button(text='START GAME',y=0,scale=[.5,.1],roundness=.5)
 else:
     startButton = Button(text='START GAME',y=.15,scale=[.5,.1],roundness=.5)
     settingsButton = Button(text='SETTINGS',y=0,scale=[.5,.1],roundness=.5)
@@ -105,6 +105,13 @@ startButton.on_click = def():
     click.play()
     candoshit = False
     SmoothTransit('main')
+    startButton.ignore_collision = True
+    settingsButton.ignore_collision = True
+
+startButtonUwU.on_click = def():
+click.play()
+    candoshit = False
+    SmoothTransit('tutorial')
     startButton.ignore_collision = True
     settingsButton.ignore_collision = True
 

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <style>
+body{
+    background-image:url('assets/bg.webp');
+}
+        @font-face{
+    font-family: MainFont;
+    src: url('assets/MainFont.ttf')
+}
+@keyframes rainbow {
+  0% { background-color: red; }
+  14% { background-color: orange; }
+  28% { background-color: yellow; }
+  42% { background-color: green; }
+  57% { background-color: blue; }
+  71% { background-color: indigo; }
+  85% { background-color: violet; }
+  100% { background-color: red; }
+}
+html * {
+    font-family: MainFont;
+}
+      </style>
+<body>
+    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+    <script src="Smooth.js"></script>
+    <script>
+
+function Playwoosh() {
+   if (!allowedAttackSFX) {
+    ;
+   } else {
+    swoosh = random_int_(1,3);
+    if (swoosh === 1) {
+      woosh = new Audio('assets/woosh1.ogg')
+    } else if (swoosh === 2) {
+      woosh = new Audio('assets/woosh2.ogg')
+    } else {
+      woosh = new Audio('assets/woosh3.ogg')
+    }
+    woosh.volume = parseFloat(window.localStorage.getItem('mastervolume'))
+    woosh.play()
+
+    woosh.addEventListener('ended', function() {
+      woosh.remove();
+    })};
+}
+function removeSpans(id='msgboxgodly '){
+    var list1 = document.getElementById(id);
+    var list = parenter.querySelector("entity")
+    while (list.hasChildNodes()) {
+        list.removeChild(list.firstChild);
+    }
+}
+
+function PauseSounds() {
+}
+function ResumeSounds() {
+}
+    </script>
+    <script src="taptapir/taptapir.js"></script>
+<script src="taptapir-utility/slider.js"></script>
+<script type="text/sunsnake">
+
+#Global Functions
+set_orientation('horizontal')
+set_window_color('transparent')
+ASSETS_FOLDER = 'assets/'
+
+ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
+ClickerDude.on_click = def():
+    Playwoosh()
+
+msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
+msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
+
+onCurrent=1
+msgboxgodly.on_click = def():
+    if onCurrent == 1:
+        parenter = document.getElementById("msgboxgodly ");
+        container = parenter.querySelector("entity")
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nClicker heros is a simple clicker game that I have" },
+        { speed: speeds.fast, string: "\nbeen working on for a while now" },
+        
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent += 1
+    elif onCurrent == 2:
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nThis guy is simply called Clicker Dude." },        
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent +=1
+    elif onCurrent == 3:
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: '\nGodly clicks can be collected every 5 minutes of\nplaytime and can grant 1-2 godly clicks per harvest.' },        
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent +=1
+    elif onCurrent == 4:
+        destroy(msgboxgodly)
+        msgboxArrow.enabled=False
+        cpsDisplay.enabled=True
+        noInteract = False
+        onCurrent = 1
+
+msgboxgodly.enabled=True
+after 1:
+    msgboxArrow.enabled=True
+
+after .1s:
+    parenter = document.getElementById("msgboxgodly ");
+    container = parenter.querySelector("entity")
+    removeSpans()
+    textLines = [
+    { speed: speeds.fast, string: "\nWelcome to clicker heros!\n" }
+    ];
+    createText()
+    revealOneCharacter(characters)
+
+
+
+thisGuyRightHere = Entity(texture='ThisDude.webp',scale=[.3,.3],xy=[0.25,0.18])
+
+_hidden_fullscreen_button.xy = [213213213,123123123]
+</script>
+<script src="taptapir/sunsnake_compiler.js"></script>
+<script>
+    var parenter = document.getElementById("msgboxgodly ");
+var container = parenter.querySelector("entity")
+var speeds = {
+   pause: 500, //Higher number = longer delay
+   slow: 120,
+   normal: 90,
+   fast: 40,
+   superFast: 10
+};
+
+
+var textLines = [
+   { speed: speeds.normal, string: "\nYo!" },
+   { speed: speeds.pause, string: "", pause: true },
+   { speed: speeds.fast, string: "You've reached 100M clicks!" },
+   { speed: speeds.pause, string: "", pause: true },
+   { speed: speeds.fast, string: "Congrats by the way.\nThis" },
+   { speed: speeds.fast, string: "means you can now" },
+   { speed: speeds.fast, string: "start earning godly clicks" },
+];
+var characters = [];
+function createText() {
+if (characters != []){characters = []}
+textLines.forEach((line, index) => {
+   if (index < textLines.length - 1) {
+      line.string += " "; //Add a space between lines
+   }
+
+   line.string.split("").forEach((character) => {
+      var span = document.createElement("span");
+      span.style.zIndex = 10
+      span.style.opacity = 0
+      span.style.fontSize = "x-large"
+      span.textContent = character;
+      container.appendChild(span);
+      characters.push({
+         span: span,
+         isSpace: character === " " && !line.pause,
+         delayAfter: line.speed,
+         classes: line.classes || []
+      });
+   });
+});}
+createText();
+function revealOneCharacter(list) {
+   var next = list.splice(0, 1)[0];
+   next.span.classList.add("revealed");
+   next.span.style.opacity = 1
+   next.classes.forEach((c) => {
+      next.span.classList.add(c);
+      
+   });
+   var delay = next.isSpace && !next.pause ? 0 : next.delayAfter;
+
+   if (list.length > 0) {
+      setTimeout(function () {
+         revealOneCharacter(list);
+      }, delay);
+   }
+}   
+</script>
+
+<script src="EarnClicks.js"></script></body>
+</html>
