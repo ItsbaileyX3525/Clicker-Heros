@@ -54,14 +54,14 @@ function removeSpans(id='msgboxgodly '){
     }
 }
 
-speaking = new Audio('assets/speaking.ogg')
+speaking = new Audio('assets/Speaking.ogg')
 function keepTheAudioGoing() {
     speaking.play()
     speaking.addEventListener("ended", function(){
     speaking.currentTime = 0;
     speaking.play()
     console.log("ended");
-});
+}); 
 }
 
 function PauseSounds() {
@@ -83,6 +83,9 @@ canContinue=False
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
     if onCurrent == 4:
+        canContinue=False
+        speaking.pause()
+        speaking.currentTime = 0 
         removeSpans()
         textLines = [
         { speed: speeds.fast, string: "\nYou're a natural! You've got this." },
@@ -92,6 +95,11 @@ ClickerDude.on_click = def():
         onCurrent +=1
         msgboxArrow.enabled=True
         canContinue=True
+        keepTheAudioGoing()
+        after 1.2s:
+            speaking.pause()
+            speaking.currentTime = 0
+            canContinue = True
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
 msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
 
@@ -106,7 +114,7 @@ msgboxgodly.on_click = def():
         removeSpans()
         textLines = [
         { speed: speeds.fast, string: "\nClicker heros is a simple clicker game that I have" },
-        { speed: speeds.fast, string: "\nbeen working on for a while now" },
+        { speed: speeds.fast, string: "\nbeen working on for a while now." },
         
         ];
         createText()
@@ -140,7 +148,7 @@ msgboxgodly.on_click = def():
         speaking.currentTime = 0 
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: '\nThis is the guy you will click for more clicks' },
+        { speed: speeds.fast, string: '\nThis is the guy you will click for more clicks.' },
         ];
         createText()
         revealOneCharacter(characters)
@@ -165,9 +173,27 @@ msgboxgodly.on_click = def():
         after 1s:
             speaking.pause()
             speaking.currentTime = 0
-            canContinue=True
     elif onCurrent == 5 and canContinue:
-        ;
+        save_system_save('tutorial1complete' , 1)
+        canContinue=False
+        speaking.pause()
+        speaking.currentTime = 0 
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nLets move onto the main game!" },
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent +=1
+        msgboxArrow.enabled=True
+        canContinue=True
+        keepTheAudioGoing()
+        after 1.2s:
+            speaking.pause()
+            speaking.currentTime = 0
+            canContinue = True
+            SmoothTransit('main')
+        onCurrent += 1
 
 msgboxgodly.enabled=True
 after 2:
@@ -189,7 +215,6 @@ after 1s:
         canContinue = True
  
  
-
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>

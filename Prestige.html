@@ -80,6 +80,7 @@ spent10godlyclick = save_system_load('spent10godlyclicks') || 0;
 spent50godlyclick = save_system_load('spent50godlyclicks') || 0;
 
 metMorshu = save_system_load('metmorshu')
+tutorial1complete = save_system_load('tutorial1complete')
 startEarningGodlyClicks = int(save_system_load("earninggodlyclicks"))
 if not startEarningGodlyClicks:
     startEarningGodlyClicks = 0
@@ -106,6 +107,7 @@ after 2.1s:
                     after 1.5s:
                         save_system_clear()
                         save_system_save('resets',resets)
+                        save_system_save('tutorial1complete', tutorial1complete)
                         save_system_save('prestigelevel', currentPrestiges)
                         save_system_save('attacksfx', allowedAttackSFX)
                         save_system_save('metmorshu', metMorshu)

@@ -75,6 +75,10 @@ firstTimePlayed = save_system_load('firsttimeplayed')
 if firstTimePlayed == null:
     firstTimePlayed = 0
 
+tutorial1complete = save_system_load('tutorial1complete')
+if not tutorial1complete:
+    tutorial1complete=0
+
 joinDate = round(int(save_system_load('joindate')))
 if not joinDate or joinDate == null:
     joinDate = Date.now() / 1000
@@ -90,8 +94,10 @@ def updateFYIText():
 
 #Menuscreen used for cool shit
 Title = Text(text='CLICKER HEROS!',xy=[.04,-0.025],text_color=color.red,text_size=8)
-if not firstTimePlayed:
+if not firstTimePlayed and not tutorial1complete:
     startButtonUwU = Button(text='START GAME',y=0,scale=[.5,.1],roundness=.5)
+elif not firstTimePlayed and tutorial1complete:
+    startButton = Button(text='START GAME',y=0,scale=[.5,.1],roundness=.5)
 else:
     startButton = Button(text='START GAME',y=.15,scale=[.5,.1],roundness=.5)
     settingsButton = Button(text='SETTINGS',y=0,scale=[.5,.1],roundness=.5)

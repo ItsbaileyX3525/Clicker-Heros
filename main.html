@@ -543,7 +543,14 @@ mainScene.append(cpsDisplay)
 mainScene.append(prestigeStuff)
 mainScene.append(prestigeStuffbg)
 
-
+def input(key):
+    if held_keys['mouse left']:
+        if mouse.hovered_entity == ClickerDude:
+            ClickerDude.shadow=True    
+        elif mouse.hovered_entity != ClickerDude:
+            ClickerDude.shadow=False
+    if key == 'left mouse up':
+        ClickerDude.shadow=False
 
 def update():
     try:
