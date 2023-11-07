@@ -125,6 +125,16 @@ function createSong(data){
 let storedFileURL = localStorage.getItem('audioFile')
 if (storedFileURL){
     createSong(storedFileURL)}else{console.log("No data")}
+
+speaking = new Audio('assets/Speaking.ogg')
+function keepTheAudioGoing() {
+    speaking.play()
+    speaking.addEventListener("ended", function(){
+    speaking.currentTime = 0;
+    speaking.play()
+    console.log("ended");
+}); 
+}
     </script>
 
     <script src="taptapir/taptapir.js"></script>   
@@ -151,7 +161,37 @@ save_system_save('currenttab', "main")
 score = parseFloat(save_system_load('score'))
 if not score:
     score = 0
+ 
+maintutorialcomplete=save_system_load('maintutorialcomplete')
+after .1s:
+    if not maintutorialcomplete:
+        noInteract = True
+        NOINTERACT = True
+        canContinue = True
+        tutorialBox = Entity(roundness=.05,color=color.white,enabled=True,scale=[1.7,.3],y=-.3,z=-1)
+        tutorialBoxArrow = Entity(texture='arrow.gif',enabled=True,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
+        canContinue = False
+        speaking.pause()
+        speaking.currentTime = 0 
+        parenter = document.getElementById("tutorialBox ");
+        container = parenter.querySelector("entity")
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nCongrats on completing the tutorial!" },            
+        ];
+        createText()
+        revealOneCharacter(characters)
+        keepTheAudioGoing()
+        after 2.4s:
+            speaking.pause()
+            speaking.currentTime = 0
+            canContinue = True
+        onCurrent += 1
+        tutorialBox.on_click = def():
+            if onCurrent == 1 and canContinue:
+                ;
 
+ 
 godlyClicks = int(save_system_load('godlyclicks'))
 if not godlyClicks or godlyClicks == null:
     godlyClicks = 0
@@ -250,20 +290,21 @@ if allowedAttackSFX == null:
 #Main clicker game
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
-    Gen1CPS = .1 * Gen1Owned * gen1Multiplier * globalMultiplier
-    Gen2CPS = 1 * Gen2Owned * gen2Multiplier * globalMultiplier
-    Gen3CPS = 8 * Gen3Owned * gen3Multiplier * globalMultiplier
-    Gen4CPS = 47 * Gen4Owned * gen4Multiplier * globalMultiplier
-    Gen5CPS = 260 * Gen5Owned * gen5Multiplier * globalMultiplier
-    Gen6CPS = 1400 * Gen6Owned * gen6Multiplier * globalMultiplier
-    Gen7CPS = 7800 * Gen7Owned * gen7Multiplier * globalMultiplier
-    collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS + Gen4CPS + Gen5CPS + Gen6CPS + Gen7CPS
-    timesClicked+=1
-    save_system_save('timesclicked', timesClicked)
-    overallScoreEarned += collectiveCPS/5 + 1
-    score += collectiveCPS/6 + 1
-    userClicksPerSecond += 1
-    Playwoosh()
+    if not NOINTERACT:
+        Gen1CPS = .1 * Gen1Owned * gen1Multiplier * globalMultiplier
+        Gen2CPS = 1 * Gen2Owned * gen2Multiplier * globalMultiplier
+        Gen3CPS = 8 * Gen3Owned * gen3Multiplier * globalMultiplier
+        Gen4CPS = 47 * Gen4Owned * gen4Multiplier * globalMultiplier
+        Gen5CPS = 260 * Gen5Owned * gen5Multiplier * globalMultiplier
+        Gen6CPS = 1400 * Gen6Owned * gen6Multiplier * globalMultiplier
+        Gen7CPS = 7800 * Gen7Owned * gen7Multiplier * globalMultiplier
+        collectiveCPS = Gen1CPS + Gen2CPS + Gen3CPS + Gen4CPS + Gen5CPS + Gen6CPS + Gen7CPS
+        timesClicked+=1
+        save_system_save('timesclicked', timesClicked)
+        overallScoreEarned += collectiveCPS/5 + 1
+        score += collectiveCPS/6 + 1
+        userClicksPerSecond += 1
+        Playwoosh()
 
 
 score_display = Text(text=`Clicks: ${score}`,xy=[0.22,-.025],text_size=5)
@@ -291,7 +332,8 @@ settingsButton.on_click = def():
 
 AchievementsButton = Button(scale=[.1,.1],texture='trophy.webp',xy=[.65,.45])
 AchievementsButton.on_click = def():
-    SmoothTransit('Achievements')
+    if not noInteract:
+        SmoothTransit('Achievements')
 
 inShop = False
 ShopButton = Button(texture='shopCog.webp',x=.75,scale=.2,y=-.02)
@@ -544,13 +586,14 @@ mainScene.append(prestigeStuff)
 mainScene.append(prestigeStuffbg)
 
 def input(key):
-    if held_keys['mouse left']:
-        if mouse.hovered_entity == ClickerDude:
-            ClickerDude.shadow=True    
-        elif mouse.hovered_entity != ClickerDude:
+    if not NOINTERACT:
+        if held_keys['mouse left']:
+            if mouse.hovered_entity == ClickerDude:
+                ClickerDude.shadow=True    
+            elif mouse.hovered_entity != ClickerDude:
+                ClickerDude.shadow=False
+        if key == 'left mouse up':
             ClickerDude.shadow=False
-    if key == 'left mouse up':
-        ClickerDude.shadow=False
 
 def update():
     try:

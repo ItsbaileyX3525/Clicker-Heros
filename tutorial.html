@@ -53,17 +53,7 @@ function removeSpans(id='msgboxgodly '){
         list.removeChild(list.firstChild);
     }
 }
-
-speaking = new Audio('assets/Speaking.ogg')
-function keepTheAudioGoing() {
-    speaking.play()
-    speaking.addEventListener("ended", function(){
-    speaking.currentTime = 0;
-    speaking.play()
-    console.log("ended");
-}); 
-}
-
+LeonWelcomesYou = new Audio('voiceLines/Leon/Welcome!.ogg')
 function PauseSounds() {
 }
 function ResumeSounds() {
@@ -200,11 +190,12 @@ after 2:
     msgboxArrow.enabled=True
 
 after 1s:
+    LeonWelcomesYou.play()
     parenter = document.getElementById("msgboxgodly ");
     container = parenter.querySelector("entity")
     removeSpans()
     textLines = [
-    { speed: speeds.fast, string: "\nWelcome to clicker heros!\n" }
+    { speed: 50, string: "\nWelcome to clicker heros!\n" }
     ];
     createText()
     revealOneCharacter(characters)
@@ -213,7 +204,7 @@ after 1s:
         speaking.pause()
         speaking.currentTime = 0
         canContinue = True
- 
+
  
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
