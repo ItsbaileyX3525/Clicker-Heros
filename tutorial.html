@@ -54,6 +54,15 @@ function removeSpans(id='msgboxgodly '){
     }
 }
 LeonWelcomesYou = new Audio('voiceLines/Leon/Welcome!.ogg')
+LeonLines = {
+    line1:new Audio('voiceLines/Leon/number2.ogg'),
+    line2:new Audio('voiceLines/Leon/number3.ogg'),
+    line3:new Audio('voiceLines/Leon/number4.ogg'),
+    line4:new Audio('voiceLines/Leon/number5.ogg'),
+    line5:new Audio('voiceLines/Leon/number6.ogg'),
+    line6:new Audio('voiceLines/Leon/number7.ogg'),
+    line7:new Audio('voiceLines/Leon/number8.ogg')
+}
 function PauseSounds() {
 }
 function ResumeSounds() {
@@ -67,28 +76,22 @@ function ResumeSounds() {
 set_orientation('horizontal')
 set_window_color('transparent')
 ASSETS_FOLDER = 'assets/'
-
+ 
 onCurrent=1
 canContinue=False
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
     if onCurrent == 4:
-        canContinue=False
-        speaking.pause()
-        speaking.currentTime = 0 
+        LeonLines.line5.play()
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: "\nYou're a natural! You've got this." },
+        { speed: 60, string: "\nYou're a natural! You've got this." },
         ];
         createText()
         revealOneCharacter(characters)
         onCurrent +=1
         msgboxArrow.enabled=True
-        canContinue=True
-        keepTheAudioGoing()
-        after 1.2s:
-            speaking.pause()
-            speaking.currentTime = 0
+        after 1.78s:
             canContinue = True
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
 msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
@@ -97,90 +100,72 @@ msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-
 msgboxgodly.on_click = def():
     if onCurrent == 1 and canContinue:
         canContinue = False
-        speaking.pause()
-        speaking.currentTime = 0 
+        LeonLines.line1.play()
         parenter = document.getElementById("msgboxgodly ");
         container = parenter.querySelector("entity")
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: "\nClicker heros is a simple clicker game that I have" },
-        { speed: speeds.fast, string: "\nbeen working on for a while now." },
+        { speed: 65, string: "\nClicker heros is a simple clicker game that I have" },
+        { speed: 50, string: "\nbeen working on" },
+        { speed: 40, string: "for a while now."},
         
         ];
         createText()
         revealOneCharacter(characters)
-        keepTheAudioGoing()
-        after 2.9s:
-            speaking.pause()
-            speaking.currentTime = 0
+        after 4.04s:
             canContinue = True
         onCurrent += 1
     elif onCurrent == 2 and canContinue:
         canContinue=False
-        speaking.pause()
-        speaking.currentTime = 0 
+        LeonLines.line2.play()
         thisGuyRightHere = Entity(texture='ThisDude.webp',scale=[.3,.3],xy=[0.25,0.18])
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: "\nThis guy is simply called Clicker Dude." },        
+        { speed: 60, string: "\nThis guy is simply called Clicker Dude." },        
         ];
         createText()
         revealOneCharacter(characters)
-        keepTheAudioGoing()
-        after 1.3s:
-            speaking.pause()
-            speaking.currentTime = 0
+        after 2.3s:
             canContinue=True
         onCurrent +=1
     elif onCurrent == 3 and canContinue:
         canContinue=False
-        speaking.pause()
-        speaking.currentTime = 0 
+        LeonLines.line3.play()
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: '\nThis is the guy you will click for more clicks.' },
+        { speed: 60, string: '\nThis is the guy you will click for more clicks.' },
         ];
         createText()
         revealOneCharacter(characters)
         onCurrent +=1
-        keepTheAudioGoing()
-        after 1.6s:
-            speaking.pause()
-            speaking.currentTime = 0
+        after 2.52s:
             canContinue=True
     elif onCurrent == 4 and canContinue:
         removeSpans()
-        canContinue=False
-        speaking.pause()
-        speaking.currentTime = 0 
+        LeonLines.line4.play()
+        canContinue=False 
         textLines = [
-        { speed: speeds.fast, string: '\nGo on, give it a try, click him.' },
+        { speed: 70, string: '\nGo on, ' },
+        { speed: 55, string: 'give it a try, ' },
+        { speed: 75, string: 'click him.' },
         ];
         createText()
         revealOneCharacter(characters)
         msgboxArrow.enabled=False
-        keepTheAudioGoing()
-        after 1s:
-            speaking.pause()
-            speaking.currentTime = 0
     elif onCurrent == 5 and canContinue:
         save_system_save('tutorial1complete' , 1)
+        LeonLines.line6.play()
         canContinue=False
-        speaking.pause()
-        speaking.currentTime = 0 
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: "\nLets move onto the main game!" },
+        { speed: 65, string: "\nLets move onto the main game!" },
         ];
         createText()
         revealOneCharacter(characters)
         onCurrent +=1
         msgboxArrow.enabled=True
         canContinue=True
-        keepTheAudioGoing()
-        after 1.2s:
-            speaking.pause()
-            speaking.currentTime = 0
+        after 1.6s:
             canContinue = True
             SmoothTransit('main')
         onCurrent += 1
@@ -195,14 +180,11 @@ after 1s:
     container = parenter.querySelector("entity")
     removeSpans()
     textLines = [
-    { speed: 50, string: "\nWelcome to clicker heros!\n" }
+    { speed: 65, string: "\nWelcome to clicker heros!\n" }
     ];
     createText()
     revealOneCharacter(characters)
-    keepTheAudioGoing()
-    after 1s:
-        speaking.pause()
-        speaking.currentTime = 0
+    after 2s:
         canContinue = True
 
  
