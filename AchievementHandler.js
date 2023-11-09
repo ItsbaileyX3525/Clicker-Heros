@@ -51,7 +51,7 @@ class AchievementShowerMAX extends Entity {
     }
     super(settings)
     this.animate('x', .55, 1.25)
-    this.soundfx = new Audio('assets/UltraLevelUp.mp3')
+    this.soundfx = new Audio('voiceLines/Leon/ult.ogg')
     this.soundfx.play()
     this.soundfx.volume = volume
     this.iconShower = new Entity({parent:this,texture:this.icon,scale:[.25,.9],xy:[.3,0]})

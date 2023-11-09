@@ -135,6 +135,17 @@ function keepTheAudioGoing() {
     console.log("ended");
 }); 
 }
+LeonLines = {
+    line1:new Audio('voiceLines/Leon/number8.ogg'),
+    line2:new Audio('voiceLines/Leon/number9.ogg'),
+    line3:new Audio('voiceLines/Leon/number10.ogg'),
+    line4:new Audio('voiceLines/Leon/number11.ogg'),
+    line5:new Audio('voiceLines/Leon/number12.ogg'),
+    line6:new Audio('voiceLines/Leon/number13.ogg'),
+    line7:new Audio('voiceLines/Leon/numberE.ogg'),
+    line8:new Audio('voiceLines/Leon/thanos sync.ogg'),
+    line9:new Audio('voiceLines/Leon/ult.ogg'),
+}
     </script>
 
     <script src="taptapir/taptapir.js"></script>   
@@ -152,6 +163,7 @@ mainScene = []
 shopScene = []
 levelUps = []
 noInteract = False
+NOINTERACT = False
 
 #For settings
 save_system_save('prevtab', "main")
@@ -160,36 +172,53 @@ save_system_save('currenttab', "main")
 #Loading score and data etc.
 score = parseFloat(save_system_load('score'))
 if not score:
-    score = 0
+    score = 0 
  
 maintutorialcomplete=save_system_load('maintutorialcomplete')
 after .1s:
     if not maintutorialcomplete:
+        LeonLines.line1.play()
         noInteract = True
         NOINTERACT = True
         canContinue = True
         tutorialBox = Entity(roundness=.05,color=color.white,enabled=True,scale=[1.7,.3],y=-.3,z=-1)
         tutorialBoxArrow = Entity(texture='arrow.gif',enabled=True,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
         canContinue = False
-        speaking.pause()
-        speaking.currentTime = 0 
         parenter = document.getElementById("tutorialBox ");
         container = parenter.querySelector("entity")
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: "\nCongrats on completing the tutorial!" },            
+        { speed: 20, string: "\nCongrats on completing the tutorial!" },            
         ];
         createText()
         revealOneCharacter(characters)
-        keepTheAudioGoing()
-        after 2.4s:
-            speaking.pause()
-            speaking.currentTime = 0
+        after 2s:
             canContinue = True
-        onCurrent += 1
+        onCurrent = 1
         tutorialBox.on_click = def():
             if onCurrent == 1 and canContinue:
-                ;
+                LeonLines.line2.play()
+                noInteract = True
+                NOINTERACT = True
+                canContinue = True
+                canContinue = False
+                parenter = document.getElementById("tutorialBox ");
+                container = parenter.querySelector("entity")
+                removeSpans()
+                textLines = [
+                { speed: 30, string: "\nYou can now play the game fully. Enjoy!" },            
+                ];
+                createText()
+                revealOneCharacter(characters)
+                after 2.4s:
+                    destroy(tutorialBox)
+                    destroy(tutorialBoxArrow)
+                    canContinue = True
+                    onCurrent = 1
+                    noInteract = False
+                    NOINTERACT = False
+                    maintutorialcomplete = 1
+                    save_system_save('maintutorialcomplete',1)
 
  
 godlyClicks = int(save_system_load('godlyclicks'))
@@ -623,7 +652,7 @@ def update():
             e.texture = 'GenUpgradeArrowU.webp'
     if score >= 100000000:
         after .5s:
-            if not startEarningGodlyClicks:
+            if startEarningGodlyClicks:
                 if inShop:
                     inShop = False
                     for e in mainScene:
@@ -636,19 +665,28 @@ def update():
                 msgboxgodly.enabled=True
                 after 1:
                     msgboxArrow.enabled=True
+                noInteract = True
+                NOINTERACT = True
+                canContinue = True
+                canContinue = False
+                parenter = document.getElementById("msgboxgodly ");
+                container = parenter.querySelector("entity")
+                removeSpans()
                 var textLines = [
-                { speed: speeds.normal, string: "\nYo!" },
-                { speed: speeds.pause, string: "", pause: true },
-                { speed: speeds.fast, string: "You've reached 100M clicks!" },
-                { speed: speeds.pause, string: "", pause: true },
-                { speed: speeds.fast, string: "Congrats by the way.\nThis" },
-                { speed: speeds.fast, string: "means you can now" },
-                { speed: speeds.fast, string: "start earning godly clicks" },
+                    { speed: speeds.slow, string: "\nYo!" },
+                    { speed: speeds.slow, string: "You've reached 100M clicks!" },
+                    { speed: speeds.normal, string: "Congrats by the way.\nThis" },
+                    { speed: speeds.normal, string: "means you can now" },
+                    { speed: speeds.normal, string: "start earning godly clicks" },
                 ];
+                createText()
                 noInteract=True
-                startEarningGodlyClicks = 1
-                save_system_save("earninggodlyclicks", startEarningGodlyClicks)
+                startEarningGodlyClicks = 0
+                #save_system_save("earninggodlyclicks", startEarningGodlyClicks)
                 revealOneCharacter(characters)
+                LeonLines.line3.play()
+                after 3:
+                    LeonLines.line4.play()
 
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
 msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
@@ -822,13 +860,11 @@ var speeds = {
 
 
 var textLines = [
-   { speed: speeds.normal, string: "\nYo!" },
-   { speed: speeds.pause, string: "", pause: true },
-   { speed: speeds.fast, string: "You've reached 100M clicks!" },
-   { speed: speeds.pause, string: "", pause: true },
-   { speed: speeds.fast, string: "Congrats by the way.\nThis" },
-   { speed: speeds.fast, string: "means you can now" },
-   { speed: speeds.fast, string: "start earning godly clicks" },
+    { speed: speeds.slow, string: "\nYo!" },
+    { speed: speeds.slow, string: "You've reached 100M clicks!" },
+    { speed: speeds.fast, string: "Congrats by the way.\nThis" },
+    { speed: speeds.fast, string: "means you can now" },
+    { speed: speeds.fast, string: "start earning godly clicks" },
 ];
 var characters = [];
 function createText() {
