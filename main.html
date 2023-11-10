@@ -32,25 +32,36 @@ function random_int_(min, max) {//In taptapir but taptap is defined before goodn
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }  
+wooshes = {
+    woosh1:new Audio('assets/woosh1.ogg'),
+    woosh2:new Audio('assets/woosh2.ogg'),
+    woosh3:new Audio('assets/woosh3.ogg'),
+    LeonYoda:new Audio('voiceLines/Leon/LeonYoda.ogg')
+}
 
 function Playwoosh() {
    if (!allowedAttackSFX) {
     ;
-   } else {
+   } else if (!friendMode && allowedAttackSFX){
     swoosh = random_int_(1,3);
+    wooshes.woosh1.volume = parseFloat(window.localStorage.getItem('mastervolume'))
+    wooshes.woosh2.volume = parseFloat(window.localStorage.getItem('mastervolume'))
+    wooshes.woosh3.volume = parseFloat(window.localStorage.getItem('mastervolume'))
     if (swoosh === 1) {
-      woosh = new Audio('assets/woosh1.ogg')
+      wooshes.woosh1.play()
     } else if (swoosh === 2) {
-      woosh = new Audio('assets/woosh2.ogg')
+        wooshes.woosh2.play()
     } else {
-      woosh = new Audio('assets/woosh3.ogg')
+        wooshes.woosh3.play()
     }
-    woosh.volume = parseFloat(window.localStorage.getItem('mastervolume'))
-    woosh.play()
-
+    wooshes.LeonYoda.volume = parseFloat(window.localStorage.getItem('mastervolume'))
     woosh.addEventListener('ended', function() {
       woosh.remove();
-    })};
+    })}else if (allowedAttackSFX && friendMode){
+        wooshes.LeonYoda.pause()
+        wooshes.LeonYoda.currentTime = 0
+        wooshes.LeonYoda.play()
+    }
 }
 
 petergriffin = new Audio('assets/PeterMorshu.ogg')
@@ -126,15 +137,6 @@ let storedFileURL = localStorage.getItem('audioFile')
 if (storedFileURL){
     createSong(storedFileURL)}else{console.log("No data")}
 
-speaking = new Audio('assets/Speaking.ogg')
-function keepTheAudioGoing() {
-    speaking.play()
-    speaking.addEventListener("ended", function(){
-    speaking.currentTime = 0;
-    speaking.play()
-    console.log("ended");
-}); 
-}
 LeonLines = {
     line1:new Audio('voiceLines/Leon/number8.ogg'),
     line2:new Audio('voiceLines/Leon/number9.ogg'),
@@ -206,7 +208,7 @@ after .1s:
                 container = parenter.querySelector("entity")
                 removeSpans()
                 textLines = [
-                { speed: 30, string: "\nYou can now play the game fully. Enjoy!" },            
+                { speed: 30, string: "\nYou can now the complete game!" },            
                 ];
                 createText()
                 revealOneCharacter(characters)
@@ -673,11 +675,11 @@ def update():
                 container = parenter.querySelector("entity")
                 removeSpans()
                 var textLines = [
-                    { speed: speeds.slow, string: "\nYo!" },
-                    { speed: speeds.slow, string: "You've reached 100M clicks!" },
-                    { speed: speeds.normal, string: "Congrats by the way.\nThis" },
-                    { speed: speeds.normal, string: "means you can now" },
-                    { speed: speeds.normal, string: "start earning godly clicks" },
+                    { speed: 75, string: "\nYo!" },
+                    { speed: 60, string: "You've reached 100M clicks!" },
+                    { speed: speeds.fast, string: "Congrats by the way.\nThis" },
+                    { speed: speeds.fast, string: "means you can now" },
+                    { speed: speeds.fast, string: "start earning godly clicks." },
                 ];
                 createText()
                 noInteract=True
@@ -687,6 +689,8 @@ def update():
                 LeonLines.line3.play()
                 after 3:
                     LeonLines.line4.play()
+                    after 1:
+                        LeonLines.line5.play()
 
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
 msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
@@ -857,14 +861,13 @@ var speeds = {
    fast: 40,
    superFast: 10
 };
-
-
+ 
 var textLines = [
-    { speed: speeds.slow, string: "\nYo!" },
-    { speed: speeds.slow, string: "You've reached 100M clicks!" },
+    { speed: 75, string: "\nYo!" },
+    { speed: 60, string: "You've reached 100M clicks!" },
     { speed: speeds.fast, string: "Congrats by the way.\nThis" },
     { speed: speeds.fast, string: "means you can now" },
-    { speed: speeds.fast, string: "start earning godly clicks" },
+    { speed: speeds.fast, string: "start earning godly clicks." },
 ];
 var characters = [];
 function createText() {

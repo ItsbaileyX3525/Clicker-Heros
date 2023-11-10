@@ -133,6 +133,9 @@ creditsButton.on_click = def():
 exitButton.on_click = def():
     requestAppClose()
 
+def reset():
+    save_system_clear() 
+    window.location.reload()
 
 save_system_save('prevtab', "menu")
 save_system_save('currenttab', "menu")
