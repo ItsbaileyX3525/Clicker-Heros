@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+    <script src="Smooth.js"></script>
+    <script>
+    LeonLines = {
+        b1:new Audio('voiceLines/Leon/LeonYoda.ogg'),
+        b2:new Audio('voiceLines/Leon/NumberE.ogg'),
+        b3:new Audio('voiceLines/Leon/LeonYoda.ogg'),
+        b4:new Audio('voiceLines/Leon/LeonYoda.ogg'),
+}
+    </script>
+    <script src="taptapir/taptapir.js"></script>
+<script src="taptapir-utility/slider.js"></script>
+<script type="text/sunsnake">
+
+#Global Functions
+set_orientation('horizontal')
+set_window_color('white')
+set_background_color('black')
+ASSETS_FOLDER = 'assets/'
+
+Blooper1 = Button(scale=[.22,.1],color=color.red,text='Blooper 1',xy=[-.7,.3])
+Blooper1.on_click = def():
+    LeonLines.b2.play()
+Blooper2 = Button(scale=[.22,.1],color=color.red,text='Blooper 1',xy=[-.45,.3])
+Blooper2.on_click = def():
+    LeonLines.b1.play()
+    
+_hidden_fullscreen_button.xy = [213213213,123123123]
+</script>
+<script src="taptapir/sunsnake_compiler.js"></script>
+</body>
+</html>

@@ -61,7 +61,11 @@ LeonLines = {
     line4:new Audio('voiceLines/Leon/number5.ogg'),
     line5:new Audio('voiceLines/Leon/number6.ogg'),
     line6:new Audio('voiceLines/Leon/number7.ogg'),
-    line7:new Audio('voiceLines/Leon/number8.ogg')
+    line7:new Audio('voiceLines/Leon/number16.ogg'),
+    line8:new Audio('voiceLines/Leon/number17.ogg'),
+    line9:new Audio('voiceLines/Leon/number18.ogg'),
+    line10:new Audio('voiceLines/Leon/number19.ogg'),
+    line11:new Audio('voiceLines/Leon/number21.ogg'),
 }
 function PauseSounds() {
 }
@@ -153,7 +157,7 @@ msgboxgodly.on_click = def():
         revealOneCharacter(characters)
         msgboxArrow.enabled=False
     elif onCurrent == 5 and canContinue:
-        save_system_save('tutorial1complete' , 1)
+        #save_system_save('tutorial1complete' , 1)
         LeonLines.line6.play()
         canContinue=False
         removeSpans()
@@ -167,9 +171,22 @@ msgboxgodly.on_click = def():
         canContinue=True
         after 1.6s:
             canContinue = True
-            SmoothTransit('main')
         onCurrent += 1
-
+    elif onCurrent == 6 and canContinue:
+        LeonLines.line7.play()
+        canContinue=False
+        removeSpans()
+        textLines = [
+        { speed: 65, string: "\n" },
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent +=1
+        msgboxArrow.enabled=True
+        canContinue=True
+        after 1.6s:
+            canContinue = True
+        onCurrent += 1
 msgboxgodly.enabled=True
 after 2:
     msgboxArrow.enabled=True
