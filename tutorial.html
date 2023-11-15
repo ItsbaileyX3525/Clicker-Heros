@@ -61,11 +61,25 @@ LeonLines = {
     line4:new Audio('voiceLines/Leon/number5.ogg'),
     line5:new Audio('voiceLines/Leon/number6.ogg'),
     line6:new Audio('voiceLines/Leon/number7.ogg'),
-    line7:new Audio('voiceLines/Leon/number16.ogg'),
-    line8:new Audio('voiceLines/Leon/number17.ogg'),
-    line9:new Audio('voiceLines/Leon/number18.ogg'),
-    line10:new Audio('voiceLines/Leon/number19.ogg'),
-    line11:new Audio('voiceLines/Leon/number21.ogg'),
+    line7:new Audio('voiceLines/Leon/number14.ogg'),
+    line8:new Audio('voiceLines/Leon/number15.ogg'),
+    line9:new Audio('voiceLines/Leon/number16.ogg'),
+    line10:new Audio('voiceLines/Leon/number17.ogg'),
+    line11:new Audio('voiceLines/Leon/number18.ogg'),
+    line12:new Audio('voiceLines/Leon/number19.ogg'),
+    line13:new Audio('voiceLines/Leon/number20.ogg'),
+}
+function formatNumber(number) {
+    const suffixes = ['', 'K', 'M', 'B', 'T', 'E', 'P', 'V', 'Dd', 'Qd', 'Sd', 'Td', 'Ud', 'Vd', 'Wd', 'Xd', 'Yd', 'Zd'];
+    
+    let magnitude = 0;
+    while (number >= 1000 && magnitude < suffixes.length - 1) {
+        number /= 1000;
+        magnitude++;
+    }
+    
+    const formattedNumber = number % 1 === 0 ? number.toFixed(0) : number.toFixed(2);
+    return formattedNumber + suffixes[magnitude];
 }
 function PauseSounds() {
 }
@@ -81,7 +95,7 @@ set_orientation('horizontal')
 set_window_color('transparent')
 ASSETS_FOLDER = 'assets/'
  
-onCurrent=1
+onCurrent=5
 canContinue=False
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
@@ -99,6 +113,161 @@ ClickerDude.on_click = def():
             canContinue = True
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
 msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
+
+def loadShop():
+    msgboxgodly.parent = camera.ui
+    ClickerDude.enabled=False
+    #Global variables
+    mainScene = []
+    shopScene = []
+    levelUps = []
+
+    score = 100000
+    godlyClicks = 0
+
+    #Shop stuff & gens very annoying
+    Gen1Cost = 15
+    Gen2Cost = 100
+    Gen3Cost = 1100
+    Gen4Cost = 12000
+    Gen5Cost = 130000
+    Gen6Cost = 1400000
+    Gen7Cost = 20000000
+
+    Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=True,x=-.8,y=.3)
+    Gen1.on_click = def():
+        if score >= Gen1.cost:
+            score -= Gen1.cost
+            Gen1.cost = 15 * Math.pow(1.15,Gen1Owned+1)
+            Gen1.cost = round(Gen1.cost)
+            Gen1Owned += 1
+            Fcost = formatNumber(Gen1.cost);
+            Gen1Info.text = `Cost: ${Fcost}`
+            save_system_save("gen1owned", Gen1Owned)
+            save_system_save("gen1cost", Gen1.cost)
+
+    Gen1LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],cost=1)
+    Gen1LevelUp.on_click = def():
+        gen1Multiplier += .01
+    Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=True)
+
+    Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=True,x=-.8,y=-.01)
+    Gen2.on_click = def():
+        if score >= Gen2.cost:
+            score -= Gen2.cost
+            Gen2.cost = 100 * Math.pow(1.15,Gen2Owned+1)
+            Gen2.cost = round(Gen2.cost)
+            Gen2Owned += 1
+            Fcost = formatNumber(Gen2.cost);
+            Gen2Info.text = `Cost: ${Fcost}`
+            save_system_save("gen2owned", Gen2Owned)
+            save_system_save("gen2cost", Gen2.cost)
+
+    Gen2LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.06],cost=1)
+    Gen2LevelUp.on_click = def():
+        gen2Multiplier += .01
+    Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=True)
+
+    Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=True,x=-.8,y=-.3)
+    Gen3.on_click = def():
+        if score >= Gen3.cost:
+            score -= Gen3.cost
+            Gen3.cost = 1100 * Math.pow(1.15,Gen3Owned+1)
+            Gen3.cost = round(Gen3.cost)
+            Gen3Owned += 1
+            Fcost = formatNumber(Gen3.cost);
+            Gen3Info.text = `Cost: ${Fcost}`
+            save_system_save("gen3owned", Gen3Owned)
+            save_system_save("gen3cost", Gen3.cost)
+
+    Gen3LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,-.23],cost=1)
+    Gen3LevelUp.on_click = def():
+        gen3Multiplier += .01
+    Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=True)
+
+    Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=True,x=-.3,y=.3)
+    Gen4.on_click = def():
+        if score >= Gen4.cost:
+            score -= Gen4.cost
+            Gen4.cost = 12000 * Math.pow(1.15,Gen4Owned+1)
+            Gen4.cost = round(Gen4.cost)
+            Gen4Owned += 1
+            Fcost = formatNumber(Gen4.cost);
+            Gen4Info.text = `Cost: ${Fcost}`
+            save_system_save("gen4owned", Gen4Owned)
+            save_system_save("gen4cost", Gen4.cost)
+
+    Gen4LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.35],cost=1)
+    Gen4LevelUp.on_click = def():
+        gen4Multiplier += .01
+    Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=True)
+
+    Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=True,x=-.3,y=-.01)
+    Gen5.on_click = def():
+        if score >= Gen5.cost:
+            score -= Gen5.cost
+            Gen5.cost = 130000 * Math.pow(1.15,Gen5Owned+1)
+            Gen5.cost = round(Gen5.cost)
+            Gen5Owned += 1
+            Fcost = formatNumber(Gen5.cost);
+            Gen5Info.text = `Cost: ${Fcost}`
+            save_system_save("gen5owned", Gen5Owned)
+            save_system_save("gen5cost", Gen5.cost)
+
+    Gen5LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.06],cost=1)
+    Gen5LevelUp.on_click = def():
+        gen5Multiplier += .01
+    Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=True)
+
+    Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=True,x=-.3,y=-.3)
+    Gen6.on_click = def():
+        if score >= Gen6.cost:
+            score -= Gen6.cost
+            Gen6.cost = 1400000 * Math.pow(1.15,Gen6Owned+1)
+            Gen6.cost = round(Gen6.cost)
+            Gen6Owned += 1
+            Fcost = formatNumber(Gen6.cost);
+            Gen6Info.text = `Cost: ${Fcost}`
+            save_system_save("gen6owned", Gen6Owned)
+            save_system_save("gen6cost", Gen6.cost)
+
+    Gen6LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,-.23],cost=1)
+    Gen6LevelUp.on_click = def():
+        gen6Multiplier += .01
+    Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=True)
+
+
+    Gen7 = Button(cost=Gen7Cost,texture='ClickerGenFinal.webp',enabled=True,x=0.35,y=0,scale=.3)
+    Gen7.on_click = def():
+        if score >= Gen7.cost:
+            score -= Gen7.cost
+            Gen7.cost = 20000000 * Math.pow(1.15,Gen7Owned+1)
+            Gen7.cost = round(Gen7.cost)
+            Gen7Owned += 1
+            Fcost = formatNumber(Gen7.cost);
+            Gen7Info.text = `Cost: ${Fcost}`
+            save_system_save("gen7owned", Gen7Owned)
+            save_system_save("gen7cost", Gen7.cost)
+
+    Gen7LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[.5,0.18],cost=1)
+    Gen7LevelUp.on_click = def():
+        gen7Multiplier += .01
+    Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=4.5,enabled=True)
+
+
+    #Appending shop items
+    shopScene.append(Gen1)
+    shopScene.append(Gen1Info)
+    shopScene.append(Gen2)
+    shopScene.append(Gen2Info)
+    shopScene.append(Gen3)
+    shopScene.append(Gen3Info)
+    shopScene.append(Gen4)
+    shopScene.append(Gen4Info)
+    shopScene.append(Gen5)
+    shopScene.append(Gen5Info)
+    shopScene.append(Gen6)
+    shopScene.append(Gen6Info)
 
 
 msgboxgodly.on_click = def():
@@ -157,34 +326,49 @@ msgboxgodly.on_click = def():
         revealOneCharacter(characters)
         msgboxArrow.enabled=False
     elif onCurrent == 5 and canContinue:
-        #save_system_save('tutorial1complete' , 1)
-        LeonLines.line6.play()
-        canContinue=False
-        removeSpans()
-        textLines = [
-        { speed: 65, string: "\nLets move onto the main game!" },
-        ];
-        createText()
-        revealOneCharacter(characters)
-        onCurrent +=1
-        msgboxArrow.enabled=True
-        canContinue=True
-        after 1.6s:
-            canContinue = True
-        onCurrent += 1
-    elif onCurrent == 6 and canContinue:
+        ShopButton = Button(texture='shopCog.webp',x=.75,scale=.2,y=-.02)
+        shopArrow = Entity(texture='Shoparrow.webp',scale=[.7,.8],xy=[.35,.1])
         LeonLines.line7.play()
         canContinue=False
         removeSpans()
         textLines = [
-        { speed: 65, string: "\n" },
+        { speed: 65, string: "\nThis is the shop where you can buy various generators." },
+
         ];
         createText()
         revealOneCharacter(characters)
         onCurrent +=1
         msgboxArrow.enabled=True
-        canContinue=True
-        after 1.6s:
+        after 2.26s:
+            canContinue = True
+    elif onCurrent == 6 and canContinue:
+        LeonLines.line8.play()
+        canContinue=False
+        removeSpans()
+        textLines = [
+        { speed: 65, string: "\nIf you click on it you can see the current available generators you can buy." },
+
+        ];
+        createText()
+        revealOneCharacter(characters)
+        msgboxArrow.enabled=True
+        after 3.07548s:
+            canContinue = True
+        onCurrent += 1
+    elif onCurrent == 7 and canContinue:
+        LeonLines.line9.play()
+        canContinue=False
+        removeSpans()
+        textLines = [
+        { speed: 65, string: "\nSo like before, go on, click it!" },
+
+        ];
+        createText()
+        revealOneCharacter(characters)
+        msgboxArrow.enabled=True
+        ShopButton.on_click = def():
+            loadShop()
+        after 3.07548s:
             canContinue = True
         onCurrent += 1
 msgboxgodly.enabled=True

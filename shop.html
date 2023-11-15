@@ -113,7 +113,6 @@ Gen4Cost = 12000
 Gen5Cost = 130000
 Gen6Cost = 1400000
 Gen7Cost = 20000000
-
 Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=False,x=-.8,y=.3)
 Gen1.on_click = def():
     if score >= Gen1.cost:
@@ -129,6 +128,7 @@ Gen1.on_click = def():
 Gen1LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],cost=1)
 Gen1LevelUp.on_click = def():
     gen1Multiplier += .01
+
 Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=True,x=-.8,y=-.01)
 Gen2.on_click = def():
     if score >= Gen2.cost:
