@@ -620,11 +620,15 @@ def input(key):
     if not NOINTERACT:
         if held_keys['mouse left']:
             if mouse.hovered_entity == ClickerDude:
-                ClickerDude.shadow=True    
+                ClickerDude.animate('scale_x', .35, .1)
+                ClickerDude.animate('scale_y', .35, .1)
             elif mouse.hovered_entity != ClickerDude:
-                ClickerDude.shadow=False
+                ClickerDude.animate('scale_x', .3, .1)
+                ClickerDude.animate('scale_y', .3, .1)
         if key == 'left mouse up':
-            ClickerDude.shadow=False
+            ClickerDude.animate('scale_x', .3, .1)
+            ClickerDude.animate('scale_y', .3, .1)
+
 
 def update():
     try:

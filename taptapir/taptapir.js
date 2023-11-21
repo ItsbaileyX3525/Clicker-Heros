@@ -626,14 +626,13 @@ class Entity {
     }
 
     animate(variable_name, target_value, duration=.1) {
-        // print('animate:', variable_name, target_value)
+        print('animate:', variable_name, target_value)
         if (!this.enabled) {return false}
         let entity = this
         // stop ongoing animation of this varibale
         if (variable_name in entity.setTimeout_calls) {
             for (const id of entity.setTimeout_calls[variable_name]) {
                 clearTimeout(id)
-                // print('clear:', id)
             }
         }
         entity.setTimeout_calls[variable_name] = []
