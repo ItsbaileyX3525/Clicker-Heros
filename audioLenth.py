@@ -1,3 +1,3 @@
 import librosa
-audio = 'number15'
+audio = 'nice job on clicking'
 print(librosa.get_duration(path=f'voiceLines/Leon/{audio}.ogg'))

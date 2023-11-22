@@ -68,6 +68,8 @@ LeonLines = {
     line11:new Audio('voiceLines/Leon/number18.ogg'),
     line12:new Audio('voiceLines/Leon/number19.ogg'),
     line13:new Audio('voiceLines/Leon/number20.ogg'),
+    newLines1:new Audio('voiceLines/Leon/nice job on clicking.ogg'),
+    newLines:new Audio('voiceLines/Leon/Lets move onto the settings menu.ogg')
 }
 function formatNumber(number) {
     const suffixes = ['', 'K', 'M', 'B', 'T', 'E', 'P', 'V', 'Dd', 'Qd', 'Sd', 'Td', 'Ud', 'Vd', 'Wd', 'Xd', 'Yd', 'Zd'];
@@ -115,24 +117,29 @@ msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3
 msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
 
 def ClickedGenerator():
-    if onCurrent == 9:
-        LeonLines.line11.play()
+    if onCurrent == 9 and canContinue:
+        LeonLines.newLines1.play()
         canContinue=False
         removeSpans()
         textLines = [
-        { speed: 65, string: "\nLater on in the game you'll encounter things called godly clicks which you can use on these generators to supercharge them" },
+        { speed: 65, string: "\nNice job on clicking the generator" },
 
         ];
         createText()
         revealOneCharacter(characters)
         msgboxArrow.enabled=True
-        after 3.07548s:
+        after 2.311836s:
             canContinue = True
-        onCurrent += 1 
+        onCurrent += 1
+def unloadShop():
+    for e in shopScene:
+        destroy(e)
 
 def loadShop():
     msgboxgodly.parent = camera.ui
     msgboxgodly.z=-5
+    msgboxArrow.parent = camera.ui
+    msgboxArrow.z=-5
     shopArrow.enabled=False
     shopButton.enabled=False
     ClickerDude.enabled=False
@@ -157,14 +164,12 @@ def loadShop():
     Gen1.on_click = def():
         ClickedGenerator()
 
-    Gen1LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],cost=1)
     Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=True)
 
     Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=True,x=-.8,y=-.01)
     Gen2.on_click = def():
         ClickedGenerator()
 
-    Gen2LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.06],cost=1)
 
     Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=True)
 
@@ -172,7 +177,6 @@ def loadShop():
     Gen3.on_click = def():
         ClickedGenerator()
 
-    Gen3LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,-.23],cost=1)
 
     Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=True)
 
@@ -180,7 +184,6 @@ def loadShop():
     Gen4.on_click = def():
         ClickedGenerator()
 
-    Gen4LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.35],cost=1)
 
     Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=True)
 
@@ -188,7 +191,6 @@ def loadShop():
     Gen5.on_click = def():
         ClickedGenerator()
 
-    Gen5LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.06],cost=1)
 
     Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=True)
 
@@ -196,7 +198,6 @@ def loadShop():
     Gen6.on_click = def():
         ClickedGenerator()
 
-    Gen6LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,-.23],cost=1)
 
     Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=True)
 
@@ -205,7 +206,6 @@ def loadShop():
     Gen7.on_click = def():
         ClickedGenerator()
 
-    Gen7LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[.5,0.18],cost=1)
     Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=4.5,enabled=True)
 
 
@@ -337,11 +337,44 @@ msgboxgodly.on_click = def():
         createText()
         revealOneCharacter(characters)
         msgboxArrow.enabled=True
+
+        after 2s:
+            canContinue = True        
+            shopButton.on_click = def():
+                loadShop()
+        onCurrent += 1
+    if onCurrent == 10:
+        LeonLines.line11.play()
+        canContinue=False
+        removeSpans()
+        textLines = [
+        { speed: 65, string: '\nLater on in the game you’ll encounter things called godly clicks which you can use on these generators to supercharge them' },
+
+        ];
+        createText()
+        revealOneCharacter(characters)
+        msgboxArrow.enabled=True
+        after 3.07548s:
+            canContinue = True
+        onCurrent += 1 
+    elif onCurrent == 11 and canContinue:
+        LeonLines.newLines.play()
+        canContinue=False
+        removeSpans()
+        textLines = [
+        { speed: 65, string: "\nLet’s move onto the settings menu" },
+
+        ];
+        createText()
+        revealOneCharacter(characters)
+        msgboxArrow.enabled=True
         shopButton.on_click = def():
             loadShop()
         after 3.07548s:
             canContinue = True
         onCurrent += 1
+
+
 msgboxgodly.enabled=True
 after 2:
     msgboxArrow.enabled=True
