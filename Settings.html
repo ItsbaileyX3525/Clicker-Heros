@@ -68,7 +68,6 @@ const fileInput = document.createElement('input');
       }
     });
 
-
     // Function to fetch JSON data asynchronously
     async function fetchJSONData(url) {
       const response = await fetch(url);
@@ -106,7 +105,25 @@ const fileInput = document.createElement('input');
               DebugConsole = new InputField({name:'DebugConsole ', x:.4,y:.15,scale:[.4,.06],roundness:.1})
               DebugConsoleSubmit = new Button({name:'DebugConsoleSubmit ', text:'Submit',scale:[.12,.06],x:.7,y:.145})
               DebugConsoleSubmit.on_click = function() {
+                try{
                 eval(DebugConsole.value)
+                try{
+                  destroy(evaledSucc)
+                }catch(e){}
+                evaledSucc = new Text({name:'evaledSucc ', text_size:5,text:'Evaluated successfully.',x:.65,y:-.5,z:-2})
+                after(.5, function(){
+                    destroy(evaledSucc)
+                  })
+              }
+                catch(err){
+                  try{
+                    destroy(evaledFail)
+                  }catch(e){}
+                  evaledFail = new Text({name:'evaledFail ', text_size:5,text:'Evaluation failed. Error: '+err,x:-.25,y:-.2,z:-2})
+                  after(.5, function(){
+                    destroy(evaledFail)
+                  })
+                }
               }
             }
             WARNINGBEWARECALLUMISWEARMANBEWARE3.on_click = function() {
