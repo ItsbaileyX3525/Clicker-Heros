@@ -481,7 +481,18 @@ msgboxgodly.on_click = def():
             loadSettings()
         onCurrent += 1
     elif onCurrent == 13 and canContinue:
-        print("egg")
+        LeonLines.line13.play()
+        canContinue=False
+        removeSpans()
+        textLines = [
+        { speed: 65, string: "\nThe main thing you really need to worry" +' about in '+ "this is the master volume and the click sounds which can add to the game's atmosphere but can be rather annoying at times" },
+        ];
+        createText()
+        revealOneCharacter(characters)
+        msgboxArrow.enabled=True
+        after 3.07548s:
+            print("Voice line over")
+        onCurrent += 1
 
 msgboxgodly.enabled=True
 after 2:

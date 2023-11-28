@@ -629,6 +629,8 @@ def input(key):
             ClickerDude.animate('scale_x', .3, .1)
             ClickerDude.animate('scale_y', .3, .1)
 
+GamesStuff = Button(color=color.clear,text='Games',xy=[-0.7,-0.3],scale=[0.3,0.08],text_size=5)
+WORKNEEDED = Entity(parent=camera.ui, texture='UnderConstruction.webp',scale=[.28,.3],xy=[-0.7,-0.3],alpha=.3)
 
 def update():
     try:
