@@ -68,6 +68,7 @@ LeonLines = {
     line11:new Audio('voiceLines/Leon/number18.ogg'),
     line12:new Audio('voiceLines/Leon/number19.ogg'),
     line13:new Audio('voiceLines/Leon/number20.ogg'),
+    lineObamna:new Audio('voiceLines/Leon/Use code tutorial for 25 clicks.ogg'),
     newLines1:new Audio('voiceLines/Leon/nice job on clicking.ogg'),
     newLines:new Audio('voiceLines/Leon/Lets move onto the settings menu.ogg')
 }
@@ -164,8 +165,10 @@ def loadSettings():
     TwitterCodes = InputField(x=-0.16,scale=[.4,.04],roundness=.1)
     TwitterCodesSubmit = Button(text='Submit',scale=[.12,.06],x=.125,y=-.004)
     TwitterCodesSubmit.on_click = def():
-        if TwitterCodes.text == 'tutorial':
-            print("Do something")
+        if TwitterCodes.value == 'tutorial' and onCurrent == 14 and not canContinue:
+            canContinue = True
+            save_system_save("score", 25)
+            save_system_save("overallscoreearned", 25)
 
 
     #Custom songs
@@ -492,6 +495,20 @@ msgboxgodly.on_click = def():
         msgboxArrow.enabled=True
         after 3.07548s:
             print("Voice line over")
+            canContinue = True
+        onCurrent += 1
+    elif onCurrent == 14 and canContinue:
+        LeonLines.lineObamna.play()
+        canContinue=False
+        removeSpans()
+        textLines = [
+        { speed: 65, string: '\nUse code "tutorial" for 25 clicks' },
+        ];
+        createText()
+        revealOneCharacter(characters)
+        msgboxArrow.enabled=True
+        after 3.07548s:
+            print("Voice line over")
         onCurrent += 1
 
 msgboxgodly.enabled=True
@@ -543,7 +560,6 @@ textLines.forEach((line, index) => {
    if (index < textLines.length - 1) {
       line.string += " "; //Add a space between lines
    }
-
    line.string.split("").forEach((character) => {
       var span = document.createElement("span");
       span.style.zIndex = 10
@@ -566,16 +582,14 @@ function revealOneCharacter(list) {
    next.span.style.opacity = 1
    next.classes.forEach((c) => {
       next.span.classList.add(c);
-      
    });
    var delay = next.isSpace && !next.pause ? 0 : next.delayAfter;
-
    if (list.length > 0) {
       setTimeout(function () {
          revealOneCharacter(list);
       }, delay);
    }
-}   
+}
 </script>
 
 <script src="EarnClicks.js"></script></body>
