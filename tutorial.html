@@ -101,6 +101,7 @@ set_orientation('horizontal')
 set_window_color('transparent')
 ASSETS_FOLDER = 'assets/'
  
+useCode = False
 volume=100
 onCurrent=11
 canContinue=False
@@ -165,7 +166,9 @@ def loadSettings():
     TwitterCodes = InputField(x=-0.16,scale=[.4,.04],roundness=.1)
     TwitterCodesSubmit = Button(text='Submit',scale=[.12,.06],x=.125,y=-.004)
     TwitterCodesSubmit.on_click = def():
-        if TwitterCodes.value == 'tutorial' and onCurrent == 14 and not canContinue:
+        
+        if TwitterCodes.value == 'tutorial' and useCode:
+            print(TwitterCodes.value)
             canContinue = True
             save_system_save("score", 25)
             save_system_save("overallscoreearned", 25)
@@ -501,6 +504,7 @@ msgboxgodly.on_click = def():
         LeonLines.lineObamna.play()
         canContinue=False
         removeSpans()
+        useCode = True
         textLines = [
         { speed: 65, string: '\nUse code "tutorial" for 25 clicks' },
         ];

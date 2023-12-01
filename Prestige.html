@@ -38,25 +38,32 @@ function calculatePrestigeCost(level) {
 
 function calculatePrestiges(clicks, currentPrestiges) {
   let prestiges = currentPrestiges;
-
-  if (prestiges >= maxPrestigeLevels) {
-    return 0;
-  }
-
-  let gainedPrestiges = 0;
-
-  while (clicks >= calculatePrestigeCost(prestiges + 1) && prestiges <= maxPrestigeLevels) {
-    clicks -= calculatePrestigeCost(prestiges + 1);
-    prestiges++;
-    gainedPrestiges++;
+  console.log(prestiges)
+  let prestigeCost = calculatePrestigeCost(prestiges)
+  console.log(prestigeCost)
+  let gainedPrestiges = 0
+  if (currentPrestiges == maxPrestigeLevels){
+    return 0
+    console.log("Max prestige")
+  } else {
+    if (clicks >= prestigeCost){
+      gainedPrestiges += 1
+      console.log("Prestiges gained")
+    } else if (clicks < prestigeCost){
+      console.log("Not enough")
+      return 0
+    }
   }
 
   return gainedPrestiges;
 }
 const shellyscream = new Audio('assets/sheldonscream.mp3')
-let gainedPrestiges = 0
-let currentPrestiges = localStorage.getItem("prestigelevel")
+let currentPrestiges = parseInt(localStorage.getItem("prestigelevel"))
 let clicks = parseFloat(localStorage.getItem('score'))
+if (!clicks){
+  clicks=1
+}
+console.log(clicks)
 </script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>

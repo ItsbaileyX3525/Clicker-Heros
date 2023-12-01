@@ -229,10 +229,10 @@ if not godlyClicks or godlyClicks == null:
 
 prestigeLevel = int(save_system_load('prestigelevel'))
 if not prestigeLevel or prestigeLevel == null:
-    prestigeLevel = 0
-elif prestigeLevel >= 1:
+    prestigeLevel = 1
+elif prestigeLevel > 1:
     after .2s:
-        globalMultiplier = 1 + prestigeLevel / 5
+        globalMultiplier = 1 + prestigeLevel-1 / 5
         save_system_save('globalmultiplier', globalMultiplier)
 
 startEarningGodlyClicks = int(save_system_load("earninggodlyclicks"))
