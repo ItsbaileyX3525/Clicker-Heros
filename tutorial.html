@@ -103,7 +103,7 @@ ASSETS_FOLDER = 'assets/'
  
 useCode = False
 volume=100
-onCurrent=11
+onCurrent=5
 canContinue=False
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
@@ -339,7 +339,7 @@ def loadShop():
         canContinue=False
         removeSpans()
         textLines = [
-        { speed: 65, string: "\nNice! You can see all the generators here, why don't you go ahead and click one... Not that it'll do anything" },
+        { speed: 65, string: "\nNice! You can see all the generators here, why\ndon't you go ahead"+' and '+"click one." }, 
 
         ];
         createText()
@@ -415,7 +415,7 @@ msgboxgodly.on_click = def():
         canContinue=False
         removeSpans()
         textLines = [
-        { speed: 65, string: "\nThis is the shop where you can buy various generators." },
+        { speed: 50, string: "\nThis is the shop where you can buy various\ngenerators." },
 
         ];
         createText()
@@ -429,7 +429,7 @@ msgboxgodly.on_click = def():
         canContinue=False
         removeSpans()
         textLines = [
-        { speed: 65, string: "\nIf you click on it you can see the current available generators you can buy." },
+        { speed: 50, string: "\nIf you click on it you can see the current available\ngenerators you can buy." },
 
         ];
         createText()
