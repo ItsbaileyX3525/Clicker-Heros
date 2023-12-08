@@ -232,7 +232,8 @@ if not prestigeLevel or prestigeLevel == null:
     prestigeLevel = 1
 elif prestigeLevel > 1:
     after .2s:
-        globalMultiplier = 1 + prestigeLevel-1 / 5
+        realPrestige = prestigeLevel - 1
+        globalMultiplier = 1 + realPrestige / 5
         save_system_save('globalmultiplier', globalMultiplier)
 
 startEarningGodlyClicks = int(save_system_load("earninggodlyclicks"))
@@ -398,6 +399,11 @@ ShopButton.on_click = def():
                 e.enabled=False
             for e in levelUps:
                 e.enabled=False
+
+GamesStuff = Button(color=color.clear,text='Games',xy=[-0.7,-0.3],scale=[0.3,0.08],text_size=5)
+WORKNEEDED = Entity(parent=camera.ui, texture='UnderConstruction.webp',scale=[.28,.3],xy=[-0.7,-0.3],alpha=.3)
+
+
 #Shop stuff & gens very annoying
 
 Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=False,x=-.8,y=.3)
@@ -615,6 +621,8 @@ mainScene.append(AchievementsButton)
 mainScene.append(cpsDisplay)
 mainScene.append(prestigeStuff)
 mainScene.append(prestigeStuffbg)
+mainScene.append(GamesStuff)
+mainScene.append(WORKNEEDED)
 
 def input(key):
     if not NOINTERACT:
@@ -629,8 +637,6 @@ def input(key):
             ClickerDude.animate('scale_x', .3, .1)
             ClickerDude.animate('scale_y', .3, .1)
 
-GamesStuff = Button(color=color.clear,text='Games',xy=[-0.7,-0.3],scale=[0.3,0.08],text_size=5)
-WORKNEEDED = Entity(parent=camera.ui, texture='UnderConstruction.webp',scale=[.28,.3],xy=[-0.7,-0.3],alpha=.3)
 
 def update():
     try:
