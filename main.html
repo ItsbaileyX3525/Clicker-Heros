@@ -400,9 +400,10 @@ ShopButton.on_click = def():
             for e in levelUps:
                 e.enabled=False
 
-GamesStuff = Button(color=color.clear,text='Games',xy=[-0.7,-0.3],scale=[0.3,0.08],text_size=5)
-WORKNEEDED = Entity(parent=camera.ui, texture='UnderConstruction.webp',scale=[.28,.3],xy=[-0.7,-0.3],alpha=.3)
-
+#GamesStuff = Button(color=color.clear,text='Games',xy=[-0.7,-0.3],scale=[0.3,0.08],text_size=5)
+#WORKNEEDED = Entity(parent=camera.ui, texture='UnderConstruction.webp',scale=[.28,.3],xy=[-0.7,-0.3],alpha=.3)
+#GamesStuff.on_click = def():
+    #SmoothTransit('mathsGame')
 
 #Shop stuff & gens very annoying
 
@@ -621,8 +622,8 @@ mainScene.append(AchievementsButton)
 mainScene.append(cpsDisplay)
 mainScene.append(prestigeStuff)
 mainScene.append(prestigeStuffbg)
-mainScene.append(GamesStuff)
-mainScene.append(WORKNEEDED)
+#mainScene.append(GamesStuff)
+#mainScene.append(WORKNEEDED)
 
 def input(key):
     if not NOINTERACT:

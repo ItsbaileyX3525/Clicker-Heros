@@ -1,156 +1,65 @@
 <!DOCTYPE html>
-<html>
-    <style>
-
-        @font-face{
-            font-family: MainFont;
-            src: url('assets/MainFont.ttf')
-        }
-        @keyframes rainbow {
-          0% { background-color: red; }
-          14% { background-color: orange; }
-          28% { background-color: yellow; }
-          42% { background-color: green; }
-          57% { background-color: blue; }
-          71% { background-color: indigo; }
-          85% { background-color: violet; }
-          100% { background-color: red; }
-        }
-        html * {
-            font-family: MainFont;
-        }
-        body{
-            background-image:url('assets/bg.webp');
-        }
-        .rainbow-animation {
-          animation: rainbow 2s linear infinite;
-        }
-        .claimed {
-            position: fixed;
-            top: 40%;
-            left: 50%;
-            font-size: 24px;
-            transform: translate(-50%, -50%);
-            color: green;
-            animation: claim 3s ease-in-out forwards;
-        }
-        
-        @keyframes claim {
-            0% {
-            opacity: 0;
-            transform: translate(-50%, 100%);
-            }
-            50% {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-            }
-            100% {
-            opacity: 0;
-            transform: translate(-50%, -100%);
-            }
-        }
-        </style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Detection</title>
+</head>
 <body>
-    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
-    <script src="Smooth.js"></script>
-    <script>
-function PauseSounds() {
-    StartedSong.pause()
-}
-function ResumeSounds() {
-    StartedSong.play()
-}
-function getCurrentTimestampU() {
-    return Math.floor(Date.now() / 1000);
+
+<script>
+  // Variables to store the expected sequence and the current input
+  const expectedSequence = "HELLO";
+  let currentInput = "";
+
+  // Variables to store the start time and time window
+  let startTime;
+  const timeWindow = 3000; // 3 seconds
+
+  // Function to check the input and perform an action
+  function checkInput() {
+    if (currentInput === expectedSequence) {
+      const elapsedTime = new Date() - startTime;
+      console.log(`You typed "HELLO" within ${elapsedTime} milliseconds!`);
+      // Add your custom action here
+    }
+    // Reset the current input and start time
+    currentInput = "";
+    startTime = null;
   }
-joinDateTracker = localStorage.getItem('joindate')
 
-  function updateElapsedTimeU() {
-    const currentTime = round(getCurrentTimestamp());
-    timeCounter = currentTime - joinDateTracker
-    return round(timeCounter)
-}
-function secondsToTime() {
-  var seconds = updateElapsedTimeU()
-  const secondsInMinute = 60;
-  const secondsInHour = 3600;
-  const secondsInDay = 86400;
-  const secondsInYear = 31536000;
-  const years = Math.floor(seconds / secondsInYear);
-  seconds -= years * secondsInYear;
-  const months = Math.floor(seconds / (secondsInDay * 30)); // Assuming 30 days in a month
-  seconds -= months * secondsInDay * 30;
-  const days = Math.floor(seconds / secondsInDay);
-  seconds -= days * secondsInDay;
-  const hours = Math.floor(seconds / secondsInHour);
-  seconds -= hours * secondsInHour;
-  const minutes = Math.floor(seconds / secondsInMinute);
-  seconds -= minutes * secondsInMinute;
+  // Event listener for the keydown event
+  document.addEventListener('keydown', function(event) {
+    // Check if the pressed key is 'H'
+    if (event.key.toUpperCase() === 'H') {
+      // Record the start time when 'H' is pressed
+      startTime = new Date();
+    }
 
-  return {
-    years,
-    months,
-    days,
-    hours,
-    minutes,
-    seconds
-  };
-}
-function secondsToHoursAndMinutes() {
-  var seconds = updateElapsedTimeU()
-  print(seconds)
-  const secondsInHour = 3600;
-  const secondsInMinute = 60;
+    // Check if the pressed key is a letter
+    if (event.key.length === 1) {
+      // Add the pressed key to the current input
+      currentInput += event.key.toUpperCase();
 
-  const hours = Math.floor(seconds / secondsInHour);
-  seconds -= hours * secondsInHour;
-
-  const minutes = Math.floor(seconds / secondsInMinute);
-
-  return {
-    hours,
-    minutes
-  };
-}
-
-    </script>
-
-    <script src="taptapir/taptapir.js">round(joinDateTracker)</script> 
-
-    <script type="text/sunsnake">
-
-#Global Functions
-set_orientation('horizontal')
-set_window_color('green')
-set_background_color('black')
-ASSETS_FOLDER = 'assets/'
-
-realBackground = Entity(parent=camera.ui,texture = 'Green.webp',scale=[2,1])
-
-timeplayed = Text(xy=[-.4,-.15],text="playtime "+time['seconds']+" seconds")
-timeplayedFull = Text(z=-4,text_size=5,enabled=False,xy=[-.4,-.15],text="playtime "+time['seconds']+" seconds")
-returnButtonTime = Button(texture='LeftArrow.webp',scale=[.125,.125],xy=[-0.75,.45],z=-4,enabled=False)
-returnButtonTime.on_click = def():
-    realBackground.texture = 'Green.webp'
-    realBackground.z=2
-    timeplayedFull.enabled=False
-    returnButtonTime.enabled=False
-expandTimePlayed = Button(color=color.white,texture='Expand.webp', scale=[.1,.1],xy=[0.025,0.325])
-expandTimePlayed.on_click = def():
-    realBackground.texture = 'LightGreen.webp'
-    realBackground.z=-2
-    timeplayedFull.enabled=True
-    returnButtonTime.enabled=True
-
-def update():
-    after .01s:
-        timeFull = secondsToTime()
-        time = secondsToHoursAndMinutes()
-        timeplayed.text = "You've played for: "+time['hours']+" hours and "+time['minutes']+" minutes"
-        timeplayedFull.text = "You've played for:\n"+timeFull['years']+" years,\n"+timeFull['months']+" months,\n"+timeFull['days']+" days,\n"+timeFull['hours']+" hours,\n"+timeFull['minutes']+" minutes and\n"+timeFull['seconds']+" seconds."
-
-_hidden_fullscreen_button.xy = [213213213,123123123]
+      // Check if the input matches the expected sequence
+      if (currentInput === expectedSequence) {
+        // Check if the entire sequence is typed within the time window
+        const elapsedTime = new Date() - startTime;
+        if (startTime && elapsedTime <= timeWindow) {
+          console.log(`You typed "HELLO" within ${elapsedTime} milliseconds from 'H'!`);
+          // Add your custom action here
+        }
+        if (currentInput.length > 5) {
+          currentInput = "";
+        startTime = null;
+        }
+        // Reset the current input and start time
+        currentInput = "";
+        startTime = null;
+      }
+    }
+  });
 </script>
-<script src="taptapir/sunsnake_compiler.js"></script><script src="EarnClicks.js"></script>
+
 </body>
 </html>

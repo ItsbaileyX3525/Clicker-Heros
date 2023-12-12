@@ -24,7 +24,9 @@ html * {
     <script src="Smooth.js"></script>
     <script>
 
-
+let voiceLines = {
+  line1: new Audio('voiceLines/Wilson/welcome to maths.ogg')
+}
 </script>
     <script src="taptapir/taptapir.js"></script>
 <script src="taptapir-utility/slider.js"></script>
@@ -37,6 +39,8 @@ set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
 title = Text(text='WELCOME TO\n MATHS MANIA!',text_color=color.green)
+
+voiceLines.line1.play()
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
