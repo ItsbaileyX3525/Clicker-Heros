@@ -1,3 +1,3 @@
 import librosa
-audio = 'number18'
-print(librosa.get_duration(path=f'voiceLines/Leon/{audio}.ogg'))
+audio = 'welcome to maths'
+print(librosa.get_duration(path=f'voiceLines/Wilson/{audio}.ogg'))

@@ -1,65 +1,355 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Key Detection</title>
-</head>
+<html>
+<style>
+
+@font-face{
+    font-family: MainFont;
+    src: url('assets/MainFont.ttf')
+}
+@keyframes rainbow {
+  0% { background-color: red; }
+  14% { background-color: orange; }
+  28% { background-color: yellow; }
+  42% { background-color: green; }
+  57% { background-color: blue; }
+  71% { background-color: indigo; }
+  85% { background-color: violet; }
+  100% { background-color: red; }
+}
+html * {
+    font-family: MainFont;
+}
+body{
+    background-image:url('assets/bg.webp');
+}
+.rainbow-animation {
+  animation: rainbow 2s linear infinite;
+}
+.claimed {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    font-size: 24px;
+    transform: translate(-50%, -50%);
+    color: green;
+    animation: claim 3s ease-in-out forwards;
+}
+
+@keyframes claim {
+    0% {
+    opacity: 0;
+    transform: translate(-50%, 100%);
+    }
+    50% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    }
+    100% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    }
+}
+</style>
 <body>
+    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
+    <script src="Smooth.js"></script>
+    <script>
+function updateProgressBar() {
+    if (currentValue === maxValue){
+    progressBar.classList.add('rainbow-animation');}
+  const percentage = (currentValue / maxValue) * 100;
+  progressBar.style.width = `${percentage}%`;
+  progressBar.textContent = `${currentValue}/${maxValue}`;
+}
+function PauseSounds() {
+    StartedSong.pause()
+}
+function ResumeSounds() {
+    StartedSong.play()
+}
+function claimAnimation() {
+      const element = document.createElement('div')
+      document.body.appendChild(element)
+      element.innerText = 'Claimed successfully';
+      element.classList.add('claimed');
+      after(3, function() {element.remove()})
+    }
+    
+    </script>
 
+<script src="taptapir/taptapir.js"></script>
 <script>
-  // Variables to store the expected sequence and the current input
-  const expectedSequence = "HELLO";
-  let currentInput = "";
-
-  // Variables to store the start time and time window
-  let startTime;
-  const timeWindow = 3000; // 3 seconds
-
-  // Function to check the input and perform an action
-  function checkInput() {
-    if (currentInput === expectedSequence) {
-      const elapsedTime = new Date() - startTime;
-      console.log(`You typed "HELLO" within ${elapsedTime} milliseconds!`);
-      // Add your custom action here
-    }
-    // Reset the current input and start time
-    currentInput = "";
-    startTime = null;
-  }
-
-  // Event listener for the keydown event
-  document.addEventListener('keydown', function(event) {
-    // Check if the pressed key is 'H'
-    if (event.key.toUpperCase() === 'H') {
-      // Record the start time when 'H' is pressed
-      startTime = new Date();
-    }
-
-    // Check if the pressed key is a letter
-    if (event.key.length === 1) {
-      // Add the pressed key to the current input
-      currentInput += event.key.toUpperCase();
-
-      // Check if the input matches the expected sequence
-      if (currentInput === expectedSequence) {
-        // Check if the entire sequence is typed within the time window
-        const elapsedTime = new Date() - startTime;
-        if (startTime && elapsedTime <= timeWindow) {
-          console.log(`You typed "HELLO" within ${elapsedTime} milliseconds from 'H'!`);
-          // Add your custom action here
+class AchievementEntity extends Entity{
+  constructor(options) {
+        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,canClaim:false,needed:0,have:0,color:color.black,iconTexture:'Clicker-idle.gif',achievementName: '', achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward', reward: null};
+        for (const [key, value] of Object.entries(options)) {
+            if (value !== false) {
+                settings[key] = value;
+            }
         }
-        if (currentInput.length > 5) {
-          currentInput = "";
-        startTime = null;
+        super(settings);
+        this.achievementIcon = new Entity({name:'achievementIcon ',parent:this,scale:[.125,.8],texture:this.iconTexture,x:-.445})
+        this.achievementTitle = new Text({name:'achievementTitle ',parent:this, text:this.title,text_color:color.gray,y:0})
+        this.achievementDescription = new Text({name:'achievementDescription ',parent:this, text:this.descriptor,text_color:color.gray,text_size:2,y:-.5})
+        this.achievementRewardInfo = new Text({name:'achievementRewardInfo ',parent:this, text:"Reward: "+this.rewardDescriptor,text_size:2,text_color:color.gray, xy:[.5,-.5]})
+        this.achievementOutOf = new Text({name:'achievementOutOf',parent:this,text:`${this.have}/${this.needed}`,scale:3})
+        if (! this.achievement && this.achievementClaimed) {
+            this.achievementClaim = new Button({name:'achievementClaim ',parent:this,text:"Claim",color:color.green,scale:[.15,.7],xy:[0.4,0]});
+            this.canClaim = 'claimable';
+
         }
-        // Reset the current input and start time
-        currentInput = "";
-        startTime = null;
-      }
-    }
-  });
+        else if (this.achievement && this.achievementClaimed) {
+            this.achievementClaim = new Button({name:'achievementClaim ',parent:this,text:"Claimed",color:color.gray,scale:[.15,.7],xy:[0.4,0]});
+            //Don't add the out of score here as already claimed
+        }
+        else {
+            this.achievementClaim = new Button({name:'achievementClaim ',parent:this,text:"Claim",color:color.gray,scale:[.15,.7],xy:[0.4,0]});
+        }
+        this.achievementClaim.on_click = () => {
+            if (this.canClaim === 'claimable'){
+                eval(this.reward)
+                claimAnimation();
+                achievementClaimed.pause()
+                achievementClaimed.currentTime = 0
+                achievementClaimed.play()
+                localStorage.setItem(this.achievementName, 1)
+                eval(`${this.achievementName} = 1;claim${this.achievementName} = 1`)
+                this.achievementClaim.color = color.gray
+                this.achievementClaim.text = 'Claimed'
+        }
+      }}
+}
+let buttonPress = new Audio('assets/achievementPress.ogg')
+let achievementClaimed = new Audio('assets/AchievementClaim.ogg')
 </script>
 
+<script type="text/sunsnake">
+
+#Global Functions
+set_orientation('horizontal')
+set_window_color('rgb(131,139,142)')
+set_background_color('black')
+ASSETS_FOLDER = 'assets/'
+
+coolTextThatsTotallyNeeded = Text(text='My Achievements.',text_color=color.white,xy=[-.35,-.025])
+
+progressBarAndDatPlaceHolder = Entity(scale=[1.2,.1],xy=[0,0.25],alpha=0)
+progressBarContainer = document.createElement('div');
+progressBarContainer.className = 'progress-bar';
+progressBarContainer.style.width = '100%';
+progressBarContainer.style.height = '30px';
+progressBarContainer.style.backgroundColor = '#ccc';
+progressBarContainer.style.borderRadius = '5px';
+progressBarContainer.style.overflow = 'hidden';
+progressBar = document.createElement('div');
+progressBar.id = 'progress';
+progressBar.className = 'progress';
+progressBar.style.height = '100%';
+progressBar.style.width = '0';
+progressBar.style.backgroundColor = '#4caf50';
+progressBar.style.textAlign = 'center';
+progressBar.style.lineHeight = '30px';
+progressBar.style.color = 'white';
+progressBarContainer.appendChild(progressBar);
+progressBarAndDatPlaceHolder.el.appendChild(progressBarContainer);
+
+currentValue = save_system_load("achievementcounter")
+if not currentValue or currentValue == null:
+    currentValue=0
+maxValue = 12;
+
+updateProgressBar();
+
+progressBarBackground = Entity(color=[27,25,27],scale=[1.3,.175],xy=[0,.285],z=1)
+TotallyNeededProgressBarText = Text(text='Total Achievements Earned.',text_color=color.white,xy=[-.2,-.145])
+
+function sortOutTheOutlineTR(id='msgboxgodly ', size=5, a=149, b=158, c=151){
+    var list1 = document.getElementById(id);
+    var list = list1.querySelector("entity")
+    list.style.borderTop = `${size}px solid rgb(${a}, ${b}, ${c})`;
+    list.style.borderRight = `${size}px solid rgb(${a}, ${b}, ${c})`;
+}
+function sortOutTheOutlineBL(id='', size=5, a=167, b=176, c=169){
+    var list1 = document.getElementById(id);
+    var list = list1.querySelector("entity")
+    list.style.borderLeft = `${size}px solid rgb(${a}, ${b}, ${c})`;
+    list.style.borderBottom = `${size}px solid rgb(${a}, ${b}, ${c})`;
+    
+}
+function sortOutTheOutlineL(id='', size=5, a=167, b=176, c=169){
+    var list1 = document.getElementById(id);
+    var list = list1.querySelector("entity")
+    list.style.borderLeft = `${size}px solid rgb(${a}, ${b}, ${c})`;
+    
+}
+def unloadTabs():
+    buttonPress.pause()
+    buttonPress.currentTime = 0
+    buttonPress.play()
+    inTab1 = False
+    inTab2 = False
+    inTab3 = False
+    inTab4 = False
+    tab1.color=[178,190,200]
+    tab2.color=[178,190,200]
+    tab3.color=[178,190,200]
+    tab4.color=[178,190,200]
+    try:
+        destroy(achievement1)
+        destroy(achievement2)
+        destroy(achievement3)
+    catch (Error) {;}
+    try:
+        destroy(achievement4)
+        destroy(achievement5)
+        destroy(achievement6)
+    catch (Error) {;}
+    try:
+        destroy(achievement7)
+        destroy(achievement8)
+        destroy(achievement9)
+    catch (Error) {;}
+    try:
+        destroy(achievement10)
+        destroy(achievement11)
+        destroy(achievement12)
+    catch (Error) {;}
+
+LoremIpsumPlaceHolderContainer = Entity(scale=[1.3,.6],y=-.2,color=[178,190,181])
+sortOutTheOutlineTR(id='LoremIpsumPlaceHolderContainer ')
+sortOutTheOutlineBL('LoremIpsumPlaceHolderContainer ')
+inTab1 = True
+inTab2 = False
+inTab3 = False
+inTab4 = False
+tab1 = Entity(scale=[.1,.1],texture='Clicker-idle.gif',color=[178,190,181],x=-.6035,y=.152)
+tab2 = Entity(scale=[.1,.1],texture='clickerGen1.webp',color=[178,190,200],x=-.45,y=.152)
+tab3 = Entity(scale=[.1,.1],texture='Cock, i mean clock.webp',color=[178,190,200],x=-.3,y=.152)
+tab4 = Entity(scale=[.1,.1],texture='GodlyClick.webp',color=[178,190,200],x=-.15,y=.152)
+
+sortOutTheOutlineTR(id='tab1 ', 2)
+sortOutTheOutlineL('tab1 ', 5)
+tab1.on_click = def():
+    if not inTab1:
+        unloadTabs()
+        tab1.color = [178,190,181]
+        inTab1 = True
+        loadTab1()
+tab2.on_click = def():
+    if not inTab2:
+        unloadTabs()
+        tab2.color = [178,190,181]
+        inTab2 = True
+        loadTab2()
+tab3.on_click = def():
+    if not inTab3:
+        unloadTabs()
+        tab3.color = [178,190,181]
+        inTab3 = True
+        loadTab3()
+tab4.on_click = def():
+    if not inTab4:
+        unloadTabs()
+        tab4.color = [178,190,181]
+        inTab4 = True
+        loadTab4()
+#Achievement 1
+
+#this is for testing when the achievement has been claimed.
+Tclicked1achievement = save_system_load('Tclicked1achievement') || 0
+Tclicked2500achievement = save_system_load('Tclicked2500achievement') || 0
+Tclicked10000achievement = save_system_load('Tclicked10000achievement') || 0
+
+#Used for connecting the names together
+achievement1name = 'Tclicked1achievement'
+achievement2name = 'Tclicked2500achievement'
+achievement3name = 'Tclicked10000achievement'
+
+#This one is used for tracking when you achieve it
+claimTclicked1achievement = save_system_load('clickedonceachievement') || 0
+claimTclicked2500achievement = save_system_load('clicked2500achievement') || 0
+claimTclicked10000achievement = save_system_load('clicked10000achievement') || 0
+
+#Achievement 2
+
+#this is for testing when the achievement has been claimed.
+earned100achievement = save_system_load('earned100achievement') || 0
+earned50000achievement = save_system_load('earned50000achievement') || 0
+earned250000achievement = save_system_load('earned250000achievement') || 0
+
+#Used for connecting the names together
+achievement4name = 'earned100achievement'
+achievement5name = 'earned50000achievement'
+achievement6name = 'earned250000achievement'
+
+#This one is used for tracking when you achieve it
+claimearned100achievement = save_system_load('amountearned100') || 0
+claimearned50000achievement = save_system_load('amountearned50000') || 0
+claimearned250000achievement = save_system_load('amountearned250000') || 0
+
+#Achievement 3
+
+#this is for testing when the achievement has been claimed.
+played1_hour = save_system_load('played1_hour') || 0
+played3days = save_system_load('played3days') || 0
+played1week = save_system_load('played1week') || 0
+
+#Used for connecting the names together
+achievement7name = 'played1_hour'
+achievement8name = 'played3days'
+achievement9name = 'played1week'
+
+#This one is used for tracking when you achieve it
+claimplayed1_hour = save_system_load('playedforhour') || 0
+claimplayed3days = save_system_load('playedfor3day') || 0
+claimplayed1week = save_system_load('playedforweek') || 0
+
+#Achievement 4
+
+#this is for testing when the achievement has been claimed.
+spend1godlyclick = save_system_load('spend1godlyclick') || 0
+spend10godlyclick = save_system_load('spend10godlyclick') || 0
+spend50godlyclick = save_system_load('spend50godlyclick') || 0
+
+#Used for connecting the names together
+achievement10name = 'spend1godlyclick'
+achievement11name = 'spend10godlyclick'
+achievement12name = 'spend50godlyclick'
+
+#This one is used for tracking when you achieve it
+claimspend1godlyclick = save_system_load('spent1godlyclicks') || 0
+claimspend10godlyclick = save_system_load('spent10godlyclicks') || 0
+claimspend50godlyclick = save_system_load('spent50godlyclicks') || 0
+
+
+def loadTab1():
+    achievement1 = AchievementEntity(title='Clicked once', descriptor='Click the clicker 1 time', achievementName = achievement1name, rewardDescriptor='100 clicks', achievement = Tclicked1achievement, achievementClaimed=claimTclicked1achievement, reward = 'score+=50;overallScoreEarned+=50')
+    achievement2 = AchievementEntity(iconTexture = 'clickerManLevel2.webp',y=-.2, title='Clicked 2500 times', descriptor='Click the clicker 2500 times', achievementName = achievement2name, rewardDescriptor='23K clicks', achievement = Tclicked2500achievement, achievementClaimed=claimTclicked2500achievement, reward = 'score+=23000;overallScoreEarned+=23000')
+    achievement3 = AchievementEntity(iconTexture = 'clickerManLevel3.webp',y=-.4, title='Clicked 10000 times', descriptor='Click the clicker 10000 times', achievementName = achievement3name, rewardDescriptor='250K clicks', achievement = Tclicked10000achievement, achievementClaimed=claimTclicked10000achievement, reward = 'score+=500000;overallScoreEarned+=50000')
+
+def loadTab2():
+    achievement4 = AchievementEntity(iconTexture = 'clickerGen1.webp',title='Earned 100 clicks', descriptor='Earn a total of 100 clicks', achievementName = achievement4name, rewardDescriptor='300 clicks', achievement = earned100achievement, achievementClaimed=claimearned100achievement, reward = 'score+=300;overallScoreEarned+=300')
+    achievement5 = AchievementEntity(iconTexture = 'clickerGen1.webp',y=-.2, title='Earned 50000 clicks', descriptor='Earn a total of 50000 clicks', achievementName = achievement5name, rewardDescriptor='35K clicks', achievement = earned50000achievement, achievementClaimed=claimearned50000achievement, reward = 'score+=35000;overallScoreEarned+=35000')
+    achievement6 = AchievementEntity(iconTexture = 'clickerGen1.webp',y=-.4, title='Earned 250000 clicks', descriptor='Earn a total of 250000 clicks', achievementName = achievement6name, rewardDescriptor='200K clicks', achievement = earned250000achievement, achievementClaimed=claimearned250000achievement, reward = 'score+=200000;overallScoreEarned+=200000')
+
+def loadTab3():
+    achievement7 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',title='Played for an hour', descriptor='Play/have the app for atleast an hour', achievementName = achievement7name, rewardDescriptor='8K clicks', achievement = played1_hour, achievementClaimed=claimplayed1_hour, reward = 'score+=8000;overallScoreEarned+=8000')
+    achievement8 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',y=-.2, title='Played for 3 days', descriptor='Play/have the app for atleast 3 days', achievementName = achievement8name, rewardDescriptor='65K clicks', achievement = played3days, achievementClaimed=claimplayed3days, reward = 'score+=65000;overallScoreEarned+=65000')
+    achievement9 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',y=-.4, title='Played for a week', descriptor='Play/have the app for atleast a week', achievementName = achievement9name, rewardDescriptor='1.5M clicks', achievement = played1week, achievementClaimed=claimplayed1week, reward = 'score+=1500000;overallScoreEarned+=1500000')
+
+def loadTab4():
+    achievement10 = AchievementEntity(iconTexture = 'GodlyClick.webp',title='Spent 1 godly click', descriptor='Spend a total of 1 godly click', achievementName = achievement10name, rewardDescriptor='25M clicks', achievement = spend1godlyclick, achievementClaimed=claimspend1godlyclick, reward = 'score+=25000000;overallScoreEarned+=25000000')
+    achievement11 = AchievementEntity(iconTexture = 'GodlyClick.webp',y=-.2,title='Spent 10 godly clicks', descriptor='Spend a total of 10 godly clicks', achievementName = achievement11name, rewardDescriptor='50M clicks', achievement = spend10godlyclick, achievementClaimed=claimspend10godlyclick, reward = 'score+=50000000;overallScoreEarned+=50000000')
+    achievement12 = AchievementEntity(iconTexture = 'GodlyClick.webp',y=-.4,title='Spent 50 godly clicks', descriptor='Spend a total of 50 godly clicks', achievementName = achievement12name, rewardDescriptor='150M clicks', achievement = spend50godlyclick, achievementClaimed=claimspend50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+
+loadTab1()
+
+returnButton = Button(texture='LeftArrow.webp',scale=[.1,.1],xy=[-0.8,0.44])
+returnButton.on_click = def():
+    SmoothTransit('main')
+_hidden_fullscreen_button.xy = [213213213,123123123]
+</script>
+<script src="taptapir/sunsnake_compiler.js"></script>
+<script src="EarnClicks.js"></script>
 </body>
 </html>

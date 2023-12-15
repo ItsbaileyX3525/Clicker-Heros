@@ -16,5 +16,49 @@
     </style>
 </head>
 <body>
+    <script src="taptapir/taptapir.js"></script>
+    <script type="text/javascript">
+set_window_color('transparent')
+set_background_color('transparent')
+let nextButton1 = false
+let nextButton2 = false
+let nextButton3 = false
+let nextButton4 = false
+function input(key) {
+if (key === 'h' && ! nextButton1) {
+    nextButton1 = true
+    after(2, function() {
+        nextButton1 = false
+    })
+}
+if (key != 'e' && nextButton1) {
+    nextButton1 = false
+    nextButton2 = true
+    after(2, function() {
+        nextButton2 = false
+    })
+}
+if (key === 'l' && nextButton2) {
+    nextButton2 = false
+    nextButton3 = true
+    after(2, function() {
+        nextButton3 = false
+    })
+}
+if (key === 'l' && nextButton3) {
+    nextButton3 = false
+    nextButton4 = true
+    after(2, function() {
+        nextButton4 = false
+    })
+}
+if (key === 'o' && nextButton4) {
+    nextButton4 = false
+    nextButton5 = true
+    egg=new Button({name: "egg ", alpha:1, text:"Hey, want to return to normal realm?"})
+    after(2, function() {
+        nextButton5 = false
+    }        )}        }
+    </script>
 </body>
 </html>

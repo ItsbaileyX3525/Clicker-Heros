@@ -25,7 +25,8 @@ html * {
     <script>
 
 let voiceLines = {
-  line1: new Audio('voiceLines/Wilson/welcome to maths.ogg')
+  line1: new Audio('voiceLines/Wilson/welcome to maths.ogg'),
+  snorozYay: new Audio('voiceLines/Snoroz/amazingFX.ogg')
 }
 </script>
     <script src="taptapir/taptapir.js"></script>
@@ -38,9 +39,13 @@ set_window_color('transparent')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
-title = Text(text='WELCOME TO\n MATHS MANIA!',text_color=color.green)
-
 voiceLines.line1.play()
+
+after 4.42:
+    title = Text(text='WELCOME TO\n MATHS MANIA!',text_color=color.green)
+
+
+
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>

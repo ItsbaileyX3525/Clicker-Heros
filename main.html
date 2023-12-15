@@ -54,10 +54,8 @@ function Playwoosh() {
     } else {
         wooshes.woosh3.play()
     }
-    wooshes.LeonYoda.volume = parseFloat(window.localStorage.getItem('mastervolume'))
-    woosh.addEventListener('ended', function() {
-      woosh.remove();
-    })}else if (allowedAttackSFX && friendMode){
+    wooshes.LeonYoda.volume = parseFloat(window.localStorage.getItem('mastervolume'))}
+    else if (allowedAttackSFX && friendMode){
         wooshes.LeonYoda.pause()
         wooshes.LeonYoda.currentTime = 0
         wooshes.LeonYoda.play()
