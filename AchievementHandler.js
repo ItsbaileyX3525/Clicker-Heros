@@ -83,7 +83,11 @@ class AchievementShowerMAX extends Entity {
 }
 
 clicked1achievement = save_system_load('clickedonceachievement') || 0;
+clicked100achievement = save_system_load('clicked100achievement') || 0;
+clicked500achievement = save_system_load('clicked500achievement') || 0;
+clicked1250achievement = save_system_load('clicked1250achievement') || 0;
 clicked2500achievement = save_system_load('clicked2500achievement') || 0;
+clicked5000achievement = save_system_load('clicked5000achievement') || 0;
 clicked10000achievement = save_system_load('clicked10000achievement') || 0;
 
 playedforhour = save_system_load('playedforhour') || 0
@@ -91,8 +95,12 @@ playedfor3day = save_system_load('playedfor3day') || 0
 playedforweek = save_system_load('playedforweek') || 0
 
 amountEarned100 = save_system_load('amountearned100') || 0;
+amountEarned10000 = save_system_load('amountearned10000') || 0;
+amountEarned25000 = save_system_load('amountearned25000') || 0;
 amountEarned50000 = save_system_load('amountearned50000') || 0;
+amountEarned125000 = save_system_load('amountearned125000') || 0;
 amountEarned250000 = save_system_load('amountearned250000') || 0;
+amountEarned500000 = save_system_load('amountearned500000') || 0;
 
 spent1godlyclick = save_system_load('spent1godlyclicks') || 0;
 spent10godlyclick = save_system_load('spent10godlyclicks') || 0;
@@ -133,9 +141,30 @@ AchievementHandler.update = function () {
             save_system_save('achievementcounter', achievementCounter);
             achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'100 score earnt!' });  
             break;
+        case overallScoreEarned >= 10000 && !amountEarned10000:
+            amountEarned10000 = 1;
+            save_system_save('amountearned10000', amountEarned10000);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'100 score earnt!' });  
+            break;
+        case overallScoreEarned >= 25000 && !amountEarned25000:
+            amountEarned25000 = 1;
+            save_system_save('amountearned25000', amountEarned25000);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'100 score earnt!' });  
+            break;
         case overallScoreEarned >= 50000 && !amountEarned50000:
             amountEarned50000 = 1;
             save_system_save('amountearned50000', amountEarned50000);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'50000 score earnt!' });  
+            break;
+        case overallScoreEarned >= 125000 && !amountEarned125000:
+            amountEarned125000 = 1;
+            save_system_save('amountearned125000', amountEarned125000);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
             achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'50000 score earnt!' });  
@@ -147,9 +176,37 @@ AchievementHandler.update = function () {
             save_system_save('achievementcounter', achievementCounter);
             achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'250000 score earnt!' });  
             break;
+        case overallScoreEarned >= 500000 && !amountEarned500000:
+            amountEarned500000 = 1;
+            save_system_save('amountearned500000', amountEarned500000);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'250000 score earnt!' });  
+            break;
         case timesClicked >= 1 && !clicked1achievement:
             clicked1achievement = 1;
             save_system_save('clickedonceachievement', clicked1achievement);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'First click!' });
+            break;
+        case timesClicked >= 100 && !clicked100achievement:
+            clicked100achievement = 1;
+            save_system_save('clicked100achievement', clicked100achievement);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'First click!' });
+            break;
+        case timesClicked >= 500 && !clicked500achievement:
+            clicked500achievement = 1;
+            save_system_save('clicked500achievement', clicked500achievement);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'First click!' });
+            break;
+        case timesClicked >= 1250 && !clicked1250achievement:
+            clicked1250achievement = 1;
+            save_system_save('clicked1250achievement', clicked1250achievement);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
             achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'First click!' });
@@ -159,14 +216,21 @@ AchievementHandler.update = function () {
             save_system_save('clicked2500achievement', clicked2500achievement);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
-            achievementQueue.push({ alpha: 1, icon: 'clickerManLevel2.webp', title:'2500 clicks!' });
+            achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'2500 clicks!' });
+            break;
+        case timesClicked >= 5000 && !clicked5000achievement:
+            clicked5000achievement= 1;
+            save_system_save('clicked5000achievement', clicked5000achievement);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'Clicker-idle.gif', title:'2500 clicks!' });
             break;
         case timesClicked >= 10000 && !clicked10000achievement:
             clicked10000achievement = 1;
             save_system_save('clicked10000achievement', clicked10000achievement);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
-            achievementQueueMAX.push({alpha: 1, icon: 'clickerManLevel3.webp', title:'Reached 10k clicks!' });
+            achievementQueueMAX.push({alpha: 1, icon: 'Clicker-idle.gif', title:'Reached 10k clicks!' });
             break;
         case godlyClicksTracker >= 1 && !spent1godlyclick:
             spent1godlyclick = 1;

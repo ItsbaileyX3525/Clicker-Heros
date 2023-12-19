@@ -188,7 +188,7 @@ after .1s:
         container = parenter.querySelector("entity")
         removeSpans()
         textLines = [
-        { speed: 20, string: "\nCongrats on completing the tutorial!" },            
+        { speed: 50, string: "\nCongrats on completing the tutorial!" },            
         ];
         createText()
         revealOneCharacter(characters)
@@ -206,11 +206,11 @@ after .1s:
                 container = parenter.querySelector("entity")
                 removeSpans()
                 textLines = [
-                { speed: 30, string: "\nYou can now play the complete game!" },            
+                { speed: 70, string: "\nYou can now play the complete game!" },            
                 ];
                 createText()
                 revealOneCharacter(characters)
-                after 2.4s:
+                after 2.45s:
                     destroy(tutorialBox)
                     destroy(tutorialBoxArrow)
                     canContinue = True
@@ -665,7 +665,7 @@ def update():
             e.texture = 'GenUpgradeArrowU.webp'
     if score >= 100000000:
         after .5s:
-            if startEarningGodlyClicks:
+            if not startEarningGodlyClicks:
                 if inShop:
                     inShop = False
                     for e in mainScene:
@@ -680,40 +680,59 @@ def update():
                     msgboxArrow.enabled=True
                 noInteract = True
                 NOINTERACT = True
-                canContinue = True
-                canContinue = False
+                
                 parenter = document.getElementById("msgboxgodly ");
                 container = parenter.querySelector("entity")
                 removeSpans()
-                var textLines = [
-                    { speed: 75, string: "\nYo!" },
-                    { speed: 60, string: "You've reached 100M clicks!" },
-                    { speed: speeds.fast, string: "Congrats by the way.\nThis" },
-                    { speed: speeds.fast, string: "means you can now" },
-                    { speed: speeds.fast, string: "start earning godly clicks." },
-                ];
                 createText()
                 noInteract=True
-                startEarningGodlyClicks = 0
+                startEarningGodlyClicks = 1
                 #save_system_save("earninggodlyclicks", startEarningGodlyClicks)
                 revealOneCharacter(characters)
                 LeonLines.line3.play()
                 after 3:
-                    LeonLines.line4.play()
-                    after 1:
-                        LeonLines.line5.play()
+                    canContinue = True
+                    onCurrent = 1
 
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
 msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
 
 onCurrent=1
 msgboxgodly.on_click = def():
-    if onCurrent == 1:
+    if onCurrent == 1 and canContinue:
+        canContinue = False
         parenter = document.getElementById("msgboxgodly ");
         container = parenter.querySelector("entity")
         removeSpans()
         textLines = [
-        { speed: speeds.fast, string: "\nGodly clicks can be used to upgrade your generators." },
+        { speed: 70, string: "\nCongrats by the way!" },
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent += 1
+        LeonLines.line4.play()
+        after 1.9171s:
+            canContinue = True
+    elif onCurrent == 2 and canContinue:
+        canContinue = False
+        parenter = document.getElementById("msgboxgodly ");
+        container = parenter.querySelector("entity")
+        removeSpans()
+        textLines = [
+        { speed: 60, string: "\nThis means you can now start earning godly clicks." },
+        ];
+        createText()
+        revealOneCharacter(characters)
+        onCurrent += 1
+        LeonLines.line5.play()
+        after 2.8894s:
+            canContinue = True
+    elif onCurrent == 3 and canContinue:
+        parenter = document.getElementById("msgboxgodly ");
+        container = parenter.querySelector("entity")
+        removeSpans()
+        textLines = [
+        { speed: speeds.fast, string: "\nGodly clicks can be used to upgrade your gens." },
         { speed: speeds.pause, string: "", pause: true },
         { speed: speeds.fast, string: "\nThis makes them generate clicks a lot faster!" },
         
@@ -721,7 +740,7 @@ msgboxgodly.on_click = def():
         createText()
         revealOneCharacter(characters)
         onCurrent += 1
-    elif onCurrent == 2:
+    elif onCurrent == 4 and canContinue:
         removeSpans()
         textLines = [
         { speed: speeds.fast, string: "\nI have given you 1 godly click for free that you can\nuse in the shop to upgrade any gen of your choice." },        
@@ -731,7 +750,7 @@ msgboxgodly.on_click = def():
         onCurrent +=1
         if godlyClicks >= 0:
             godlyClicks = 1
-    elif onCurrent == 3:
+    elif onCurrent == 5 and canContinue:
         removeSpans()
         textLines = [
         { speed: speeds.fast, string: '\nGodly clicks can be collected every 5 minutes of\nplaytime and can grant 1-2 godly clicks per harvest.' },        
@@ -739,7 +758,7 @@ msgboxgodly.on_click = def():
         createText()
         revealOneCharacter(characters)
         onCurrent +=1
-    elif onCurrent == 4:
+    elif onCurrent == 6 and canContinue:
         destroy(msgboxgodly)
         msgboxArrow.enabled=False
         cpsDisplay.enabled=True
@@ -779,7 +798,7 @@ msgboxprestige.on_click = def():
         save_system_save('doneprestalk', 1)
 
 after .2s:
-    if prestigeLevel >= 1 and not donePrestigeSpeech:
+    if prestigeLevel > 1 and not donePrestigeSpeech:
         if inShop:
         inShop = False
         for e in mainScene:
@@ -874,11 +893,7 @@ var speeds = {
 };
  
 var textLines = [
-    { speed: 75, string: "\nYo!" },
-    { speed: 60, string: "You've reached 100M clicks!" },
-    { speed: speeds.fast, string: "Congrats by the way.\nThis" },
-    { speed: speeds.fast, string: "means you can now" },
-    { speed: speeds.fast, string: "start earning godly clicks." },
+    { speed: 75, string:"\nYo! You've reached 100M clicks!" },
 ];
 var characters = [];
 function createText() {

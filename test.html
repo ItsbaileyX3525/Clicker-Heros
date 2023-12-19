@@ -34,7 +34,14 @@ body{
     color: green;
     animation: claim 3s ease-in-out forwards;
 }
-
+.achievement {
+  cursor: pointer;
+}
+#scrollableBox {
+      position: absolute;
+      overflow: auto;
+      z-index: -3;
+    }
 @keyframes claim {
     0% {
     opacity: 0;
@@ -49,7 +56,11 @@ body{
     transform: translate(-50%, -100%);
     }
 }
+
 </style>
+<head>
+    
+</head>
 <body>
     <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
     <script src="Smooth.js"></script>
@@ -122,7 +133,6 @@ class AchievementEntity extends Entity{
 let buttonPress = new Audio('assets/achievementPress.ogg')
 let achievementClaimed = new Audio('assets/AchievementClaim.ogg')
 </script>
-
 <script type="text/sunsnake">
 
 #Global Functions
@@ -131,9 +141,10 @@ set_window_color('rgb(131,139,142)')
 set_background_color('black')
 ASSETS_FOLDER = 'assets/'
 
+
 coolTextThatsTotallyNeeded = Text(text='My Achievements.',text_color=color.white,xy=[-.35,-.025])
 
-progressBarAndDatPlaceHolder = Entity(scale=[1.2,.1],xy=[0,0.25],alpha=0)
+progressBarAndDatPlaceHolder = Entity(scale=[1.2,.1],xy=[0,0.28],alpha=0)
 progressBarContainer = document.createElement('div');
 progressBarContainer.className = 'progress-bar';
 progressBarContainer.style.width = '100%';
@@ -146,6 +157,7 @@ progressBar.id = 'progress';
 progressBar.className = 'progress';
 progressBar.style.height = '100%';
 progressBar.style.width = '0';
+progressBar.style.zIndex = "-1"
 progressBar.style.backgroundColor = '#4caf50';
 progressBar.style.textAlign = 'center';
 progressBar.style.lineHeight = '30px';
@@ -160,8 +172,7 @@ maxValue = 12;
 
 updateProgressBar();
 
-progressBarBackground = Entity(color=[27,25,27],scale=[1.3,.175],xy=[0,.285],z=1)
-TotallyNeededProgressBarText = Text(text='Total Achievements Earned.',text_color=color.white,xy=[-.2,-.145])
+TotallyNeededProgressBarText = Text(text='Total Achievements Earned.',text_color=color.white,xy=[-.2,-.13])
 
 function sortOutTheOutlineTR(id='msgboxgodly ', size=5, a=149, b=158, c=151){
     var list1 = document.getElementById(id);
@@ -182,27 +193,107 @@ function sortOutTheOutlineL(id='', size=5, a=167, b=176, c=169){
     list.style.borderLeft = `${size}px solid rgb(${a}, ${b}, ${c})`;
     
 }
+
+#Tab1 is clicking clicker dude
+#Tab2 is amount you've earned in total
+#Tab3 is the amount of godly clicks you've spent
+#Tab4 is the amount of time you have spent in game
+#SecretTab is a tab with a bunch of misc achievements
+
+inTab1 = True
+inTab2 = False
+inTab3 = False
+inTab4 = False
+secretTab = False
+
+TabName = Text(text='CLICKER TAB',xy=[0.2,-.33])
+
+nextTab = Button(scale=[.1,.1],z=2,text='>',xy=[.7,-.2])
+prevTab = Button(scale=[.1,.1],z=2,text='<',xy=[-.7,-.2])
+
+
+#Achievement 1
+
+#this is for testing when the achievement has been claimed.
+Tclicked1achievement = save_system_load('Tclicked1achievement') || 0
+Tclicked100achievement = save_system_load('Tclicked100achievement') || 0
+Tclicked500achievement = save_system_load('Tclicked500achievement') || 0
+Tclicked1250achievement = save_system_load('Tclicked1250achievement') || 0
+Tclicked2500achievement = save_system_load('Tclicked2500achievement') || 0
+Tclicked5000achievement = save_system_load('Tclicked5000achievement') || 0
+Tclicked10000achievement = save_system_load('Tclicked10000achievement') || 0
+
+#Used for connecting the names together
+achievementClick1name = 'Tclicked1achievement'
+achievementClick2name = 'Tclicked100achievement'
+achievementClick3name = 'Tclicked500achievement'
+achievementClick4name = 'Tclicked1250achievement'
+achievementClick5name = 'Tclicked2500achievement'
+achievementClick6name = 'Tclicked5000achievement'
+achievementClick7name = 'Tclicked10000achievement'
+
+#This one is used for tracking when you achieve it
+claimTclicked1achievement = save_system_load('clickedonceachievement') || 0
+claimTclicked100achievement = save_system_load('clicked100achievement') || 0
+claimTclicked500achievement = save_system_load('clicked500achievement') || 0
+claimTclicked1250achievement = save_system_load('clicked1250achievement') || 0
+claimTclicked2500achievement = save_system_load('clicked2500achievement') || 0
+claimTclicked5000achievement = save_system_load('clicked5000achievement') || 0
+claimTclicked10000achievement = save_system_load('clicked10000achievement') || 0
+
+#Achievement 2
+
+TamountEarned100 = save_system_load('TamountEarned100') || 0
+TamountEarned10000 = save_system_load('TamountEarned10000') || 0
+TamountEarned25000 = save_system_load('TamountEarned25000') || 0
+TamountEarned50000 = save_system_load('TamountEarned50000') || 0
+TamountEarned125000 = save_system_load('TamountEarned125000') || 0
+TamountEarned250000 = save_system_load('TamountEarned250000') || 0
+TamountEarned500000 = save_system_load('TamountEarned500000') || 0
+
+#Used for connecting the names together
+achievementEarned1name = 'TamountEarned100'
+achievementEarned2name = 'TamountEarned10000'
+achievementEarned3name = 'TamountEarned25000'
+achievementEarned4name = 'TamountEarned50000'
+achievementEarned5name = 'TamountEarned125000'
+achievementEarned6name = 'TamountEarned250000'
+achievementEarned7name = 'TamountEarned500000'
+
+#This one is used for tracking when you achieve it
+claimTamountEarned100 = save_system_load('amountearned100') || 0
+claimTamountEarned10000 = save_system_load('amountearned10000') || 0
+claimTamountEarned25000 = save_system_load('amountearned25000') || 0
+claimTamountEarned50000 = save_system_load('amountearned50000') || 0
+claimTamountEarned125000 = save_system_load('amountearned125000') || 0
+claimTamountEarned250000 = save_system_load('amountearned250000') || 0
+claimTamountEarned500000 = save_system_load('amountearned500000') || 0
+
+
+
+scrollEntity = Entity(z=3,draggable=True,max_y=5000,lock_x=True,scale=[1.3,300.6],xy=[0,-0.2],alpha=0)
+achievementHolder = Entity(scale=[1.3,.6],z=1,xy=[0,-.2],alpha=0)
+achievementHider1 = Entity(scale=[1.24,4],z=1,xy=[0,2.04],color=[131,139,142])
+achievementHider2 = Entity(scale=[1.24,4],z=1,xy=[0,-2.45],color=[131,139,142])
+
 def unloadTabs():
-    buttonPress.pause()
-    buttonPress.currentTime = 0
-    buttonPress.play()
-    inTab1 = False
-    inTab2 = False
-    inTab3 = False
-    inTab4 = False
-    tab1.color=[178,190,200]
-    tab2.color=[178,190,200]
-    tab3.color=[178,190,200]
-    tab4.color=[178,190,200]
     try:
-        destroy(achievement1)
-        destroy(achievement2)
-        destroy(achievement3)
+        destroy(achievementClick1)
+        destroy(achievementClick2)
+        destroy(achievementClick3)
+        destroy(achievementClick4)
+        destroy(achievementClick5)
+        destroy(achievementClick6)
+        destroy(achievementClick7)
     catch (Error) {;}
     try:
-        destroy(achievement4)
-        destroy(achievement5)
-        destroy(achievement6)
+        destroy(achievementEarn1)
+        destroy(achievementEarn2)
+        destroy(achievementEarn3)
+        destroy(achievementEarn4)
+        destroy(achievementEarn5)
+        destroy(achievementEarn6)
+        destroy(achievementEarn7)
     catch (Error) {;}
     try:
         destroy(achievement7)
@@ -215,141 +306,144 @@ def unloadTabs():
         destroy(achievement12)
     catch (Error) {;}
 
-LoremIpsumPlaceHolderContainer = Entity(scale=[1.3,.6],y=-.2,color=[178,190,181])
-sortOutTheOutlineTR(id='LoremIpsumPlaceHolderContainer ')
-sortOutTheOutlineBL('LoremIpsumPlaceHolderContainer ')
-inTab1 = True
-inTab2 = False
-inTab3 = False
-inTab4 = False
-tab1 = Entity(scale=[.1,.1],texture='Clicker-idle.gif',color=[178,190,181],x=-.6035,y=.152)
-tab2 = Entity(scale=[.1,.1],texture='clickerGen1.webp',color=[178,190,200],x=-.45,y=.152)
-tab3 = Entity(scale=[.1,.1],texture='Cock, i mean clock.webp',color=[178,190,200],x=-.3,y=.152)
-tab4 = Entity(scale=[.1,.1],texture='GodlyClick.webp',color=[178,190,200],x=-.15,y=.152)
-
-sortOutTheOutlineTR(id='tab1 ', 2)
-sortOutTheOutlineL('tab1 ', 5)
-tab1.on_click = def():
-    if not inTab1:
-        unloadTabs()
-        tab1.color = [178,190,181]
-        inTab1 = True
-        loadTab1()
-tab2.on_click = def():
-    if not inTab2:
-        unloadTabs()
-        tab2.color = [178,190,181]
-        inTab2 = True
-        loadTab2()
-tab3.on_click = def():
-    if not inTab3:
-        unloadTabs()
-        tab3.color = [178,190,181]
-        inTab3 = True
-        loadTab3()
-tab4.on_click = def():
-    if not inTab4:
-        unloadTabs()
-        tab4.color = [178,190,181]
-        inTab4 = True
-        loadTab4()
-#Achievement 1
-
-#this is for testing when the achievement has been claimed.
-Tclicked1achievement = save_system_load('Tclicked1achievement') || 0
-Tclicked2500achievement = save_system_load('Tclicked2500achievement') || 0
-Tclicked10000achievement = save_system_load('Tclicked10000achievement') || 0
-
-#Used for connecting the names together
-achievement1name = 'Tclicked1achievement'
-achievement2name = 'Tclicked2500achievement'
-achievement3name = 'Tclicked10000achievement'
-
-#This one is used for tracking when you achieve it
-claimTclicked1achievement = save_system_load('clickedonceachievement') || 0
-claimTclicked2500achievement = save_system_load('clicked2500achievement') || 0
-claimTclicked10000achievement = save_system_load('clicked10000achievement') || 0
-
-#Achievement 2
-
-#this is for testing when the achievement has been claimed.
-earned100achievement = save_system_load('earned100achievement') || 0
-earned50000achievement = save_system_load('earned50000achievement') || 0
-earned250000achievement = save_system_load('earned250000achievement') || 0
-
-#Used for connecting the names together
-achievement4name = 'earned100achievement'
-achievement5name = 'earned50000achievement'
-achievement6name = 'earned250000achievement'
-
-#This one is used for tracking when you achieve it
-claimearned100achievement = save_system_load('amountearned100') || 0
-claimearned50000achievement = save_system_load('amountearned50000') || 0
-claimearned250000achievement = save_system_load('amountearned250000') || 0
-
-#Achievement 3
-
-#this is for testing when the achievement has been claimed.
-played1_hour = save_system_load('played1_hour') || 0
-played3days = save_system_load('played3days') || 0
-played1week = save_system_load('played1week') || 0
-
-#Used for connecting the names together
-achievement7name = 'played1_hour'
-achievement8name = 'played3days'
-achievement9name = 'played1week'
-
-#This one is used for tracking when you achieve it
-claimplayed1_hour = save_system_load('playedforhour') || 0
-claimplayed3days = save_system_load('playedfor3day') || 0
-claimplayed1week = save_system_load('playedforweek') || 0
-
-#Achievement 4
-
-#this is for testing when the achievement has been claimed.
-spend1godlyclick = save_system_load('spend1godlyclick') || 0
-spend10godlyclick = save_system_load('spend10godlyclick') || 0
-spend50godlyclick = save_system_load('spend50godlyclick') || 0
-
-#Used for connecting the names together
-achievement10name = 'spend1godlyclick'
-achievement11name = 'spend10godlyclick'
-achievement12name = 'spend50godlyclick'
-
-#This one is used for tracking when you achieve it
-claimspend1godlyclick = save_system_load('spent1godlyclicks') || 0
-claimspend10godlyclick = save_system_load('spent10godlyclicks') || 0
-claimspend50godlyclick = save_system_load('spent50godlyclicks') || 0
-
-
 def loadTab1():
-    achievement1 = AchievementEntity(title='Clicked once', descriptor='Click the clicker 1 time', achievementName = achievement1name, rewardDescriptor='100 clicks', achievement = Tclicked1achievement, achievementClaimed=claimTclicked1achievement, reward = 'score+=50;overallScoreEarned+=50')
-    achievement2 = AchievementEntity(iconTexture = 'clickerManLevel2.webp',y=-.2, title='Clicked 2500 times', descriptor='Click the clicker 2500 times', achievementName = achievement2name, rewardDescriptor='23K clicks', achievement = Tclicked2500achievement, achievementClaimed=claimTclicked2500achievement, reward = 'score+=23000;overallScoreEarned+=23000')
-    achievement3 = AchievementEntity(iconTexture = 'clickerManLevel3.webp',y=-.4, title='Clicked 10000 times', descriptor='Click the clicker 10000 times', achievementName = achievement3name, rewardDescriptor='250K clicks', achievement = Tclicked10000achievement, achievementClaimed=claimTclicked10000achievement, reward = 'score+=500000;overallScoreEarned+=50000')
+    achievementClick1 = AchievementEntity(title='Clicked once',y=0.3,scale=[.95,0.2], descriptor='Click the clicker 1 time', achievementName = achievementClick1name, rewardDescriptor='100 clicks', achievement = Tclicked1achievement, achievementClaimed=claimTclicked1achievement, reward = 'score+=50;overallScoreEarned+=50')
+    achievementClick2 = AchievementEntity(y=.0,scale=[.95,0.2], title='Clicked 100 times', descriptor='Click the clicker 100 times', achievementName = achievementClick2name, rewardDescriptor='12K clicks', achievement = Tclicked100achievement, achievementClaimed=claimTclicked100achievement, reward = 'score+=12000;overallScoreEarned+=12000')
+    achievementClick3 = AchievementEntity(y=-.3,scale=[.95,0.2], title='Clicked 500 times', descriptor='Click the clicker 500 times', achievementName = achievementClick3name, rewardDescriptor='60K clicks', achievement = Tclicked500achievement, achievementClaimed=claimTclicked500achievement, reward = 'score+=60000;overallScoreEarned+=60000')
+    achievementClick4 = AchievementEntity(y=-.6,scale=[.95,0.2], title='Clicked 1250 times', descriptor='Click the clicker 1250 times', achievementName = achievementClick4name, rewardDescriptor='150K clicks', achievement = Tclicked1250achievement, achievementClaimed=claimTclicked1250achievement, reward = 'score+=150000;overallScoreEarned+=150000')
+    achievementClick5 = AchievementEntity(y=-.9,scale=[.95,0.2], title='Clicked 2500 times', descriptor='Click the clicker 2500 times', achievementName = achievementClick5name, rewardDescriptor='300K clicks', achievement = Tclicked2500achievement, achievementClaimed=claimTclicked2500achievement, reward = 'score+=300000;overallScoreEarned+=300000')
+    achievementClick6 = AchievementEntity(y=-1.2,scale=[.95,0.2], title='Clicked 5000 times', descriptor='Click the clicker 5000 times', achievementName = achievementClick6name, rewardDescriptor='500K clicks', achievement = Tclicked5000achievement, achievementClaimed=claimTclicked5000achievement, reward = 'score+=500000;overallScoreEarned+=50000')
+    achievementClick7 = AchievementEntity(y=-1.5,scale=[.95,0.2], title='Clicked 10000 times', descriptor='Click the clicker 10000 times', achievementName = achievementClick7name, rewardDescriptor='750K clicks', achievement = Tclicked10000achievement, achievementClaimed=claimTclicked10000achievement, reward = 'score+=750000;overallScoreEarned+=750000')
 
+    achievementClick1e = document.getElementById("achievementClick1 ")
+    achievementClick2e = document.getElementById("achievementClick2 ")
+    achievementClick3e = document.getElementById("achievementClick3 ")
+    achievementClick4e = document.getElementById("achievementClick4 ")
+    achievementClick5e = document.getElementById("achievementClick5 ")
+    achievementClick6e = document.getElementById("achievementClick6 ")
+    achievementClick7e = document.getElementById("achievementClick7 ")
+    
+    achievementHolder.el.appendChild(achievementClick1e)
+    achievementHolder.el.appendChild(achievementClick2e)
+    achievementHolder.el.appendChild(achievementClick3e)
+    achievementHolder.el.appendChild(achievementClick4e)
+    achievementHolder.el.appendChild(achievementClick5e)
+    achievementHolder.el.appendChild(achievementClick6e)
+    achievementHolder.el.appendChild(achievementClick7e)
+    
 def loadTab2():
-    achievement4 = AchievementEntity(iconTexture = 'clickerGen1.webp',title='Earned 100 clicks', descriptor='Earn a total of 100 clicks', achievementName = achievement4name, rewardDescriptor='300 clicks', achievement = earned100achievement, achievementClaimed=claimearned100achievement, reward = 'score+=300;overallScoreEarned+=300')
-    achievement5 = AchievementEntity(iconTexture = 'clickerGen1.webp',y=-.2, title='Earned 50000 clicks', descriptor='Earn a total of 50000 clicks', achievementName = achievement5name, rewardDescriptor='35K clicks', achievement = earned50000achievement, achievementClaimed=claimearned50000achievement, reward = 'score+=35000;overallScoreEarned+=35000')
-    achievement6 = AchievementEntity(iconTexture = 'clickerGen1.webp',y=-.4, title='Earned 250000 clicks', descriptor='Earn a total of 250000 clicks', achievementName = achievement6name, rewardDescriptor='200K clicks', achievement = earned250000achievement, achievementClaimed=claimearned250000achievement, reward = 'score+=200000;overallScoreEarned+=200000')
+    achievementEarn1 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=0.3,title='Earned 100 clicks', descriptor='Earn a total of 100 clicks', achievementName = achievementEarned1name, rewardDescriptor='125 clicks', achievement = TamountEarned100, achievementClaimed=claimTamountEarned100, reward = 'score+=125;overallScoreEarned+=125')
+    achievementEarn2 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=0, title='Earned 10000 clicks', descriptor='Earn a total of 10000 clicks', achievementName = achievementEarned2name, rewardDescriptor='6.5K clicks', achievement = TamountEarned10000, achievementClaimed=claimTamountEarned10000, reward = 'score+=6500;overallScoreEarned+=6500')
+    achievementEarn3 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=-0.3, title='Earned 25000 clicks', descriptor='Earn a total of 25000 clicks', achievementName = achievementEarned3name, rewardDescriptor='15K clicks', achievement = TamountEarned25000, achievementClaimed=claimTamountEarned25000, reward = 'score+=15000;overallScoreEarned+=15000')
+    achievementEarn4 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=-0.6, title='Earned 50000 clicks', descriptor='Earn a total of 50000 clicks', achievementName = achievementEarned4name, rewardDescriptor='30K clicks', achievement = TamountEarned50000, achievementClaimed=claimTamountEarned50000, reward = 'score+=30000;overallScoreEarned+=30000')
+    achievementEarn5 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=-0.9, title='Earned 125000 clicks', descriptor='Earn a total of 125000 clicks', achievementName = achievementEarned5name, rewardDescriptor='80K clicks', achievement = TamountEarned125000, achievementClaimed=claimTamountEarned125000, reward = 'score+=80000;overallScoreEarned+=80000')
+    achievementEarn6 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=-1.2, title='Earned 250000 clicks', descriptor='Earn a total of 250000 clicks', achievementName = achievementEarned6name, rewardDescriptor='120K clicks', achievement = TamountEarned250000, achievementClaimed=claimTamountEarned250000, reward = 'score+=120000;overallScoreEarned+=200000')
+    achievementEarn7 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=-1.5, title='Earned 500000 clicks', descriptor='Earn a total of 500000 clicks', achievementName = achievementEarned7name, rewardDescriptor='300K clicks', achievement = TamountEarned500000, achievementClaimed=claimTamountEarned500000, reward = 'score+=300000;overallScoreEarned+=300000')
 
-def loadTab3():
-    achievement7 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',title='Played for an hour', descriptor='Play/have the app for atleast an hour', achievementName = achievement7name, rewardDescriptor='8K clicks', achievement = played1_hour, achievementClaimed=claimplayed1_hour, reward = 'score+=8000;overallScoreEarned+=8000')
-    achievement8 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',y=-.2, title='Played for 3 days', descriptor='Play/have the app for atleast 3 days', achievementName = achievement8name, rewardDescriptor='65K clicks', achievement = played3days, achievementClaimed=claimplayed3days, reward = 'score+=65000;overallScoreEarned+=65000')
-    achievement9 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',y=-.4, title='Played for a week', descriptor='Play/have the app for atleast a week', achievementName = achievement9name, rewardDescriptor='1.5M clicks', achievement = played1week, achievementClaimed=claimplayed1week, reward = 'score+=1500000;overallScoreEarned+=1500000')
+    achievementEarn1e = document.getElementById("achievementEarn1 ")
+    achievementEarn2e = document.getElementById("achievementEarn2 ")
+    achievementEarn3e = document.getElementById("achievementEarn3 ")
+    achievementEarn4e = document.getElementById("achievementEarn4 ")
+    achievementEarn5e = document.getElementById("achievementEarn5 ")
+    achievementEarn6e = document.getElementById("achievementEarn6 ")
+    achievementEarn7e = document.getElementById("achievementEarn7 ")
 
-def loadTab4():
-    achievement10 = AchievementEntity(iconTexture = 'GodlyClick.webp',title='Spent 1 godly click', descriptor='Spend a total of 1 godly click', achievementName = achievement10name, rewardDescriptor='25M clicks', achievement = spend1godlyclick, achievementClaimed=claimspend1godlyclick, reward = 'score+=25000000;overallScoreEarned+=25000000')
-    achievement11 = AchievementEntity(iconTexture = 'GodlyClick.webp',y=-.2,title='Spent 10 godly clicks', descriptor='Spend a total of 10 godly clicks', achievementName = achievement11name, rewardDescriptor='50M clicks', achievement = spend10godlyclick, achievementClaimed=claimspend10godlyclick, reward = 'score+=50000000;overallScoreEarned+=50000000')
-    achievement12 = AchievementEntity(iconTexture = 'GodlyClick.webp',y=-.4,title='Spent 50 godly clicks', descriptor='Spend a total of 50 godly clicks', achievementName = achievement12name, rewardDescriptor='150M clicks', achievement = spend50godlyclick, achievementClaimed=claimspend50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementHolder.el.appendChild(achievementEarn1e)
+    achievementHolder.el.appendChild(achievementEarn2e)
+    achievementHolder.el.appendChild(achievementEarn3e)
+    achievementHolder.el.appendChild(achievementEarn4e)
+    achievementHolder.el.appendChild(achievementEarn5e)
+    achievementHolder.el.appendChild(achievementEarn6e)
+    achievementHolder.el.appendChild(achievementEarn7e)
 
 loadTab1()
+
+#achievementPlayed1 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],title='Played for an hour', descriptor='Play/have the app for atleast an hour', achievementName = achievement7name, rewardDescriptor='8K clicks', achievement = played1_hour, achievementClaimed=claimplayed1_hour, reward = 'score+=8000;overallScoreEarned+=8000')
+#achievementPlayed2 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.2, title='Played for 3 days', descriptor='Play/have the app for atleast 3 days', achievementName = achievement8name, rewardDescriptor='65K clicks', achievement = played3days, achievementClaimed=claimplayed3days, reward = 'score+=65000;overallScoreEarned+=65000')
+#achievementPlayed3 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.4, title='Played for a week', descriptor='Play/have the app for atleast a week', achievementName = achievement9name, rewardDescriptor='1.5M clicks', achievement = played1week, achievementClaimed=claimplayed1week, reward = 'score+=1500000;overallScoreEarned+=1500000')
+#achievementGodly1 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],title='Spent 1 godly click', descriptor='Spend a total of 1 godly click', achievementName = achievement10name, rewardDescriptor='25M clicks', achievement = spend1godlyclick, achievementClaimed=claimspend1godlyclick, reward = 'score+=25000000;overallScoreEarned+=25000000')
+#achievementGodly2 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.2,title='Spent 10 godly clicks', descriptor='Spend a total of 10 godly clicks', achievementName = achievement11name, rewardDescriptor='50M clicks', achievement = spend10godlyclick, achievementClaimed=claimspend10godlyclick, reward = 'score+=50000000;overallScoreEarned+=50000000')
+#achievementGodly3 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.4,title='Spent 50 godly clicks', descriptor='Spend a total of 50 godly clicks', achievementName = achievement12name, rewardDescriptor='150M clicks', achievement = spend50godlyclick, achievementClaimed=claimspend50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+
+
 
 returnButton = Button(texture='LeftArrow.webp',scale=[.1,.1],xy=[-0.8,0.44])
 returnButton.on_click = def():
     SmoothTransit('main')
+
+def update():
+    achievementHolder.y=scrollEntity.y
+    if scrollEntity.y < -.2:
+        scrollEntity.y = -.2
+        scrollEntity.dragging = False
+    if scrollEntity.y > .5:
+        scrollEntity.y = .5
+        scrollEntity.dragging = False
+
 _hidden_fullscreen_button.xy = [213213213,123123123]
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
 <script src="EarnClicks.js"></script>
+<script>
+
+nextTab.on_click = function(){
+    switch (true) {
+        case inTab1:
+            inTab1 = false;
+            inTab2 = true;
+            unloadTabs();
+            loadTab2();
+            break;
+        case inTab2:
+            inTab2 = false;
+            inTab3 = true;
+            break;
+        case inTab3:
+            inTab3 = false;
+            inTab4 = true;
+            break;
+        case inTab4:
+            inTab4 = false;
+            secretTab = true;
+            break;
+        case secretTab:
+            secretTab = false;
+            inTab1 = true;
+            break;
+        default:
+            alert("User not in any tab??");
+            break;
+    }
+}
+prevTab.on_click = function(){
+    switch (true) {
+        case inTab1:
+            secretTab = true;
+            inTab1 = false;
+            break;
+        case inTab2:
+            inTab2 = false;
+            inTab1 = true;
+            unloadTabs();
+            loadTab1();
+            break;
+        case inTab3:
+            inTab3 = false;
+            inTab2 = true;
+            break;
+        case inTab4:
+            inTab4 = false;
+            inTab3 = true;
+            break;
+        case secretTab:
+            secretTab = false;
+            inTab4 = true;
+            break;
+        default:
+            alert("User not in any tab??")
+            break;
+    }
+}
+</script>
 </body>
 </html>
