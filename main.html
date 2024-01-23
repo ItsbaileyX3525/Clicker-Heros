@@ -27,7 +27,7 @@ html * {
     <script src="Smooth.js"></script>
     <script>
 
-function random_int_(min, max) {//In taptapir but taptap is defined before goodness
+function random_int_(min, max) {//In taptapir.js but taptap isn't defined before init
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;

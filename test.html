@@ -168,7 +168,7 @@ progressBarAndDatPlaceHolder.el.appendChild(progressBarContainer);
 currentValue = save_system_load("achievementcounter")
 if not currentValue or currentValue == null:
     currentValue=0
-maxValue = 12;
+maxValue = 28;
 
 updateProgressBar();
 
@@ -269,6 +269,33 @@ claimTamountEarned125000 = save_system_load('amountearned125000') || 0
 claimTamountEarned250000 = save_system_load('amountearned250000') || 0
 claimTamountEarned500000 = save_system_load('amountearned500000') || 0
 
+#Achievement 3
+
+Tspent1godlyclick = save_system_load('Tspent1godlyclick') || 0
+Tspent10godlyclick = save_system_load('Tspent10godlyclick') || 0
+Tspent25godlyclick = save_system_load('Tspent25godlyclick') || 0
+Tspent50godlyclick = save_system_load('Tspent50godlyclick') || 0
+Tspent75godlyclick = save_system_load('Tspent75godlyclick') || 0
+Tspent100godlyclick = save_system_load('Tspent100godlyclick') || 0
+Tspent150godlyclick = save_system_load('Tspent150godlyclick') || 0
+
+#Used for connecting the names together
+achievementGodly1name = 'Tspent1godlyclick'
+achievementGodly2name = 'Tspent10godlyclick'
+achievementGodly3name = 'Tspent25godlyclick'
+achievementGodly4name = 'Tspent50godlyclick'
+achievementGodly5name = 'Tspent75godlyclick'
+achievementGodly6name = 'Tspent100godlyclick'
+achievementGodly7name = 'Tspent150godlyclick'
+
+#This one is used for tracking when you achieve it
+claimTspent1godlyclick = save_system_load('spent1godlyclick') || 0
+claimTspent10godlyclick = save_system_load('spent10godlyclick') || 0
+claimTspent25godlyclick = save_system_load('spent25godlyclick') || 0
+claimTspent50godlyclick = save_system_load('spent50godlyclick') || 0
+claimTspent75godlyclick = save_system_load('spent75godlyclick') || 0
+claimTspent100godlyclick = save_system_load('spent100godlyclick') || 0
+claimTspent150godlyclick = save_system_load('spent150godlyclick') || 0
 
 
 scrollEntity = Entity(z=3,draggable=True,max_y=5000,lock_x=True,scale=[1.3,300.6],xy=[0,-0.2],alpha=0)
@@ -277,6 +304,9 @@ achievementHider1 = Entity(scale=[1.24,4],z=1,xy=[0,2.04],color=[131,139,142])
 achievementHider2 = Entity(scale=[1.24,4],z=1,xy=[0,-2.45],color=[131,139,142])
 
 def unloadTabs():
+    buttonPress.pause()
+    buttonPress.currentTime = 0
+    buttonPress.play()
     try:
         destroy(achievementClick1)
         destroy(achievementClick2)
@@ -296,9 +326,13 @@ def unloadTabs():
         destroy(achievementEarn7)
     catch (Error) {;}
     try:
-        destroy(achievement7)
-        destroy(achievement8)
-        destroy(achievement9)
+        destroy(achievementGodly1)
+        destroy(achievementGodly2)
+        destroy(achievementGodly3)
+        destroy(achievementGodly4)
+        destroy(achievementGodly5)
+        destroy(achievementGodly6)
+        destroy(achievementGodly7)
     catch (Error) {;}
     try:
         destroy(achievement10)
@@ -356,15 +390,62 @@ def loadTab2():
     achievementHolder.el.appendChild(achievementEarn6e)
     achievementHolder.el.appendChild(achievementEarn7e)
 
+def loadTab3():
+    achievementGodly1 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=.3,title='Spent 1 godly click', descriptor='Spend a total of 1 godly click', achievementName = achievementGodly1name, rewardDescriptor='25M clicks', achievement = Tspent1godlyclick, achievementClaimed=claimTspent1godlyclick, reward = 'score+=25000000;overallScoreEarned+=25000000')
+    achievementGodly2 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=0,title='Spent 10 godly clicks', descriptor='Spend a total of 10 godly clicks', achievementName = achievementGodly2name, rewardDescriptor='50M clicks', achievement = Tspent10godlyclick, achievementClaimed=claimTspent10godlyclick, reward = 'score+=50000000;overallScoreEarned+=50000000')
+    achievementGodly3 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.3,title='Spent 25 godly clicks', descriptor='Spend a total of 25 godly clicks', achievementName = achievementGodly3name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementGodly4 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.6,title='Spent 50 godly clicks', descriptor='Spend a total of 50 godly clicks', achievementName = achievementGodly4name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementGodly5 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.9,title='Spent 75 godly clicks', descriptor='Spend a total of 75 godly clicks', achievementName = achievementGodly5name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementGodly6 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-1.2,title='Spent 100 godly clicks', descriptor='Spend a total of 100 godly clicks', achievementName = achievementGodly6name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementGodly7 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-1.5,title='Spent 150 godly clicks', descriptor='Spend a total of 150 godly clicks', achievementName = achievementGodly7name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+   
+    achievementGodly1e = document.getElementById("achievementGodly1 ")
+    achievementGodly2e = document.getElementById("achievementGodly2 ")
+    achievementGodly3e = document.getElementById("achievementGodly3 ")
+    achievementGodly4e = document.getElementById("achievementGodly4 ")
+    achievementGodly5e = document.getElementById("achievementGodly5 ")
+    achievementGodly6e = document.getElementById("achievementGodly6 ")
+    achievementGodly7e = document.getElementById("achievementGodly7 ")
+
+    achievementHolder.el.appendChild(achievementGodly1e)
+    achievementHolder.el.appendChild(achievementGodly2e)
+    achievementHolder.el.appendChild(achievementGodly3e)
+    achievementHolder.el.appendChild(achievementGodly4e)
+    achievementHolder.el.appendChild(achievementGodly5e)
+    achievementHolder.el.appendChild(achievementGodly6e)
+    achievementHolder.el.appendChild(achievementGodly7e)
+
+def loadTab4():
+    achievementGodly1 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=.3,title='Spent 1 godly click', descriptor='Spend a total of 1 godly click', achievementName = achievementGodly1name, rewardDescriptor='25M clicks', achievement = Tspent1godlyclick, achievementClaimed=claimTspent1godlyclick, reward = 'score+=25000000;overallScoreEarned+=25000000')
+    achievementGodly2 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=0,title='Spent 10 godly clicks', descriptor='Spend a total of 10 godly clicks', achievementName = achievementGodly2name, rewardDescriptor='50M clicks', achievement = Tspent10godlyclick, achievementClaimed=claimTspent10godlyclick, reward = 'score+=50000000;overallScoreEarned+=50000000')
+    achievementGodly3 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.3,title='Spent 25 godly clicks', descriptor='Spend a total of 25 godly clicks', achievementName = achievementGodly3name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementGodly4 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.6,title='Spent 50 godly clicks', descriptor='Spend a total of 50 godly clicks', achievementName = achievementGodly4name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementGodly5 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.9,title='Spent 75 godly clicks', descriptor='Spend a total of 75 godly clicks', achievementName = achievementGodly5name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementGodly6 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-1.2,title='Spent 100 godly clicks', descriptor='Spend a total of 100 godly clicks', achievementName = achievementGodly6name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementGodly7 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-1.5,title='Spent 150 godly clicks', descriptor='Spend a total of 150 godly clicks', achievementName = achievementGodly7name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+   
+    achievementGodly1e = document.getElementById("achievementGodly1 ")
+    achievementGodly2e = document.getElementById("achievementGodly2 ")
+    achievementGodly3e = document.getElementById("achievementGodly3 ")
+    achievementGodly4e = document.getElementById("achievementGodly4 ")
+    achievementGodly5e = document.getElementById("achievementGodly5 ")
+    achievementGodly6e = document.getElementById("achievementGodly6 ")
+    achievementGodly7e = document.getElementById("achievementGodly7 ")
+
+    achievementHolder.el.appendChild(achievementGodly1e)
+    achievementHolder.el.appendChild(achievementGodly2e)
+    achievementHolder.el.appendChild(achievementGodly3e)
+    achievementHolder.el.appendChild(achievementGodly4e)
+    achievementHolder.el.appendChild(achievementGodly5e)
+    achievementHolder.el.appendChild(achievementGodly6e)
+    achievementHolder.el.appendChild(achievementGodly7e)
+
+
 loadTab1()
 
 #achievementPlayed1 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],title='Played for an hour', descriptor='Play/have the app for atleast an hour', achievementName = achievement7name, rewardDescriptor='8K clicks', achievement = played1_hour, achievementClaimed=claimplayed1_hour, reward = 'score+=8000;overallScoreEarned+=8000')
 #achievementPlayed2 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.2, title='Played for 3 days', descriptor='Play/have the app for atleast 3 days', achievementName = achievement8name, rewardDescriptor='65K clicks', achievement = played3days, achievementClaimed=claimplayed3days, reward = 'score+=65000;overallScoreEarned+=65000')
 #achievementPlayed3 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.4, title='Played for a week', descriptor='Play/have the app for atleast a week', achievementName = achievement9name, rewardDescriptor='1.5M clicks', achievement = played1week, achievementClaimed=claimplayed1week, reward = 'score+=1500000;overallScoreEarned+=1500000')
-#achievementGodly1 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],title='Spent 1 godly click', descriptor='Spend a total of 1 godly click', achievementName = achievement10name, rewardDescriptor='25M clicks', achievement = spend1godlyclick, achievementClaimed=claimspend1godlyclick, reward = 'score+=25000000;overallScoreEarned+=25000000')
-#achievementGodly2 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.2,title='Spent 10 godly clicks', descriptor='Spend a total of 10 godly clicks', achievementName = achievement11name, rewardDescriptor='50M clicks', achievement = spend10godlyclick, achievementClaimed=claimspend10godlyclick, reward = 'score+=50000000;overallScoreEarned+=50000000')
-#achievementGodly3 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.4,title='Spent 50 godly clicks', descriptor='Spend a total of 50 godly clicks', achievementName = achievement12name, rewardDescriptor='150M clicks', achievement = spend50godlyclick, achievementClaimed=claimspend50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
-
 
 
 returnButton = Button(texture='LeftArrow.webp',scale=[.1,.1],xy=[-0.8,0.44])
@@ -397,18 +478,26 @@ nextTab.on_click = function(){
         case inTab2:
             inTab2 = false;
             inTab3 = true;
+            unloadTabs();
+            loadTab3();
             break;
         case inTab3:
             inTab3 = false;
             inTab4 = true;
+            unloadTabs();
+            loadTab4();
             break;
         case inTab4:
             inTab4 = false;
             secretTab = true;
+            unloadTabs();
+            loadTab5();
             break;
         case secretTab:
             secretTab = false;
             inTab1 = true;
+            unloadTabs();
+            loadTab1();
             break;
         default:
             alert("User not in any tab??");
@@ -420,6 +509,8 @@ prevTab.on_click = function(){
         case inTab1:
             secretTab = true;
             inTab1 = false;
+            unloadTabs();
+            loadTab5();
             break;
         case inTab2:
             inTab2 = false;
@@ -430,14 +521,20 @@ prevTab.on_click = function(){
         case inTab3:
             inTab3 = false;
             inTab2 = true;
+            unloadTabs();
+            loadTab2();
             break;
         case inTab4:
             inTab4 = false;
             inTab3 = true;
+            unloadTabs();
+            loadTab3();
             break;
         case secretTab:
             secretTab = false;
             inTab4 = true;
+            unloadTabs();
+            loadTab4();
             break;
         default:
             alert("User not in any tab??")
