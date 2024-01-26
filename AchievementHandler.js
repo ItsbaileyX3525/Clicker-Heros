@@ -114,6 +114,9 @@ playedfor3week = save_system_load('playedfor3week') || 0
 playedformonth = save_system_load('playedformonth') || 0
 playedforyear = save_system_load('playedforyear') || 0
 
+//Custom achievements  secret achievements
+
+callumWouldBeProud = save_system_load('callumWouldBeProud') || 0
 
 achievementCounter = save_system_load('achievementcounter')
 if (!achievementCounter || achievementCounter === null){
@@ -188,6 +191,13 @@ AchievementHandler.update = function () {
         case overallScoreEarned >= 500000 && !amountEarned500000:
             amountEarned500000 = 1;
             save_system_save('amountearned500000', amountEarned500000);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'250000 score earnt!' });  
+            break;
+        case overallScoreEarned >= 69000 && !callumWouldBeProud:
+            callumWouldBeProud = 1;
+            save_system_save('callumWouldBeProud', callumWouldBeProud);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
             achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'250000 score earnt!' });  

@@ -297,6 +297,62 @@ claimTspent75godlyclick = save_system_load('spent75godlyclick') || 0
 claimTspent100godlyclick = save_system_load('spent100godlyclick') || 0
 claimTspent150godlyclick = save_system_load('spent150godlyclick') || 0
 
+#Achievement 4
+
+Tplayedforhour = save_system_load('Tplayedforhour') || 0
+Tplayedfor3day = save_system_load('Tplayedfor3day') || 0
+Tplayedforweek = save_system_load('Tplayedforweek') || 0
+Tplayedforfortnite = save_system_load('Tplayedforfortnite') || 0
+Tplayedfor3week = save_system_load('Tplayedfor3week') || 0
+Tplayedformonth = save_system_load('Tplayedformonth') || 0
+Tplayedforyear = save_system_load('Tplayedforyear') || 0
+
+#Used for connecting the names together
+achievementPlayed1name = 'Tplayedforhour'
+achievementPlayed2name = 'Tplayedfor3day'
+achievementPlayed3name = 'Tplayedforweek'
+achievementPlayed4name = 'Tplayedforfortnite'
+achievementPlayed5name = 'Tplayedfor3week'
+achievementPlayed6name = 'Tplayedformonth'
+achievementPlayed7name = 'Tplayedforyear'
+
+#This one is used for tracking when you achieve it
+claimTplayedforhour = save_system_load('playedforhour') || 0
+claimTplayedfor3day = save_system_load('playedfor3day') || 0
+claimTplayedforweek = save_system_load('playedforweek') || 0
+claimTplayedforfortnite = save_system_load('playedforfortnite') || 0
+claimTplayedfor3week = save_system_load('playedfor3week') || 0
+claimTplayedformonth = save_system_load('playedformonth') || 0
+claimTplayedforyear = save_system_load('playedforyear') || 0
+
+#Achievement 5 (secret achievements)
+
+TcallumWouldBeProud = save_system_load('TcallumWouldBeProud') || 0
+Tplayedfor3day = save_system_load('Tplayedfor3day') || 0
+Tplayedforweek = save_system_load('Tplayedforweek') || 0
+Tplayedforfortnite = save_system_load('Tplayedforfortnite') || 0
+Tplayedfor3week = save_system_load('Tplayedfor3week') || 0
+Tplayedformonth = save_system_load('Tplayedformonth') || 0
+Tplayedforyear = save_system_load('Tplayedforyear') || 0
+
+#Used for connecting the names together
+achievementSecret1name = 'TcallumWouldBeProud'
+achievementPlayed2name = 'Tplayedfor3day'
+achievementPlayed3name = 'Tplayedforweek'
+achievementPlayed4name = 'Tplayedforfortnite'
+achievementPlayed5name = 'Tplayedfor3week'
+achievementPlayed6name = 'Tplayedformonth'
+achievementPlayed7name = 'Tplayedforyear'
+
+#This one is used for tracking when you achieve it
+claimTcallumWouldBeProud = save_system_load('callumWouldBeProud') || 0
+claimTplayedfor3day = save_system_load('playedfor3day') || 0
+claimTplayedforweek = save_system_load('playedforweek') || 0
+claimTplayedforfortnite = save_system_load('playedforfortnite') || 0
+claimTplayedfor3week = save_system_load('playedfor3week') || 0
+claimTplayedformonth = save_system_load('playedformonth') || 0
+claimTplayedforyear = save_system_load('playedforyear') || 0
+
 
 scrollEntity = Entity(z=3,draggable=True,max_y=5000,lock_x=True,scale=[1.3,300.6],xy=[0,-0.2],alpha=0)
 achievementHolder = Entity(scale=[1.3,.6],z=1,xy=[0,-.2],alpha=0)
@@ -335,9 +391,31 @@ def unloadTabs():
         destroy(achievementGodly7)
     catch (Error) {;}
     try:
-        destroy(achievement10)
-        destroy(achievement11)
-        destroy(achievement12)
+        destroy(achievementPlayed1)
+        destroy(achievementPlayed2)
+        destroy(achievementPlayed3)
+        destroy(achievementPlayed4)
+        destroy(achievementPlayed5)
+        destroy(achievementPlayed6)
+        destroy(achievementPlayed7)
+    catch (Error) {;}
+    try:
+        destroy(achievementPlayed1)
+        destroy(achievementPlayed2)
+        destroy(achievementPlayed3)
+        destroy(achievementPlayed4)
+        destroy(achievementPlayed5)
+        destroy(achievementPlayed6)
+        destroy(achievementPlayed7)
+    catch (Error) {;}
+    try:
+        destroy(achievementSecret1)
+        destroy(achievementSecret2)
+        destroy(achievementSecret3)
+        destroy(achievementSecret4)
+        destroy(achievementSecret5)
+        destroy(achievementSecret6)
+        destroy(achievementSecret7)
     catch (Error) {;}
 
 def loadTab1():
@@ -416,29 +494,54 @@ def loadTab3():
     achievementHolder.el.appendChild(achievementGodly7e)
 
 def loadTab4():
-    achievementGodly1 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=.3,title='Spent 1 godly click', descriptor='Spend a total of 1 godly click', achievementName = achievementGodly1name, rewardDescriptor='25M clicks', achievement = Tspent1godlyclick, achievementClaimed=claimTspent1godlyclick, reward = 'score+=25000000;overallScoreEarned+=25000000')
-    achievementGodly2 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=0,title='Spent 10 godly clicks', descriptor='Spend a total of 10 godly clicks', achievementName = achievementGodly2name, rewardDescriptor='50M clicks', achievement = Tspent10godlyclick, achievementClaimed=claimTspent10godlyclick, reward = 'score+=50000000;overallScoreEarned+=50000000')
-    achievementGodly3 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.3,title='Spent 25 godly clicks', descriptor='Spend a total of 25 godly clicks', achievementName = achievementGodly3name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
-    achievementGodly4 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.6,title='Spent 50 godly clicks', descriptor='Spend a total of 50 godly clicks', achievementName = achievementGodly4name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
-    achievementGodly5 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.9,title='Spent 75 godly clicks', descriptor='Spend a total of 75 godly clicks', achievementName = achievementGodly5name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
-    achievementGodly6 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-1.2,title='Spent 100 godly clicks', descriptor='Spend a total of 100 godly clicks', achievementName = achievementGodly6name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
-    achievementGodly7 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-1.5,title='Spent 150 godly clicks', descriptor='Spend a total of 150 godly clicks', achievementName = achievementGodly7name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementPlayed1 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=.3,title='Played for an hour', descriptor='   Play the game for a total of 1 hour', achievementName = achievementPlayed1name, rewardDescriptor='5k clicks', achievement = Tplayedforhour, achievementClaimed=claimTplayedforhour, reward = 'score+=5000;overallScoreEarned+=5000')
+    achievementPlayed2 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=0,title='Played for 3 days', descriptor='   Play the game for a total of 3 days', achievementName = achievementPlayed2name, rewardDescriptor='1M clicks', achievement = Tplayedfor3day, achievementClaimed=claimTplayedfor3day, reward = 'score+=1000000;overallScoreEarned+=1000000')
+    achievementPlayed3 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.3,title='Played for a week', descriptor='   Play the game for a total of a week', achievementName = achievementPlayed3name, rewardDescriptor='25M clicks', achievement = Tplayedforweek, achievementClaimed=claimTplayedforweek, reward = 'score+=25000000;overallScoreEarned+=25000000')
+    achievementPlayed4 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.6,title='Played for a fortnight', descriptor='   Play the game for a total of a fortnight (2 weeks)', achievementName = achievementPlayed4name, rewardDescriptor='150M clicks', achievement = Tplayedforfortnite, achievementClaimed=claimTplayedforfortnite, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementPlayed5 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.9,title='Play for 3 weeks', descriptor='   Play the game for a total of 3 weeks', achievementName = achievementPlayed5name, rewardDescriptor='400M clicks', achievement = Tplayedfor3week, achievementClaimed=claimTplayedfor3week, reward = 'score+=400000000;overallScoreEarned+=400000000')
+    achievementPlayed6 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-1.2,title='Play for a month', descriptor='   Play the game for a total of a month', achievementName = achievementPlayed6name, rewardDescriptor='1B clicks', achievement = Tplayedformonth, achievementClaimed=claimTplayedformonth, reward = 'score+=1000000000;overallScoreEarned+=1000000000')
+    achievementPlayed7 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-1.5,title='Play for a year', descriptor='   Play the game for a total of a YEAR!', achievementName = achievementPlayed7name, rewardDescriptor='12B clicks', achievement = Tplayedforyear, achievementClaimed=claimTplayedforyear, reward = 'score+=12000000000;overallScoreEarned+=12000000000')
    
-    achievementGodly1e = document.getElementById("achievementGodly1 ")
-    achievementGodly2e = document.getElementById("achievementGodly2 ")
-    achievementGodly3e = document.getElementById("achievementGodly3 ")
-    achievementGodly4e = document.getElementById("achievementGodly4 ")
-    achievementGodly5e = document.getElementById("achievementGodly5 ")
-    achievementGodly6e = document.getElementById("achievementGodly6 ")
-    achievementGodly7e = document.getElementById("achievementGodly7 ")
+    achievementPlayed1e = document.getElementById("achievementPlayed1 ")
+    achievementPlayed2e = document.getElementById("achievementPlayed2 ")
+    achievementPlayed3e = document.getElementById("achievementPlayed3 ")
+    achievementPlayed4e = document.getElementById("achievementPlayed4 ")
+    achievementPlayed5e = document.getElementById("achievementPlayed5 ")
+    achievementPlayed6e = document.getElementById("achievementPlayed6 ")
+    achievementPlayed7e = document.getElementById("achievementPlayed7 ")
 
-    achievementHolder.el.appendChild(achievementGodly1e)
-    achievementHolder.el.appendChild(achievementGodly2e)
-    achievementHolder.el.appendChild(achievementGodly3e)
-    achievementHolder.el.appendChild(achievementGodly4e)
-    achievementHolder.el.appendChild(achievementGodly5e)
-    achievementHolder.el.appendChild(achievementGodly6e)
-    achievementHolder.el.appendChild(achievementGodly7e)
+    achievementHolder.el.appendChild(achievementPlayed1e)
+    achievementHolder.el.appendChild(achievementPlayed2e)
+    achievementHolder.el.appendChild(achievementPlayed3e)
+    achievementHolder.el.appendChild(achievementPlayed4e)
+    achievementHolder.el.appendChild(achievementPlayed5e)
+    achievementHolder.el.appendChild(achievementPlayed6e)
+    achievementHolder.el.appendChild(achievementPlayed7e)
+
+def loadTab5():
+    achievementSecret1 = AchievementEntity(iconTexture = 'calsingaSigma.webp',scale=[.95,0.2],y=.3,title='Callum would be proud', descriptor='Get 69k clicks in total', achievementName = achievementPlayed1name, rewardDescriptor='69k clicks', achievement = Tplayedforhour, achievementClaimed=claimTplayedforhour, reward = 'score+=5000;overallScoreEarned+=5000')
+    achievementSecret2 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=0,title='Played for 3 days', descriptor='   Play the game for a total of 3 days', achievementName = achievementPlayed2name, rewardDescriptor='1M clicks', achievement = Tplayedfor3day, achievementClaimed=claimTplayedfor3day, reward = 'score+=1000000;overallScoreEarned+=1000000')
+    achievementSecret3 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.3,title='Played for a week', descriptor='   Play the game for a total of a week', achievementName = achievementPlayed3name, rewardDescriptor='25M clicks', achievement = Tplayedforweek, achievementClaimed=claimTplayedforweek, reward = 'score+=25000000;overallScoreEarned+=25000000')
+    achievementSecret4 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.6,title='Played for a fortnight', descriptor='   Play the game for a total of a fortnight (2 weeks)', achievementName = achievementPlayed4name, rewardDescriptor='150M clicks', achievement = Tplayedforfortnite, achievementClaimed=claimTplayedforfortnite, reward = 'score+=150000000;overallScoreEarned+=150000000')
+    achievementSecret5 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.9,title='Play for 3 weeks', descriptor='   Play the game for a total of 3 weeks', achievementName = achievementPlayed5name, rewardDescriptor='400M clicks', achievement = Tplayedfor3week, achievementClaimed=claimTplayedfor3week, reward = 'score+=400000000;overallScoreEarned+=400000000')
+    achievementSecret6 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-1.2,title='Play for a month', descriptor='   Play the game for a total of a month', achievementName = achievementPlayed6name, rewardDescriptor='1B clicks', achievement = Tplayedformonth, achievementClaimed=claimTplayedformonth, reward = 'score+=1000000000;overallScoreEarned+=1000000000')
+    achievementSecret7 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-1.5,title='Play for a year', descriptor='   Play the game for a total of a YEAR!', achievementName = achievementPlayed7name, rewardDescriptor='12B clicks', achievement = Tplayedforyear, achievementClaimed=claimTplayedforyear, reward = 'score+=12000000000;overallScoreEarned+=12000000000')
+   
+    achievementSecret1e = document.getElementById("achievementSecret1 ")
+    achievementSecret2e = document.getElementById("achievementSecret2 ")
+    achievementSecret3e = document.getElementById("achievementSecret3 ")
+    achievementSecret4e = document.getElementById("achievementSecret4 ")
+    achievementSecret5e = document.getElementById("achievementSecret5 ")
+    achievementSecret6e = document.getElementById("achievementSecret6 ")
+    achievementSecret7e = document.getElementById("achievementSecret7 ")
+
+    achievementHolder.el.appendChild(achievementSecret1e)
+    achievementHolder.el.appendChild(achievementSecret2e)
+    achievementHolder.el.appendChild(achievementSecret3e)
+    achievementHolder.el.appendChild(achievementSecret4e)
+    achievementHolder.el.appendChild(achievementSecret5e)
+    achievementHolder.el.appendChild(achievementSecret6e)
+    achievementHolder.el.appendChild(achievementSecret7e)
 
 
 loadTab1()
@@ -538,7 +641,7 @@ prevTab.on_click = function(){
             break;
         default:
             alert("User not in any tab??")
-            break;
+            break; //bug the time achievements duplicate or summin
     }
 }
 </script>
