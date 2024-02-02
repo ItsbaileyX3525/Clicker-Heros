@@ -316,6 +316,9 @@ if allowedAttackSFX == null:
     save_system_save('attacksfx', allowedAttackSFX)
 
 #TODO: Create proper click multipler because i didnt have time to do it in the lunch break :(
+#Umm do you mean what im going to do now?
+
+clickIntense = 1
 
 #Main clicker game
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
@@ -332,9 +335,31 @@ ClickerDude.on_click = def():
         timesClicked+=1
         save_system_save('timesclicked', timesClicked)
         overallScoreEarned += collectiveCPS/5 + 1
-        score += collectiveCPS/6 + 1
+        score += collectiveCPS/6 + 1 * clickIntense
         userClicksPerSecond += 1
         Playwoosh()
+        if clickIntense <= 1.5:
+            clickIntense +=.1
+        elif clickIntense <= 2.3:
+            clickIntense +=.05
+        elif clickIntense < 3:
+            clickIntense += 0.025
+        elif clickIntense > 3:
+            clickIntense = 3
+        if not checkingLogic:
+            clickIntenseLogic()
+
+checkingLogic = False
+
+def clickIntenseLogic():
+    checkingLogic = True
+    clickIntense -= .05
+    if clickIntense > 1:
+        after .5:
+            clickIntenseLogic()
+    elif clickIntense <= 1:
+        checkingLogic = False
+
 
 
 score_display = Text(text=`Clicks: ${score}`,xy=[0.22,-.025],text_size=5)
@@ -638,6 +663,7 @@ def input(key):
 
 
 def update():
+    print(clickIntense)
     try:
         save_system_save('gen1multiplier', gen1Multiplier)
         save_system_save('gen2multiplier', gen2Multiplier)

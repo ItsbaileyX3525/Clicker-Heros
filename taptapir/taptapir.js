@@ -626,7 +626,6 @@ class Entity {
     }
 
     animate(variable_name, target_value, duration=.1) {
-        print('animate:', variable_name, target_value)
         if (!this.enabled) {return false}
         let entity = this
         // stop ongoing animation of this varibale
