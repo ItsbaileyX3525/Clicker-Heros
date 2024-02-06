@@ -45,7 +45,7 @@ class AchievementShower extends Entity {
 }
 class AchievementShowerMAX extends Entity {
     constructor(options = false) {
-        let settings = {parent:camera.ui,title:'',scale:[.7,.1],xy:[1.25,.33],icon:'',roundness:.1,color:hsv(0,0,.15)}
+        let settings = {parent:camera.ui,title:'',textsText:"ACHIEVEMENT UNLOCKED!",scale:[.7,.1],xy:[1.25,.33],icon:'',roundness:.1,color:hsv(0,0,.15)}
     for (const [key, value] of Object.entries(options)) {
         settings[key] = value
     }
@@ -55,7 +55,7 @@ class AchievementShowerMAX extends Entity {
     this.soundfx.play()
     this.soundfx.volume = volume
     this.iconShower = new Entity({parent:this,texture:this.icon,scale:[.25,.9],xy:[.3,0]})
-    this.texts = new Text({text:'ACHIEVEMENT UNLOCKED!',text_size:2.725,x:-.1,y:-.05,parent:this,text_color:color.green})
+    this.texts = new Text({text:this.textsText,text_size:2.725,x:-.1,y:-.05,parent:this,text_color:color.green})
     this.title = new Text({text:this.title,parent:this,text_size:3,x:-.1,y:-.5,parent:this,text_color:color.white})
 }
     
@@ -94,6 +94,7 @@ amountEarned100 = save_system_load('amountearned100') || 0;
 amountEarned10000 = save_system_load('amountearned10000') || 0;
 amountEarned25000 = save_system_load('amountearned25000') || 0;
 amountEarned50000 = save_system_load('amountearned50000') || 0;
+amountEarned69000 = save_system_load('amountearned69000') || 0;
 amountEarned125000 = save_system_load('amountearned125000') || 0;
 amountEarned250000 = save_system_load('amountearned250000') || 0;
 amountEarned500000 = save_system_load('amountearned500000') || 0;
@@ -106,17 +107,17 @@ spent75godlyclick = save_system_load('spent10godlyclick') || 0;
 spent100godlyclick = save_system_load('spent50godlyclick') || 0;
 spent150godlyclick = save_system_load('spent1godlyclick') || 0;
 
-playedforhour = save_system_load('playedforhour') || 0
-playedfor3day = save_system_load('playedfor3day') || 0
-playedforweek = save_system_load('playedforweek') || 0
-playedforfortnite = save_system_load('playedforfortnite') || 0
-playedfor3week = save_system_load('playedfor3week') || 0
-playedformonth = save_system_load('playedformonth') || 0
-playedforyear = save_system_load('playedforyear') || 0
+playedforhour = save_system_load('playedforhour') || 0;
+playedfor3day = save_system_load('playedfor3day') || 0;
+playedforweek = save_system_load('playedforweek') || 0;
+playedforfortnite = save_system_load('playedforfortnite') || 0;
+playedfor3week = save_system_load('playedfor3week') || 0;
+playedformonth = save_system_load('playedformonth') || 0;
+playedforyear = save_system_load('playedforyear') || 0;
 
 //Custom achievements  secret achievements
-
-callumWouldBeProud = save_system_load('callumWouldBeProud') || 0
+prestigeLevel = int(save_system_load('prestigelevel'));
+achievedmaxprestige = save_system_save('achievedmaxprestige') || 0;
 
 achievementCounter = save_system_load('achievementcounter')
 if (!achievementCounter || achievementCounter === null){
@@ -125,6 +126,13 @@ if (!achievementCounter || achievementCounter === null){
 AchievementHandler = new Entity({ alpha: 0 });
 AchievementHandler.update = function () {
     switch (true) {
+        case prestigeLevel >= 10:
+            achievedmaxprestige = 1;
+            save_system_save('achievedmaxprestige', achievedmaxprestige);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueueMAX.push({ alpha: 1, icon: 'GenUpgradeArrow.webp', title:'Played for an hour!' });  
+            break;  
         case timeCounter >= 60 * 60 && !playedforhour:
             playedforhour = 1;
             save_system_save('playedforhour', playedforhour);
@@ -173,6 +181,13 @@ AchievementHandler.update = function () {
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
             achievementQueue.push({ alpha: 1, icon: 'clickerGen1.webp', title:'50000 score earnt!' });  
+            break;
+        case overallScoreEarned >= 69000 && !amountEarned69000:
+            amountEarned69000 = 1;
+            save_system_save('amountearned69000', amountEarned69000);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueueMAX.push({ alpha: 1, icon: 'clickerGen1.webp', title:'69000 score earnt!', textsText:"SECRET UNLOCKED"});  
             break;
         case overallScoreEarned >= 125000 && !amountEarned125000:
             amountEarned125000 = 1;

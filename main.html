@@ -319,6 +319,8 @@ if allowedAttackSFX == null:
 #Umm do you mean what im going to do now?
 
 clickIntense = 1
+justClicked = False
+soManyNotNeededVariables = 1
 
 #Main clicker game
 ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
@@ -338,6 +340,8 @@ ClickerDude.on_click = def():
         score += collectiveCPS/6 + 1 * clickIntense
         userClicksPerSecond += 1
         Playwoosh()
+        justClicked = True
+        soManyNotNeededVariables = 1
         if clickIntense <= 1.5:
             clickIntense +=.1
         elif clickIntense <= 2.3:
@@ -353,7 +357,8 @@ checkingLogic = False
 
 def clickIntenseLogic():
     checkingLogic = True
-    clickIntense -= .05
+    if not justClicked:
+        clickIntense -= .05
     if clickIntense > 1:
         after .5:
             clickIntenseLogic()
@@ -361,6 +366,11 @@ def clickIntenseLogic():
         checkingLogic = False
 
 
+TempUpdater = Entity(alpha=0,xy=[999999999,99999999999999])
+TempUpdater.update = def():
+    soManyNotNeededVariables -= 1/60
+    if soManyNotNeededVariables <= 0:
+        justClicked = False
 
 score_display = Text(text=`Clicks: ${score}`,xy=[0.22,-.025],text_size=5)
 score_display.update = def():

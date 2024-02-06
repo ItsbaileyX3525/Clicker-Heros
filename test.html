@@ -336,8 +336,8 @@ claimTplayedforyear = save_system_load('playedforyear') || 0
 
 #Achievement 5 (secret achievements)
 
-TcallumWouldBeProud = save_system_load('TcallumWouldBeProud') || 0
-Tplayedfor3day = save_system_load('Tplayedfor3day') || 0
+TamountEarned69000 = save_system_load('Tamountearned69000') || 0
+Tachievedmaxprestige = save_system_load('Tachievedmaxprestige') || 0
 Tplayedforweek = save_system_load('Tplayedforweek') || 0
 Tplayedforfortnite = save_system_load('Tplayedforfortnite') || 0
 Tplayedfor3week = save_system_load('Tplayedfor3week') || 0
@@ -345,17 +345,17 @@ Tplayedformonth = save_system_load('Tplayedformonth') || 0
 Tplayedforyear = save_system_load('Tplayedforyear') || 0
 
 #Used for connecting the names together
-achievementSecret1name = 'TcallumWouldBeProud'
-achievementPlayed2name = 'Tplayedfor3day'
-achievementPlayed3name = 'Tplayedforweek'
-achievementPlayed4name = 'Tplayedforfortnite'
-achievementPlayed5name = 'Tplayedfor3week'
-achievementPlayed6name = 'Tplayedformonth'
-achievementPlayed7name = 'Tplayedforyear'
+achievementSecret1name = 'TamountEarned69000'
+achievementSecret2name = 'Tachievedmaxprestige'
+achievementSecret3name = 'Tplayedforweek'
+achievementSecret4name = 'Tplayedforfortnite'
+achievementSecret5name = 'Tplayedfor3week'
+achievementSecret6name = 'Tplayedformonth'
+achievementSecret7name = 'Tplayedforyear'
 
 #This one is used for tracking when you achieve it
-claimTcallumWouldBeProud = save_system_load('callumWouldBeProud') || 0
-claimTplayedfor3day = save_system_load('playedfor3day') || 0
+claimTamountEarned69000 = save_system_load('amountearned69000') || 0
+claimTachievedmaxprestige = save_system_load('achievedmaxprestige') || 0
 claimTplayedforweek = save_system_load('playedforweek') || 0
 claimTplayedforfortnite = save_system_load('playedforfortnite') || 0
 claimTplayedfor3week = save_system_load('playedfor3week') || 0
@@ -429,6 +429,7 @@ def unloadTabs():
     catch (Error) {;}
 
 def loadTab1():
+    TabName.text = "CLICKER TAB"
     achievementClick1 = AchievementEntity(title='Clicked once',y=0.3,scale=[.95,0.2], descriptor='Click the clicker 1 time', achievementName = achievementClick1name, rewardDescriptor='100 clicks', achievement = Tclicked1achievement, achievementClaimed=claimTclicked1achievement, reward = 'score+=50;overallScoreEarned+=50')
     achievementClick2 = AchievementEntity(y=.0,scale=[.95,0.2], title='Clicked 100 times', descriptor='Click the clicker 100 times', achievementName = achievementClick2name, rewardDescriptor='12K clicks', achievement = Tclicked100achievement, achievementClaimed=claimTclicked100achievement, reward = 'score+=12000;overallScoreEarned+=12000')
     achievementClick3 = AchievementEntity(y=-.3,scale=[.95,0.2], title='Clicked 500 times', descriptor='Click the clicker 500 times', achievementName = achievementClick3name, rewardDescriptor='60K clicks', achievement = Tclicked500achievement, achievementClaimed=claimTclicked500achievement, reward = 'score+=60000;overallScoreEarned+=60000')
@@ -454,6 +455,7 @@ def loadTab1():
     achievementHolder.el.appendChild(achievementClick7e)
     
 def loadTab2():
+    TabName.text = "EARN TAB"
     achievementEarn1 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=0.3,title='Earned 100 clicks', descriptor='Earn a total of 100 clicks', achievementName = achievementEarned1name, rewardDescriptor='125 clicks', achievement = TamountEarned100, achievementClaimed=claimTamountEarned100, reward = 'score+=125;overallScoreEarned+=125')
     achievementEarn2 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=0, title='Earned 10000 clicks', descriptor='Earn a total of 10000 clicks', achievementName = achievementEarned2name, rewardDescriptor='6.5K clicks', achievement = TamountEarned10000, achievementClaimed=claimTamountEarned10000, reward = 'score+=6500;overallScoreEarned+=6500')
     achievementEarn3 = AchievementEntity(iconTexture = 'clickerGen1.webp',scale=[.95,0.2],y=-0.3, title='Earned 25000 clicks', descriptor='Earn a total of 25000 clicks', achievementName = achievementEarned3name, rewardDescriptor='15K clicks', achievement = TamountEarned25000, achievementClaimed=claimTamountEarned25000, reward = 'score+=15000;overallScoreEarned+=15000')
@@ -479,6 +481,7 @@ def loadTab2():
     achievementHolder.el.appendChild(achievementEarn7e)
 
 def loadTab3():
+    TabName.text = "GODLY TAB"
     achievementGodly1 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=.3,title='Spent 1 godly click', descriptor='Spend a total of 1 godly click', achievementName = achievementGodly1name, rewardDescriptor='25M clicks', achievement = Tspent1godlyclick, achievementClaimed=claimTspent1godlyclick, reward = 'score+=25000000;overallScoreEarned+=25000000')
     achievementGodly2 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=0,title='Spent 10 godly clicks', descriptor='Spend a total of 10 godly clicks', achievementName = achievementGodly2name, rewardDescriptor='50M clicks', achievement = Tspent10godlyclick, achievementClaimed=claimTspent10godlyclick, reward = 'score+=50000000;overallScoreEarned+=50000000')
     achievementGodly3 = AchievementEntity(iconTexture = 'GodlyClick.webp',scale=[.95,0.2],y=-.3,title='Spent 25 godly clicks', descriptor='Spend a total of 25 godly clicks', achievementName = achievementGodly3name, rewardDescriptor='150M clicks', achievement = Tspent50godlyclick, achievementClaimed=claimTspent50godlyclick, reward = 'score+=150000000;overallScoreEarned+=150000000')
@@ -504,6 +507,7 @@ def loadTab3():
     achievementHolder.el.appendChild(achievementGodly7e)
 
 def loadTab4():
+    TabName.text = "TIME TAB"
     achievementPlayed1 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=.3,title='Played for an hour', descriptor='   Play the game for a total of 1 hour', achievementName = achievementPlayed1name, rewardDescriptor='5k clicks', achievement = Tplayedforhour, achievementClaimed=claimTplayedforhour, reward = 'score+=5000;overallScoreEarned+=5000')
     achievementPlayed2 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=0,title='Played for 3 days', descriptor='   Play the game for a total of 3 days', achievementName = achievementPlayed2name, rewardDescriptor='1M clicks', achievement = Tplayedfor3day, achievementClaimed=claimTplayedfor3day, reward = 'score+=1000000;overallScoreEarned+=1000000')
     achievementPlayed3 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.3,title='Played for a week', descriptor='   Play the game for a total of a week', achievementName = achievementPlayed3name, rewardDescriptor='25M clicks', achievement = Tplayedforweek, achievementClaimed=claimTplayedforweek, reward = 'score+=25000000;overallScoreEarned+=25000000')
@@ -529,22 +533,23 @@ def loadTab4():
     achievementHolder.el.appendChild(achievementPlayed7e)
 
 def loadTab5():
+    TabName.text = "CUSTOM TAB"
     if friends:
-        achievementSecret1 = AchievementEntity(iconTexture = 'calsingaSigma.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=.3,title='Callum would be proud', descriptor='  Get 69k clicks in total', achievementName = insert, rewardDescriptor='69k clicks', achievement = Tplayedforhour, achievementClaimed=claimTplayedforhour, reward = 'score+=5000;overallScoreEarned+=5000')
-        achievementSecret2 = AchievementEntity(iconTexture = 'HutchChicken.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=0,title='ULTIMATE ASCENSION', descriptor='Max out your prestige multiplier', achievementName = insert, rewardDescriptor='1M clicks', achievement = Tplayedfor3day, achievementClaimed=claimTplayedfor3day, reward = 'score+=1000000;overallScoreEarned+=1000000')
-        achievementSecret3 = AchievementEntity(iconTexture = 'KaidenSexy.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=-.3,title='Welcome to the shadow realm Jimbo.', descriptor=' Reach the shadow realm and successfully escape', achievementName = insert, rewardDescriptor='2M clicks', achievement = Tplayedforweek, achievementClaimed=claimTplayedforweek, reward = 'score+=25000000;overallScoreEarned+=25000000')
-        achievementSecret4 = AchievementEntity(iconTexture = 'NattyUwU.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=-.6,title='VERY UwU!', descriptor='  Buy or earn an UwU generator', achievementName = insert, rewardDescriptor='150M clicks', achievement = Tplayedforfortnite, achievementClaimed=claimTplayedforfortnite, reward = 'score+=150000000;overallScoreEarned+=150000000')
-        achievementSecret5 = AchievementEntity(iconTexture = 'JohnMakesMeHardman.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=-.9,title='His Hardness its over 9000', descriptor='  Achieve max Hardness via hidden methods', achievementName = insert, rewardDescriptor='2.4B clicks', achievement = Tplayedfor3week, achievementClaimed=claimTplayedfor3week, reward = 'score+=2400000000;overallScoreEarned+=2400000000')
-        achievementSecret6 = AchievementEntity(iconTexture = 'MARIZZA.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=-1.2,title='MARIZZA!',descriptor='Encounter the rizz event once', achievementName = insert, rewardDescriptor='1B clicks', achievement = Tplayedformonth, achievementClaimed=claimTplayedformonth, reward = 'score+=1000000000;overallScoreEarned+=1000000000')
-        achievementSecret7 = AchievementEntity(iconTexture = 'DogEater.webp',image_x=.2,image_scaled=true,scale=[.95,0.2],y=-1.5,title='True asian', descriptor='Score 100% perfect in maths mania', achievementName = insert, rewardDescriptor='12B clicks', achievement = Tplayedforyear, achievementClaimed=claimTplayedforyear, reward = 'score+=12000000000;overallScoreEarned+=12000000000')
+        achievementSecret1 = AchievementEntity(iconTexture = 'calsingaSigma.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=.3,title='Callum would be proud', descriptor='  Get 69k clicks in total', achievementName = achievementSecret1name, rewardDescriptor='69k clicks', achievement = TamountEarned69000, achievementClaimed=claimTamountEarned69000, reward = 'score+=69000;overallScoreEarned+=69000')
+        achievementSecret2 = AchievementEntity(iconTexture = 'HutchChicken.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=0,title='ULTIMATE ASCENSION', descriptor='Max out your prestige multiplier', achievementName = achievementSecret2name, rewardDescriptor='1M clicks', achievement = Tachievedmaxprestige, achievementClaimed=claimTachievedmaxprestige, reward = 'score+=1000000;overallScoreEarned+=1000000')
+        achievementSecret3 = AchievementEntity(iconTexture = 'KaidenSexy.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=-.3,title='Welcome to the shadow realm Jimbo.', descriptor=' Reach the shadow realm and successfully escape', achievementName = achievementSecret3name, rewardDescriptor='2M clicks', achievement = Tplayedforweek, achievementClaimed=claimTplayedforweek, reward = 'score+=25000000;overallScoreEarned+=25000000')
+        achievementSecret4 = AchievementEntity(iconTexture = 'NattyUwU.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=-.6,title='VERY UwU!', descriptor='  Buy or earn an UwU generator', achievementName = achievementSecret4name, rewardDescriptor='150M clicks', achievement = Tplayedforfortnite, achievementClaimed=claimTplayedforfortnite, reward = 'score+=150000000;overallScoreEarned+=150000000')
+        achievementSecret5 = AchievementEntity(iconTexture = 'JohnMakesMeHardman.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=-.9,title='His Hardness its over 9000', descriptor='  Achieve max Hardness via hidden methods', achievementName = achievementSecret5name, rewardDescriptor='2.4B clicks', achievement = Tplayedfor3week, achievementClaimed=claimTplayedfor3week, reward = 'score+=2400000000;overallScoreEarned+=2400000000')
+        achievementSecret6 = AchievementEntity(iconTexture = 'MARIZZA.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=-1.2,title='MARIZZA!',descriptor='Encounter the rizz event once', achievementName = achievementSecret6name, rewardDescriptor='1B clicks', achievement = Tplayedformonth, achievementClaimed=claimTplayedformonth, reward = 'score+=1000000000;overallScoreEarned+=1000000000')
+        achievementSecret7 = AchievementEntity(iconTexture = 'DogEater.webp',image_x=.2,image_scaled=true,scale=[.95,0.2],y=-1.5,title='True asian', descriptor='Score 100% perfect in maths mania', achievementName = achievementSecret7name, rewardDescriptor='12B clicks', achievement = Tplayedforyear, achievementClaimed=claimTplayedforyear, reward = 'score+=12000000000;overallScoreEarned+=12000000000')
     else:
-        achievementSecret1 = AchievementEntity(iconTexture = 'Gigachad.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=.3,title='Gigachad would be proud', descriptor='Get 69k clicks in total', achievementName = insert, rewardDescriptor='69k clicks', achievement = Tplayedforhour, achievementClaimed=claimTplayedforhour, reward = 'score+=5000;overallScoreEarned+=5000')
-        achievementSecret2 = AchievementEntity(iconTexture = 'GenUpgradeArrow.webp',scale=[.95,0.2],y=0,title='ULTIMATE ASCENSION', descriptor='Max out your prestige multiplier', achievementName = insert, rewardDescriptor='1M clicks', achievement = Tplayedfor3day, achievementClaimed=claimTplayedfor3day, reward = 'score+=1000000;overallScoreEarned+=1000000')
-        achievementSecret3 = AchievementEntity(iconTexture = 'shadowRealm.webp',scale=[.95,0.2],y=-.3,title='Welcome to the shadow realm Jimbo.', descriptor='Reach the shadow realm and successfully escape', achievementName = insert, rewardDescriptor='25M clicks', achievement = Tplayedforweek, achievementClaimed=claimTplayedforweek, reward = 'score+=25000000;overallScoreEarned+=25000000')
-        achievementSecret4 = AchievementEntity(iconTexture = 'UwU.webp',scale=[.95,0.2],y=-.6,title='VERY UwU!', descriptor='Buy or earn an UwU generator', achievementName = insert, rewardDescriptor='150M clicks', achievement = Tplayedforfortnite, achievementClaimed=claimTplayedforfortnite, reward = 'score+=150000000;overallScoreEarned+=150000000')
-        achievementSecret5 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-.9,title='His Hardness its over 9000', descriptor='Achieve max Hardness via hidden methods', achievementName = insert, rewardDescriptor='400M clicks', achievement = Tplayedfor3week, achievementClaimed=claimTplayedfor3week, reward = 'score+=400000000;overallScoreEarned+=400000000')
-        achievementSecret6 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-1.2,title='ARIZZA!', descriptor='Encounter the rizz event once', achievementName = insert, rewardDescriptor='1B clicks', achievement = Tplayedformonth, achievementClaimed=claimTplayedformonth, reward = 'score+=1000000000;overallScoreEarned+=1000000000')
-        achievementSecret7 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-1.5,title='True mathematician', descriptor='Score 100% perfect in maths mania', achievementName = insert, rewardDescriptor='12B clicks', achievement = Tplayedforyear, achievementClaimed=claimTplayedforyear, reward = 'score+=12000000000;overallScoreEarned+=12000000000')
+        achievementSecret1 = AchievementEntity(iconTexture = 'Gigachad.webp',image_x=.1,image_scaled=true,scale=[.95,0.2],y=.3,title='Gigachad would be proud', descriptor='Get 69k clicks in total', achievementName = achievementSecret1name, rewardDescriptor='69k clicks', achievement = TamountEarned69000, achievementClaimed=claimTamountEarned69000, reward = 'score+=69000;overallScoreEarned+=69000')
+        achievementSecret2 = AchievementEntity(iconTexture = 'GenUpgradeArrow.webp',scale=[.95,0.2],y=0,title='ULTIMATE ASCENSION', descriptor='Max out your prestige multiplier', achievementName = achievementSecret2name, rewardDescriptor='1M clicks', achievement = Tachievedmaxprestige, achievementClaimed=claimTachievedmaxprestige, reward = 'score+=1000000;overallScoreEarned+=1000000')
+        achievementSecret3 = AchievementEntity(iconTexture = 'WelcomeJimbo.webp',scale=[.95,0.2],y=-.3,title='Welcome to the shadow realm Jimbo.', descriptor='Reach the shadow realm and successfully escape', achievementName = achievementSecret3name, rewardDescriptor='25M clicks', achievement = Tplayedforweek, achievementClaimed=claimTplayedforweek, reward = 'score+=25000000;overallScoreEarned+=25000000')
+        achievementSecret4 = AchievementEntity(iconTexture = 'UwU.webp',scale=[.95,0.2],y=-.6,title='VERY UwU!', descriptor='Buy or earn an UwU generator', achievementName = achievementSecret4name, rewardDescriptor='150M clicks', achievement = Tplayedforfortnite, achievementClaimed=claimTplayedforfortnite, reward = 'score+=150000000;overallScoreEarned+=150000000')
+        achievementSecret5 = AchievementEntity(iconTexture = 'ARock.webp',scale=[.95,0.2],y=-.9,title='His Hardness its over 9000', descriptor='Achieve max Hardness via hidden methods', achievementName = achievementSecret5name, rewardDescriptor='400M clicks', achievement = Tplayedfor3week, achievementClaimed=claimTplayedfor3week, reward = 'score+=400000000;overallScoreEarned+=400000000')
+        achievementSecret6 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-1.2,title='The rizzler!', descriptor='Encounter the rizz event once', achievementName = achievementSecret6name, rewardDescriptor='1B clicks', achievement = Tplayedformonth, achievementClaimed=claimTplayedformonth, reward = 'score+=1000000000;overallScoreEarned+=1000000000')
+        achievementSecret7 = AchievementEntity(iconTexture = 'Cock, i mean clock.webp',scale=[.95,0.2],y=-1.5,title='True mathematician', descriptor='Score 100% perfect in maths mania', achievementName = achievementSecret7name, rewardDescriptor='12B clicks', achievement = Tplayedforyear, achievementClaimed=claimTplayedforyear, reward = 'score+=12000000000;overallScoreEarned+=12000000000')
     
 
     achievementSecret1e = document.getElementById("achievementSecret1 ")

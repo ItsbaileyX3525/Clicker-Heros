@@ -11,9 +11,17 @@ Gen4Owned = int(save_system_load("gen4owned"));
 Gen5Owned = int(save_system_load("gen5owned"));
 Gen6Owned = int(save_system_load("gen6owned"));
 Gen7Owned = int(save_system_load("gen7owned"));
+Gen8Owned = int(save_system_load("gen8owned"));
+Gen9Owned = int(save_system_load("gen9owned"));
+Gen10Owned = int(save_system_load("gen10owned"));
+Gen11Owned = int(save_system_load("gen11owned"));
+Gen12Owned = int(save_system_load("gen12owned"));
+Gen13Owned = int(save_system_load("gen13owned"));
+Gen14Owned = int(save_system_load("gen14owned"));
 const variablesToCheck = ['Gen1Owned', 'Gen2Owned', 
 'Gen3Owned', 'Gen4Owned', 'Gen5Owned', 'Gen6Owned',
-'Gen7Owned'];
+'Gen7Owned','Gen8Owned','Gen9Owned','Gen10Owned',
+'Gen11Owned','Gen12Owned','Gen13Owned','Gen14Owned'];
 for (const variable of variablesToCheck) {
     if (!window[variable] || window[variable] === null) {
         window[variable] = 0;
@@ -27,9 +35,19 @@ gen4Multiplier = parseFloat(save_system_load('gen4multiplier'))
 gen5Multiplier = parseFloat(save_system_load('gen5multiplier'))
 gen6Multiplier = parseFloat(save_system_load('gen6multiplier'))
 gen7Multiplier = parseFloat(save_system_load('gen7multiplier'))
+gen8Multiplier = parseFloat(save_system_load('gen8multiplier'))
+gen9Multiplier = parseFloat(save_system_load('gen9multiplier'))
+gen10Multiplier = parseFloat(save_system_load('gen10multiplier'))
+gen11Multiplier = parseFloat(save_system_load('gen11multiplier'))
+gen12Multiplier = parseFloat(save_system_load('gen12multiplier'))
+gen13Multiplier = parseFloat(save_system_load('gen13multiplier'))
+gen14Multiplier = parseFloat(save_system_load('gen14multiplier'))
 const vars2 = ['globalMultiplier', 'gen1Multiplier'
 , 'gen2Multiplier', 'gen3Multiplier', 'gen4Multiplier'
-, 'gen5Multiplier', 'gen6Multiplier', 'gen7Multiplier']
+, 'gen5Multiplier', 'gen6Multiplier', 'gen7Multiplier'
+, 'gen8Multiplier', 'gen9Multiplier', 'gen10Multiplier'
+, 'gen11Multiplier', 'gen12Multiplier', 'gen13Multiplier'
+, 'gen14Multiplier']
 for (const variable of vars2) {
     if (!window[variable] || window[variable] === null) {
         window[variable] = 1;
@@ -42,6 +60,13 @@ let Gen4Earn = 47
 let Gen5Earn = 260
 let Gen6Earn = 1400
 let Gen7Earn = 7800
+let Gen8Earn = 7800
+let Gen9Earn = 7800
+let Gen10Earn = 7800
+let Gen11Earn = 7800
+let Gen12Earn = 7800
+let Gen13Earn = 7800
+let Gen14Earn = 7800
 function applyScore() {
     try {
     if (Gen1Owned > 0){
@@ -65,6 +90,28 @@ function applyScore() {
     if (Gen7Owned > 0){
         score += Gen7Earn * Gen7Owned * gen7Multiplier * globalMultiplier;
         overallScoreEarned += Gen7Earn * Gen7Owned * gen7Multiplier * globalMultiplier;}
+    if (Gen8Owned > 0){
+        score += Gen8Earn * Gen8Owned * gen8Multiplier * globalMultiplier;
+        overallScoreEarned += Gen8Earn * Gen8Owned * gen8Multiplier * globalMultiplier;}
+    if (Gen9Owned > 0){
+        score += Gen9Earn * Gen9Owned * gen9Multiplier * globalMultiplier;
+        overallScoreEarned += Gen9Earn * Gen9Owned * gen9Multiplier * globalMultiplier;}
+    if (Gen10Owned > 0){
+        score += Gen10Earn * Gen10Owned * gen10Multiplier * globalMultiplier;
+        overallScoreEarned += Gen10Earn * Gen10Owned * gen10Multiplier * globalMultiplier;}
+    if (Gen11Owned > 0){
+        score += Gen11Earn * Gen11Owned * gen11Multiplier * globalMultiplier;
+        overallScoreEarned += Gen11Earn * Gen11Owned * gen11Multiplier * globalMultiplier;}
+    if (Gen12Owned > 0){
+        score += Gen12Earn * Gen12Owned * gen12Multiplier * globalMultiplier;
+        overallScoreEarned += Gen12Earn * Gen12Owned * gen12Multiplier * globalMultiplier;}
+    if (Gen13Owned > 0){
+        score += Gen13Earn * Gen13Owned * gen13Multiplier * globalMultiplier;
+        overallScoreEarned += Gen13Earn * Gen13Owned * gen13Multiplier * globalMultiplier;}
+    if (Gen14Owned > 0){
+        score += Gen14Earn * Gen14Owned * gen14Multiplier * globalMultiplier;
+        overallScoreEarned += Gen14Earn * Gen14Owned * gen14Multiplier * globalMultiplier;}
+
         save_system_save("score", score);
         save_system_save("overallscoreearned", overallScoreEarned);
         after(1, function() {
@@ -81,7 +128,7 @@ applyScore();
 
 
 //Used to credit player score if offline up to 3 days
-//Why? Because im kind :) also you get 1/4 of the real amount.
+//Why? Because im kind :) also you get 1/4 of the real amount. (I'm evil apparently)
 const currentPath = window.location.pathname;
 const parts = currentPath.split('/');
 const afterSlash = parts[parts.length - 1];
@@ -158,14 +205,34 @@ function displayOfflineEarnings() {
 function offlineEarn(time) {
     try {
         if (Gen1Owned > 0){
-        TotalEarned = Math.round((TotalEarned + 0.1 * Gen1Owned * time) * 10) / 10 ;
+            TotalEarned = Math.round((TotalEarned + 0.1 * Gen1Owned * time) * 10) / 10 ;
         }
         if (Gen2Owned > 0){
-        TotalEarned += 1 * Gen1Owned * time;}
+            TotalEarned += Gen2Earn * Gen1Owned * time;}
         if (Gen3Owned > 0){
-        TotalEarned += 8 * Gen3Owned * time;}
+            TotalEarned += Gen3Earn * Gen3Owned * time;}
         if (Gen4Owned > 0){
-        TotalEarned += 47 * Gen4Owned;}
+            TotalEarned += Gen4Earn * Gen4Owned;}
+        if (Gen5Owned > 0){
+            TotalEarned += Gen5Earn * Gen5Owned;}
+        if (Gen6Owned > 0){
+            TotalEarned += Gen6Earn * Gen6Owned;}
+        if (Gen7Owned > 0){
+            TotalEarned += Gen7Earn * Gen7Owned;}
+        if (Gen8Owned > 0){
+            TotalEarned += Gen2Earn * Gen1Owned * time;}
+        if (Gen9Owned > 0){
+            TotalEarned += Gen3Earn * Gen3Owned * time;}
+        if (Gen10Owned > 0){
+            TotalEarned += Gen4Earn * Gen4Owned;}
+        if (Gen11Owned > 0){
+            TotalEarned += Gen5Earn * Gen5Owned;}
+        if (Gen12Owned > 0){
+            TotalEarned += Gen6Earn * Gen6Owned;}
+        if (Gen13Owned > 0){
+            TotalEarned += Gen7Earn * Gen7Owned;}
+        if (Gen14Owned > 0){
+            TotalEarned += Gen7Earn * Gen7Owned;}
         if (afterSlash === "main.html" || afterSlash === 'Menu.html'){if (TotalEarned > 0) {displayOfflineEarnings()}}
         } catch (err) {
 
