@@ -156,7 +156,6 @@ LeonLines = {
 set_orientation('horizontal')
 set_window_color('transparent')
 set_background_color('black')
-ASSETS_FOLDER = 'assets/'
 
 #Global variables
 mainScene = []
@@ -390,24 +389,24 @@ cpsDisplay.update = def():
         cpsDisplay.text = `CpS: ${formatNumber(collectiveCPS)}`
     catch (Error) {;}
 
-settingsButton = Button(texture='settingsCog.webp',scale=.1,x=.8,y=.45)
+settingsButton = Button(texture='https://i.ibb.co/4W67V1j/settings-Cog.webp',scale=.1,x=.8,y=.45)
 settingsButton.on_click = def():
     if not noInteract:
         SmoothTransit("Settings")
 
-AchievementsButton = Button(scale=[.1,.1],texture='trophy.webp',xy=[.65,.45])
+AchievementsButton = Button(scale=[.1,.1],texture='https://i.ibb.co/hBFBX2C/trophy.webp',xy=[.65,.45])
 AchievementsButton.on_click = def():
     if not noInteract:
         SmoothTransit('Achievements')
 
 inShop = False
-ShopButton = Button(texture='shopCog.webp',x=.75,scale=.2,y=-.02)
+ShopButton = Button(texture='https://i.ibb.co/wLcrcRn/shopCog.webp',x=.75,scale=.2,y=-.02)
 ShopButton.on_click = def():
     if not noInteract:
         metMorshu = save_system_load('metmorshu')
         if not metMorshu:
             save_system_save("metmorshu", 1)
-            morshu = Entity(scale=[2,1],z=-1,parent=camera.ui,texture='morshuCUM.gif')
+            morshu = Entity(scale=[2,1],z=-1,parent=camera.ui,texture='https://i.ibb.co/MZHFXjq/morshu-CUM.gif')
             petergriffin.play()
             petergriffin.volume = volume
             StartedSong.pause()
@@ -434,13 +433,13 @@ ShopButton.on_click = def():
                 e.enabled=False
 
 #GamesStuff = Button(color=color.clear,text='Games',xy=[-0.7,-0.3],scale=[0.3,0.08],text_size=5)
-#WORKNEEDED = Entity(parent=camera.ui, texture='UnderConstruction.webp',scale=[.28,.3],xy=[-0.7,-0.3],alpha=.3)
+#WORKNEEDED = Entity(parent=camera.ui, texture='https://i.ibb.co/sbMvGt1/Under-Construction.webp',scale=[.28,.3],xy=[-0.7,-0.3],alpha=.3)
 #GamesStuff.on_click = def():
     #SmoothTransit('mathsGame')
 
 #Shop stuff & gens very annoying
 
-Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=False,x=-.8,y=.3)
+Gen1 = Button(cost=Gen1Cost,texture='https://i.ibb.co/7gywknG/clicker-Gen1.webp',enabled=False,x=-.8,y=.3)
 Gen1.on_click = def():
     if score >= Gen1.cost:
         score -= Gen1.cost
@@ -452,7 +451,7 @@ Gen1.on_click = def():
         save_system_save("gen1owned", Gen1Owned)
         save_system_save("gen1cost", Gen1.cost)
 
-Gen1LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
+Gen1LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
 Gen1LevelUp.on_click = def():
     if godlyClicks >= Gen1LevelUp.cost:
         gen1Multiplier += .1
@@ -461,7 +460,7 @@ Gen1LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=False)
 
-Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=False,x=-.8,y=-.01)
+Gen2 = Button(cost=Gen2Cost,texture='https://i.ibb.co/92Dfc5m/clicker-Gen2.webp',enabled=False,x=-.8,y=-.01)
 Gen2.on_click = def():
     if score >= Gen2.cost:
         score -= Gen2.cost
@@ -473,7 +472,7 @@ Gen2.on_click = def():
         save_system_save("gen2owned", Gen2Owned)
         save_system_save("gen2cost", Gen2.cost)
 
-Gen2LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
+Gen2LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
 Gen2LevelUp.on_click = def():
     if godlyClicks >= Gen2LevelUp.cost:
         gen2Multiplier += .1
@@ -494,7 +493,7 @@ Gen3.on_click = def():
         save_system_save("gen3owned", Gen3Owned)
         save_system_save("gen3cost", Gen3.cost)
 
-Gen3LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
+Gen3LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
 Gen3LevelUp.on_click = def():
     if godlyClicks >= Gen3LevelUp.cost:
         gen3Multiplier += .1
@@ -515,7 +514,7 @@ Gen4.on_click = def():
         save_system_save("gen4owned", Gen4Owned)
         save_system_save("gen4cost", Gen4.cost)
 
-Gen4LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
+Gen4LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
 Gen4LevelUp.on_click = def():
     if godlyClicks >= Gen4LevelUp.cost:
         gen4Multiplier += .1
@@ -536,7 +535,7 @@ Gen5.on_click = def():
         save_system_save("gen5owned", Gen5Owned)
         save_system_save("gen5cost", Gen5.cost)
 
-Gen5LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
+Gen5LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
 Gen5LevelUp.on_click = def():
     if godlyClicks >= Gen5LevelUp.cost:
         gen5Multiplier += .1
@@ -557,7 +556,7 @@ Gen6.on_click = def():
         save_system_save("gen6owned", Gen6Owned)
         save_system_save("gen6cost", Gen6.cost)
 
-Gen6LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
+Gen6LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
 Gen6LevelUp.on_click = def():
     if godlyClicks >= Gen6LevelUp.cost:
         gen6Multiplier += .1
@@ -579,7 +578,7 @@ Gen7.on_click = def():
         save_system_save("gen7owned", Gen7Owned)
         save_system_save("gen7cost", Gen7.cost)
 
-Gen7LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
+Gen7LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
 Gen7LevelUp.on_click = def():
     if godlyClicks >= Gen7LevelUp.cost:
         gen7Multiplier += .1
@@ -696,9 +695,9 @@ def update():
     catch (err) {;}
     for e in levelUps:
         if godlyClicks >= e.cost
-            e.texture = 'GenUpgradeArrow.webp'
+            e.texture = 'https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp'
         else:
-            e.texture = 'GenUpgradeArrowU.webp'
+            e.texture = 'https://i.ibb.co/qk1QBF1/Gen-Upgrade-Arrow-U.webp'
     if score >= 100000000:
         after .5s:
             if not startEarningGodlyClicks:

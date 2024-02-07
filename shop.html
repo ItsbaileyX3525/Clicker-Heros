@@ -2,7 +2,7 @@
 <html>
 <style>
 body{
-    background-image:url('assets/bg.webp');
+    background-image:url('https://i.ibb.co/4f835sf/bg.webp');
 }
 @font-face{
     font-family: MainFont;
@@ -95,7 +95,6 @@ function ResumeSounds() {
 set_orientation('horizontal')
 set_window_color('transparent')
 set_background_color('black')
-ASSETS_FOLDER = 'assets/'
 
 #Global variables
 mainScene = []
@@ -115,7 +114,7 @@ Gen4Cost = 12000
 Gen5Cost = 130000
 Gen6Cost = 1400000
 Gen7Cost = 20000000
-Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=False,x=-.8,y=.3)
+Gen1 = Button(cost=Gen1Cost,texture='https://i.ibb.co/7gywknG/clicker-Gen1.webp',enabled=False,x=-.8,y=.3)
 Gen1.on_click = def():
     if score >= Gen1.cost:
         score -= Gen1.cost
@@ -127,7 +126,7 @@ Gen1.on_click = def():
         save_system_save("gen1owned", Gen1Owned)
         save_system_save("gen1cost", Gen1.cost)
 
-Gen1LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
+Gen1LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
 Gen1LevelUp.on_click = def():
     if godlyClicks >= Gen1LevelUp.cost:
         gen1Multiplier += .1
@@ -136,7 +135,7 @@ Gen1LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=False)
 
-Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=False,x=-.8,y=-.01)
+Gen2 = Button(cost=Gen2Cost,texture='https://i.ibb.co/92Dfc5m/clicker-Gen2.webp',enabled=False,x=-.8,y=-.01)
 Gen2.on_click = def():
     if score >= Gen2.cost:
         score -= Gen2.cost
@@ -148,7 +147,7 @@ Gen2.on_click = def():
         save_system_save("gen2owned", Gen2Owned)
         save_system_save("gen2cost", Gen2.cost)
 
-Gen2LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
+Gen2LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
 Gen2LevelUp.on_click = def():
     if godlyClicks >= Gen2LevelUp.cost:
         gen2Multiplier += .1
@@ -157,7 +156,7 @@ Gen2LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=False)
 
-Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=False,x=-.8,y=-.3)
+Gen3 = Button(cost=Gen3Cost,texture='https://i.ibb.co/R6bXqbh/clicker-Gen3.webp',enabled=False,x=-.8,y=-.3)
 Gen3.on_click = def():
     if score >= Gen3.cost:
         score -= Gen3.cost
@@ -169,7 +168,7 @@ Gen3.on_click = def():
         save_system_save("gen3owned", Gen3Owned)
         save_system_save("gen3cost", Gen3.cost)
 
-Gen3LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
+Gen3LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
 Gen3LevelUp.on_click = def():
     if godlyClicks >= Gen3LevelUp.cost:
         gen3Multiplier += .1
@@ -178,7 +177,7 @@ Gen3LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=False)
 
-Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=False,x=-.3,y=.3)
+Gen4 = Button(cost=Gen4Cost,texture='https://i.ibb.co/XDrkb27/Clicker-Gen4.webp',enabled=False,x=-.3,y=.3)
 Gen4.on_click = def():
     if score >= Gen4.cost:
         score -= Gen4.cost
@@ -190,7 +189,7 @@ Gen4.on_click = def():
         save_system_save("gen4owned", Gen4Owned)
         save_system_save("gen4cost", Gen4.cost)
 
-Gen4LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
+Gen4LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
 Gen4LevelUp.on_click = def():
     if godlyClicks >= Gen4LevelUp.cost:
         gen4Multiplier += .1
@@ -199,7 +198,7 @@ Gen4LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=False)
 
-Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=False,x=-.3,y=-.01)
+Gen5 = Button(cost=Gen5Cost,texture='https://i.ibb.co/HgjZFYt/Clicker-Gen5.webp',enabled=False,x=-.3,y=-.01)
 Gen5.on_click = def():
     if score >= Gen5.cost:
         score -= Gen5.cost
@@ -211,7 +210,7 @@ Gen5.on_click = def():
         save_system_save("gen5owned", Gen5Owned)
         save_system_save("gen5cost", Gen5.cost)
 
-Gen5LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
+Gen5LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
 Gen5LevelUp.on_click = def():
     if godlyClicks >= Gen5LevelUp.cost:
         gen5Multiplier += .1
@@ -220,7 +219,7 @@ Gen5LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=False)
 
-Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=False,x=-.3,y=-.3)
+Gen6 = Button(cost=Gen6Cost,texture='https://i.ibb.co/8gwrPYc/Clicker-Gen6.webp',enabled=False,x=-.3,y=-.3)
 Gen6.on_click = def():
     if score >= Gen6.cost:
         score -= Gen6.cost
@@ -232,7 +231,7 @@ Gen6.on_click = def():
         save_system_save("gen6owned", Gen6Owned)
         save_system_save("gen6cost", Gen6.cost)
 
-Gen6LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
+Gen6LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
 Gen6LevelUp.on_click = def():
     if godlyClicks >= Gen6LevelUp.cost:
         gen6Multiplier += .1
@@ -242,7 +241,7 @@ Gen6LevelUp.on_click = def():
 Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=False)
 
 
-Gen7 = Button(cost=Gen7Cost,texture='ClickerGenFinal.webp',enabled=False,x=0.35,y=0,scale=.3)
+Gen7 = Button(cost=Gen7Cost,texture='https://i.ibb.co/3kmJb0Z/Clicker-Gen-Final.webp',enabled=False,x=0.35,y=0,scale=.3)
 Gen7.on_click = def():
     if score >= Gen7.cost:
         score -= Gen7.cost
@@ -254,7 +253,7 @@ Gen7.on_click = def():
         save_system_save("gen7owned", Gen7Owned)
         save_system_save("gen7cost", Gen7.cost)
 
-Gen7LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
+Gen7LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
 Gen7LevelUp.on_click = def():
     if godlyClicks >= Gen7LevelUp.cost:
         gen7Multiplier += .1
@@ -265,13 +264,13 @@ Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=
 
 friendMode="true"
 if friendMode == 'true' or friendMode == true:
-    Gen1.texture = 'CallumGen.webp'
-    Gen2.texture = 'NathanielGen.webp'
-    Gen3.texture = 'TaylorGen.webp'
-    Gen4.texture = 'WilsonGen.webp'
-    Gen5.texture = 'KarltonGen.webp'
-    Gen6.texture = 'RyanGen.webp'
-    Gen7.texture = 'EthanGen.webp'
+    Gen1.texture = 'https://i.ibb.co/TRkFD4b/Callum-Gen.webp'
+    Gen2.texture = 'https://i.ibb.co/mS7pcH1/Nathaniel-Gen.webp'
+    Gen3.texture = 'https://i.ibb.co/KbD1QMQ/Taylor-Gen.webp'
+    Gen4.texture = 'https://i.ibb.co/LNk1w7b/Wilson-Gen.webp'
+    Gen5.texture = 'https://i.ibb.co/dfCWMhy/Karlton-Gen.webp'
+    Gen6.texture = 'https://i.ibb.co/6HKb53J/RyanGen.webp'
+    Gen7.texture = 'https://i.ibb.co/bXBrQqb/EthanGen.webp'
 
 
 #Appending shop items
@@ -321,7 +320,7 @@ Gen8.on_click = def():
         save_system_save("gen8owned", Gen8Owned)
         save_system_save("gen8cost", Gen8.cost)
 
-Gen8LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
+Gen8LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,0.35],enabled=False,cost=1)
 Gen8LevelUp.on_click = def():
     if godlyClicks >= Gen8LevelUp.cost:
         gen8Multiplier += .1
@@ -342,7 +341,7 @@ Gen9.on_click = def():
         save_system_save("gen9owned", Gen9Owned)
         save_system_save("gen9cost", Gen9.cost)
 
-Gen9LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
+Gen9LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,0.06],enabled=False,cost=1)
 Gen9LevelUp.on_click = def():
     if godlyClicks >= Gen9LevelUp.cost:
         gen2Multiplier += .1
@@ -363,7 +362,7 @@ Gen10.on_click = def():
         save_system_save("gen10owned", Gen10Owned)
         save_system_save("gen10cost", Gen10.cost)
 
-Gen10LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
+Gen10LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.625,-.23],enabled=False,cost=1)
 Gen10LevelUp.on_click = def():
     if godlyClicks >= Gen10LevelUp.cost:
         gen10Multiplier += .1
@@ -384,7 +383,7 @@ Gen11.on_click = def():
         save_system_save("gen11owned", Gen11Owned)
         save_system_save("gen11cost", Gen11.cost)
 
-Gen11LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
+Gen11LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,0.35],enabled=False,cost=1)
 Gen11LevelUp.on_click = def():
     if godlyClicks >= Gen11LevelUp.cost:
         gen11Multiplier += .1
@@ -405,7 +404,7 @@ Gen12.on_click = def():
         save_system_save("gen12owned", Gen12Owned)
         save_system_save("gen12cost", Gen12.cost)
 
-Gen12LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
+Gen12LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,0.06],enabled=False,cost=1)
 Gen12LevelUp.on_click = def():
     if godlyClicks >= Gen12LevelUp.cost:
         gen12Multiplier += .1
@@ -413,6 +412,7 @@ Gen12LevelUp.on_click = def():
         Gen12LevelUp.cost += 1
         godlyClicksTracker += 1
 Gen12Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen12Cost)}`,text_size=4.5,enabled=False)
+
 
 Gen13 = Button(cost=Gen13Cost,texture='ClickerGen13.webp',enabled=False,x=-.3,y=-.3)
 Gen13.on_click = def():
@@ -426,7 +426,7 @@ Gen13.on_click = def():
         save_system_save("gen13owned", Gen13Owned)
         save_system_save("gen13cost", Gen13.cost)
 
-Gen13LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
+Gen13LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[-0.1,-.23],enabled=False,cost=1)
 Gen13LevelUp.on_click = def():
     if godlyClicks >= Gen13LevelUp.cost:
         gen13Multiplier += .1
@@ -435,8 +435,7 @@ Gen13LevelUp.on_click = def():
         godlyClicksTracker += 1 
 Gen13Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen13Cost)}`,text_size=4.5,enabled=False)
 
-
-Gen14 = Button(cost=Gen14Cost,texture='UwU.webp',enabled=False,x=0.35,y=0,scale=.3)
+Gen14 = Button(cost=Gen14Cost,texture='https://i.ibb.co/Q9Y8s9t/UwU.webp',enabled=False,x=0.35,y=0,scale=.3)
 Gen14.on_click = def():
     if score >= Gen14.cost:
         score -= Gen14.cost
@@ -448,7 +447,7 @@ Gen14.on_click = def():
         save_system_save("gen14owned", Gen14Owned)
         save_system_save("gen14cost", Gen14.cost)
 
-Gen14LevelUp = Button(texture='GenUpgradeArrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
+Gen14LevelUp = Button(texture='https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp',scale=[.08,.08],xy=[.5,0.18],enabled=False,cost=1)
 Gen14LevelUp.on_click = def():
     if godlyClicks >= Gen14LevelUp.cost:
         gen14Multiplier += .1
@@ -460,11 +459,11 @@ Gen14Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen14Cost)}`,text_siz
 if friendMode == 'true' or friendMode == true:
     Gen8.texture = '.webp'
     Gen9.texture = '.webp'
-    Gen10.texture = 'DogEater.webp'
-    Gen11.texture = 'JohnMakesMeHardman.webp'
-    Gen12.texture = 'KaidenSexy.webp'
-    Gen13.texture = 'MARIZZA.webp'
-    Gen14.texture = 'NattyUwU.webp'
+    Gen10.texture = 'https://i.ibb.co/LY9cMw3/DogEater.webp'
+    Gen11.texture = 'https://i.ibb.co/SvG5Y11/John-Makes-Me-Hardman.webp'
+    Gen12.texture = 'https://i.ibb.co/JzhnkXk/Kaiden-Sexy.webp'
+    Gen13.texture = 'https://i.ibb.co/FwLpw4B/MARIZZA.webp'
+    Gen14.texture = 'https://i.ibb.co/b1f89BP/NattyUwU.webp'
 
 #Appending shop items
 shopScene2.append(Gen8)
@@ -501,9 +500,9 @@ def update():
     save_system_save('score', score)
     for e in levelUps:
         if godlyClicks >= e.cost
-            e.texture = 'GenUpgradeArrow.webp'
+            e.texture = 'https://i.ibb.co/ZHPdsdR/Gen-Upgrade-Arrow.webp'
         else:
-            e.texture = 'GenUpgradeArrowU.webp'
+            e.texture = 'https://i.ibb.co/qk1QBF1/Gen-Upgrade-Arrow-U.webp'
 
 
 

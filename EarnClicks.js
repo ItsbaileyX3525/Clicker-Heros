@@ -179,7 +179,7 @@ function doubleDaMoneyFunc() {
 function displayOfflineEarnings() {
     const amount = TotalEarned / 4;
     
-    lastplayedscreen = new Entity({name:'lastplayedscreen ', parent:camera.ui,texture:'earnedGradient.webp',scale:[1.2,1],z:-2})
+    lastplayedscreen = new Entity({name:'lastplayedscreen ', parent:camera.ui,texture:'https://i.ibb.co/JRNVZHz/earned-Gradient.webp',scale:[1.2,1],z:-2})
     earnedSinceLastPlayed = new Text({name:'earnedSinceLastPlayed ', xy:[.1,-.0],text_size:5,text:`Earned since last online:`,z:-2})
     totalAmountEarned = new Text({name:'totalAmountEarned ', text:`${_formatNumber(amount/4)}`,z:-2,text_size:8,xy:[.28,-.4],text_color:color.white})
     confirmDaMoney = new Button({name:'confirmDaMoney ', text:'OK',z:-2,scale:[.15,.1],y:-.4,x:.3})
