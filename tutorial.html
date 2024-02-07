@@ -2,7 +2,7 @@
 <html>
     <style>
 body{
-    background-image:url('assets/bg.webp');
+    background-image:url('https://i.ibb.co/4f835sf/bg.webp');
 }
         @font-face{
     font-family: MainFont;
@@ -143,10 +143,10 @@ def loadSettings():
     msgboxgodly.z=-5
     msgboxArrow.parent = camera.ui
     msgboxArrow.z=-5
-    background2 = Entity(texture='Settingsbg.webp',scale=[2,1])
+    background2 = Entity(texture='https://i.ibb.co/k3XcsZ5/Settingsbg.webp',scale=[2,1])
     settingsItems = []
     allowedAttackSFX = True
-    GoBackButton = Button(texture='LeftArrow.webp',y=.425,x=-.8,scale=[.1,.1])
+    GoBackButton = Button(texture='https://i.ibb.co/BsxVj6p/Left-Arrow.webp',y=.425,x=-.8,scale=[.1,.1])
     GoBackButton.on_click = def():
         print("You can't go back here")
 
@@ -269,41 +269,41 @@ def loadShop():
     Gen6Cost = 1400000
     Gen7Cost = 20000000
 
-    Gen1 = Button(cost=Gen1Cost,texture='clickerGen1.webp',enabled=True,x=-.8,y=.3)
+    Gen1 = Button(cost=Gen1Cost,texture='https://i.ibb.co/7gywknG/clicker-Gen1.webp',enabled=True,x=-.8,y=.3)
     Gen1.on_click = def():
         ClickedGenerator()
 
     Gen1Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen1Cost)}`,text_size=4.5,enabled=True)
 
-    Gen2 = Button(cost=Gen2Cost,texture='clickerGen2.webp',enabled=True,x=-.8,y=-.01)
+    Gen2 = Button(cost=Gen2Cost,texture='https://i.ibb.co/92Dfc5m/clicker-Gen2.webp',enabled=True,x=-.8,y=-.01)
     Gen2.on_click = def():
         ClickedGenerator()
 
 
     Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=True)
 
-    Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=True,x=-.8,y=-.3)
+    Gen3 = Button(cost=Gen3Cost,texture='https://i.ibb.co/R6bXqbh/clicker-Gen3.webp',enabled=True,x=-.8,y=-.3)
     Gen3.on_click = def():
         ClickedGenerator()
 
 
     Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=True)
 
-    Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=True,x=-.3,y=.3)
+    Gen4 = Button(cost=Gen4Cost,texture='https://i.ibb.co/XDrkb27/Clicker-Gen4.webp',enabled=True,x=-.3,y=.3)
     Gen4.on_click = def():
         ClickedGenerator()
 
 
     Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=True)
 
-    Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=True,x=-.3,y=-.01)
+    Gen5 = Button(cost=Gen5Cost,texture='https://i.ibb.co/HgjZFYt/Clicker-Gen5.webp',enabled=True,x=-.3,y=-.01)
     Gen5.on_click = def():
         ClickedGenerator()
 
 
     Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=True)
 
-    Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=True,x=-.3,y=-.3)
+    Gen6 = Button(cost=Gen6Cost,texture='https://i.ibb.co/8gwrPYc/Clicker-Gen6.webp',enabled=True,x=-.3,y=-.3)
     Gen6.on_click = def():
         ClickedGenerator()
 
@@ -311,7 +311,7 @@ def loadShop():
     Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=True)
 
 
-    Gen7 = Button(cost=Gen7Cost,texture='ClickerGenFinal.webp',enabled=True,x=0.35,y=0,scale=.3)
+    Gen7 = Button(cost=Gen7Cost,texture='https://i.ibb.co/3kmJb0Z/Clicker-Gen-Final.webp',enabled=True,x=0.35,y=0,scale=.3)
     Gen7.on_click = def():
         ClickedGenerator()
 
@@ -348,8 +348,8 @@ def loadShop():
             canContinue = True
         onCurrent += 1
 
-shopButton = Button(enabled=False,texture='shopCog.webp',x=.75,scale=.2,y=-.02)
-shopArrow = Entity(enabled=False,texture='Shoparrow.webp',scale=[.7,.8],xy=[.35,.1])
+shopButton = Button(enabled=False,texture='https://i.ibb.co/4W67V1j/settings-Cog.webp',x=.75,scale=.2,y=-.02)
+shopArrow = Entity(enabled=False,texture='https://i.ibb.co/r4RFvBg/Shoparrow.webp',scale=[.7,.8],xy=[.35,.1])
 
 
 msgboxgodly.on_click = def():
@@ -373,7 +373,7 @@ msgboxgodly.on_click = def():
     elif onCurrent == 2 and canContinue:
         canContinue=False
         LeonLines.line2.play()
-        thisGuyRightHere = Entity(texture='ThisDude.webp',scale=[.3,.3],xy=[0.25,0.18])
+        thisGuyRightHere = Entity(texture='https://i.ibb.co/YXnRSc9/ThisDude.webp',scale=[.3,.3],xy=[0.25,0.18])
         removeSpans()
         textLines = [
         { speed: 60, string: "\nThis guy is simply called Clicker Dude." },        
