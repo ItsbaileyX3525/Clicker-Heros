@@ -92,7 +92,7 @@ function claimAnimation() {
 <script>
 class AchievementEntity extends Entity{
   constructor(options) {
-        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,canClaim:false,needed:0,have:0,color:color.black,iconTexture:'Clicker-idle.gif',achievementName: '', achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward', reward: null, image_x:1, image_y:1, image_scaled:false};
+        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,canClaim:false,needed:0,have:0,color:color.black,iconTexture:'https://i.ibb.co/mJvKZX2/Clicker-idle.gif',achievementName: '', achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward', reward: null, image_x:1, image_y:1, image_scaled:false};
         for (const [key, value] of Object.entries(options)) {
             if (value !== false) {
                 settings[key] = value;
@@ -336,7 +336,7 @@ claimTplayedforyear = save_system_load('playedforyear') || 0
 
 TamountEarned69000 = save_system_load('Tamountearned69000') || 0
 Tachievedmaxprestige = save_system_load('Tachievedmaxprestige') || 0
-Tplayedforweek = save_system_load('Tplayedforweek') || 0
+Tescapedshadowrealm = save_system_load('Tescapedshadowrealm') || 0
 Tplayedforfortnite = save_system_load('Tplayedforfortnite') || 0
 Tplayedfor3week = save_system_load('Tplayedfor3week') || 0
 Tplayedformonth = save_system_load('Tplayedformonth') || 0
@@ -345,7 +345,7 @@ Tplayedforyear = save_system_load('Tplayedforyear') || 0
 #Used for connecting the names together
 achievementSecret1name = 'TamountEarned69000'
 achievementSecret2name = 'Tachievedmaxprestige'
-achievementSecret3name = 'Tplayedforweek'
+achievementSecret3name = 'Tescapedshadowrealm'
 achievementSecret4name = 'Tplayedforfortnite'
 achievementSecret5name = 'Tplayedfor3week'
 achievementSecret6name = 'Tplayedformonth'
@@ -354,7 +354,7 @@ achievementSecret7name = 'Tplayedforyear'
 #This one is used for tracking when you achieve it
 claimTamountEarned69000 = save_system_load('amountearned69000') || 0
 claimTachievedmaxprestige = save_system_load('achievedmaxprestige') || 0
-claimTplayedforweek = save_system_load('playedforweek') || 0
+claimTescapedshadowrealm = save_system_load('escapedshadowrealm') || 0
 claimTplayedforfortnite = save_system_load('playedforfortnite') || 0
 claimTplayedfor3week = save_system_load('playedfor3week') || 0
 claimTplayedformonth = save_system_load('playedformonth') || 0

@@ -86,6 +86,21 @@ function PauseSounds() {
 function ResumeSounds() {
     StartedSong.play()
 }
+function unlockedBenFunc(){
+    save_system_save("unlockedBen", 1);
+}
+haveYouUnlockedBenYet = save_system_load("unlockedBen") || 0
+if (!haveYouUnlockedBenYet){
+let unlockedBen = new Proxy({ value: 0 }, {
+    set: function(target, key, value) {
+        if (key === 'value') {
+            const oldValue = target[key];
+            target[key] = value;
+            unlockedBenFunc(value, oldValue);
+            return true;
+        }
+    }
+});}else{unlockedBen = 1;}
     </script>
 
     <script src="taptapir/taptapir.js"></script>   
@@ -308,7 +323,7 @@ Gen12Cost = 14000000000000
 Gen13Cost = 170000000000000
 Gen14Cost = 2100000000000000
 
-Gen8 = Button(cost=Gen8Cost,texture='clickerGen8.webp',enabled=False,x=-.8,y=.3)
+Gen8 = Button(cost=Gen8Cost,texture='clickerGen8.webp',enabled=False,x=-.75,y=.3)
 Gen8.on_click = def():
     if score >= Gen8.cost:
         score -= Gen8.cost
@@ -329,7 +344,7 @@ Gen8LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen8Info = Text(x=-.49,y=-.3,text=`Cost: ${formatNumber(Gen8Cost)}`,text_size=4.5,enabled=False)
 
-Gen9 = Button(cost=Gen9Cost,texture='clickerGen9.webp',enabled=False,x=-.8,y=-.01)
+Gen9 = Button(cost=Gen9Cost,texture='clickerGen9.webp',enabled=False,x=-.75,y=-.01)
 Gen9.on_click = def():
     if score >= Gen9.cost:
         score -= Gen9.cost
@@ -350,7 +365,7 @@ Gen9LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen9Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen9Cost)}`,text_size=4.5,enabled=False)
 
-Gen10 = Button(cost=Gen10Cost,texture='clickerGen10.webp',enabled=False,x=-.8,y=-.3)
+Gen10 = Button(cost=Gen10Cost,texture='clickerGen10.webp',enabled=False,x=-.75,y=-.3)
 Gen10.on_click = def():
     if score >= Gen10.cost:
         score -= Gen10.cost
@@ -371,7 +386,7 @@ Gen10LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen10Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen10Cost)}`,text_size=4.5,enabled=False)
 
-Gen11 = Button(cost=Gen11Cost,texture='ClickerGen11.webp',enabled=False,x=-.3,y=.3)
+Gen11 = Button(cost=Gen11Cost,texture='https://i.ibb.co/m8XvV8f/ARock.webp',enabled=False,x=-.35,y=.3)
 Gen11.on_click = def():
     if score >= Gen11.cost:
         score -= Gen11.cost
@@ -390,9 +405,10 @@ Gen11LevelUp.on_click = def():
         godlyClicks -= Gen11LevelUp.cost
         Gen11LevelUp.cost += 1
         godlyClicksTracker += 1
+        unlockedBen.value=1
 Gen11Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen11Cost)}`,text_size=4.5,enabled=False)
 
-Gen12 = Button(cost=Gen12Cost,texture='ClickerGen12.webp',enabled=False,x=-.3,y=-.01)
+Gen12 = Button(cost=Gen12Cost,texture='ClickerGen12.webp',enabled=False,x=-.33,y=-.01)
 Gen12.on_click = def():
     if score >= Gen12.cost:
         score -= Gen12.cost
@@ -414,7 +430,7 @@ Gen12LevelUp.on_click = def():
 Gen12Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen12Cost)}`,text_size=4.5,enabled=False)
 
 
-Gen13 = Button(cost=Gen13Cost,texture='ClickerGen13.webp',enabled=False,x=-.3,y=-.3)
+Gen13 = Button(cost=Gen13Cost,texture='ClickerGen13.webp',enabled=False,x=-.31,y=-.3)
 Gen13.on_click = def():
     if score >= Gen13.cost:
         score -= Gen13.cost
@@ -435,7 +451,7 @@ Gen13LevelUp.on_click = def():
         godlyClicksTracker += 1 
 Gen13Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen13Cost)}`,text_size=4.5,enabled=False)
 
-Gen14 = Button(cost=Gen14Cost,texture='https://i.ibb.co/Q9Y8s9t/UwU.webp',enabled=False,x=0.35,y=0,scale=.3)
+Gen14 = Button(cost=Gen14Cost,texture='https://i.ibb.co/Q9Y8s9t/UwU.webp',enabled=False,x=0.38,y=0,scale=.3)
 Gen14.on_click = def():
     if score >= Gen14.cost:
         score -= Gen14.cost
@@ -460,7 +476,7 @@ if friendMode == 'true' or friendMode == true:
     Gen8.texture = 'https://i.ibb.co/d4g5Zwr/BerBiggs.webp'
     Gen9.texture = 'https://i.ibb.co/94Svs2r/20240207-133409.webp'
     Gen10.texture = 'https://i.ibb.co/LY9cMw3/DogEater.webp'
-    Gen11.texture = 'https://i.ibb.co/SvG5Y11/John-Makes-Me-Hardman.webp'
+    Gen11.texture = 'https://i.ibb.co/wcnWpdP/ben-Hog-Pog.webp'
     Gen12.texture = 'https://i.ibb.co/JzhnkXk/Kaiden-Sexy.webp'
     Gen13.texture = 'https://i.ibb.co/FwLpw4B/MARIZZA.webp'
     Gen14.texture = 'https://i.ibb.co/b1f89BP/NattyUwU.webp'

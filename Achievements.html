@@ -81,7 +81,7 @@ function claimAnimation() {
 <script>
 class AchievementEntity extends Entity{
   constructor(options) {
-        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,canClaim:false,color:color.black,iconTexture:'Clicker-idle.gif',achievementName: '', achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward', reward: null};
+        let settings = {parent: camera.ui,scale: [1.2, 0.1],x:0,y:0,canClaim:false,color:color.black,iconTexture:'https://i.ibb.co/mJvKZX2/Clicker-idle.gif',achievementName: '', achievement: false, achievementClaimed: false, descriptor: 'I am description of reward', rewardDescriptor: 'I say reward', title: 'I tell how get reward', reward: null};
         for (const [key, value] of Object.entries(options)) {
             if (value !== false) {
                 settings[key] = value;
@@ -218,7 +218,7 @@ inTab1 = True
 inTab2 = False
 inTab3 = False
 inTab4 = False
-tab1 = Entity(scale=[.1,.1],texture='Clicker-idle.gif',color=[178,190,181],x=-.6035,y=.152)
+tab1 = Entity(scale=[.1,.1],texture='https://i.ibb.co/mJvKZX2/Clicker-idle.gif',color=[178,190,181],x=-.6035,y=.152)
 tab2 = Entity(scale=[.1,.1],texture='https://i.ibb.co/7gywknG/clicker-Gen1.webp',color=[178,190,200],x=-.45,y=.152)
 tab3 = Entity(scale=[.1,.1],texture='https://i.ibb.co/w4hZR1b/Cock-i-mean-clock.webp',color=[178,190,200],x=-.3,y=.152)
 tab4 = Entity(scale=[.1,.1],texture='https://i.ibb.co/QP3kC9J/Godly-Click.webp',color=[178,190,200],x=-.15,y=.152)

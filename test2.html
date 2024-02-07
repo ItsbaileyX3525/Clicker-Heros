@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Define the variable to watch
+let myVariable = 0;
+
+// Function to execute when variable changes
+function onVariableChange(newValue, oldValue) {
+    console.log(`Variable changed from ${oldValue} to ${newValue}`);
+    // Do something here when the variable changes
+}
+
+// Create a proxy for the variable to watch for changes
+let variableProxy = new Proxy({ value: myVariable }, {
+    set: function(target, key, value) {
+        if (key === 'value') {
+            const oldValue = target[key];
+            target[key] = value;
+            onVariableChange(value, oldValue);
+            return true;
+        }
+    }
+});
+
+// Function to update the variable value
+function updateVariable(newValue) {
+    variableProxy.value = newValue;
+}
+
+// Example: Change the variable value
+updateVariable(5);
+updateVariable(10);
+
+    </script>
+</body>
+</html>

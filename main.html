@@ -181,7 +181,7 @@ after .1s:
         NOINTERACT = True
         canContinue = True
         tutorialBox = Entity(roundness=.05,color=color.white,enabled=True,scale=[1.7,.3],y=-.3,z=-1)
-        tutorialBoxArrow = Entity(texture='arrow.gif',enabled=True,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
+        tutorialBoxArrow = Entity(texture='https://i.ibb.co/DKqNHWs/arrow.gif',enabled=True,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
         canContinue = False
         parenter = document.getElementById("tutorialBox ");
         container = parenter.querySelector("entity")
@@ -322,7 +322,7 @@ justClicked = False
 soManyNotNeededVariables = 1
 
 #Main clicker game
-ClickerDude = Button(texture='Clicker-idle.gif',scale=[.3,.3],y=0)
+ClickerDude = Button(texture='https://i.ibb.co/mJvKZX2/Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
     if not NOINTERACT:
         Gen1CPS = .1 * Gen1Owned * gen1Multiplier * globalMultiplier
@@ -730,7 +730,7 @@ def update():
                     onCurrent = 1
 
 msgboxgodly = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
-msgboxArrow = Entity(texture='arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
+msgboxArrow = Entity(texture='https://i.ibb.co/DKqNHWs/arrow.gif',enabled=False,scale=[.15,.2],xy=[0.75,-0.4],z=-3)
 
 onCurrent=1
 msgboxgodly.on_click = def():

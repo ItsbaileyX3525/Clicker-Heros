@@ -16,6 +16,7 @@
     </style>
 </head>
 <body>
+    <script src="Smooth.js"></script>
     <script src="taptapir/taptapir.js"></script>
     <script type="text/javascript">
 set_window_color('transparent')
@@ -55,7 +56,13 @@ if (key === 'l' && nextButton3) {
 if (key === 'o' && nextButton4) {
     nextButton4 = false
     nextButton5 = true
-    egg=new Button({name: "egg ", alpha:1, text:"Hey, want to return to normal realm?"})
+    shadowLevel = save_system_load("escapedshadowrealm");
+    egg=new Button({name: "egg ", alpha:1, text:"Hey, You can return now.", scale:[1,.1]})
+    egg.on_click = function(){
+        if (!shadowLevel === 1){
+        save_system_save("escapedshadowrealm", 2)}
+        SmoothTransit("main");
+    }
     after(2, function() {
         nextButton5 = false
     }        )}        }

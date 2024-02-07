@@ -60,13 +60,13 @@ let Gen4Earn = 47
 let Gen5Earn = 260
 let Gen6Earn = 1400
 let Gen7Earn = 7800
-let Gen8Earn = 7800
-let Gen9Earn = 7800
-let Gen10Earn = 7800
-let Gen11Earn = 7800
-let Gen12Earn = 7800
-let Gen13Earn = 7800
-let Gen14Earn = 7800
+let Gen8Earn = 44000
+let Gen9Earn = 260000
+let Gen10Earn = 1600000
+let Gen11Earn = 10000000
+let Gen12Earn = 65000000
+let Gen13Earn = 430000000
+let Gen14Earn = 2900000000
 function applyScore() {
     try {
     if (Gen1Owned > 0){
@@ -208,31 +208,31 @@ function offlineEarn(time) {
             TotalEarned = Math.round((TotalEarned + 0.1 * Gen1Owned * time) * 10) / 10 ;
         }
         if (Gen2Owned > 0){
-            TotalEarned += Gen2Earn * Gen1Owned * time;}
+            TotalEarned += Gen2Earn * Gen2Owned * time;}
         if (Gen3Owned > 0){
             TotalEarned += Gen3Earn * Gen3Owned * time;}
         if (Gen4Owned > 0){
-            TotalEarned += Gen4Earn * Gen4Owned;}
+            TotalEarned += Gen4Earn * Gen4Owned * time;}
         if (Gen5Owned > 0){
-            TotalEarned += Gen5Earn * Gen5Owned;}
+            TotalEarned += Gen5Earn * Gen5Owned * time;}
         if (Gen6Owned > 0){
-            TotalEarned += Gen6Earn * Gen6Owned;}
+            TotalEarned += Gen6Earn * Gen6Owned * time;}
         if (Gen7Owned > 0){
-            TotalEarned += Gen7Earn * Gen7Owned;}
+            TotalEarned += Gen7Earn * Gen7Owned * time;}
         if (Gen8Owned > 0){
-            TotalEarned += Gen2Earn * Gen1Owned * time;}
+            TotalEarned += Gen8Earn * Gen8Owned * time;}
         if (Gen9Owned > 0){
-            TotalEarned += Gen3Earn * Gen3Owned * time;}
+            TotalEarned += Gen9Earn * Gen9Owned * time;}
         if (Gen10Owned > 0){
-            TotalEarned += Gen4Earn * Gen4Owned;}
+            TotalEarned += Gen10Earn * Gen10Owned * time;}
         if (Gen11Owned > 0){
-            TotalEarned += Gen5Earn * Gen5Owned;}
+            TotalEarned += Gen11Earn * Gen11Owned * time;}
         if (Gen12Owned > 0){
-            TotalEarned += Gen6Earn * Gen6Owned;}
+            TotalEarned += Gen12Earn * Gen12Owned * time;}
         if (Gen13Owned > 0){
-            TotalEarned += Gen7Earn * Gen7Owned;}
+            TotalEarned += Gen13Earn * Gen13Owned * time;}
         if (Gen14Owned > 0){
-            TotalEarned += Gen7Earn * Gen7Owned;}
+            TotalEarned += Gen14Earn * Gen14Owned * time;}
         if (afterSlash === "main.html" || afterSlash === 'Menu.html'){if (TotalEarned > 0) {displayOfflineEarnings()}}
         } catch (err) {
 
