@@ -146,6 +146,14 @@ LeonLines = {
     line8:new Audio('voiceLines/Leon/thanos sync.ogg'),
     line9:new Audio('voiceLines/Leon/ult.ogg'),
 }
+function testRizz(){
+    print("testing rizz")
+    const value = Math.round(Math.random()*100,1);
+    if (value > 0){
+        RizzEventActive = true;
+        print("User has rizz")
+    }
+}
     </script>
 
     <script src="taptapir/taptapir.js"></script>   
@@ -163,6 +171,8 @@ shopScene = []
 levelUps = []
 noInteract = False
 NOINTERACT = False
+RizzEventActive = False
+RizzEventActive1 = False
 
 #For settings
 save_system_save('prevtab', "main")
@@ -325,6 +335,7 @@ soManyNotNeededVariables = 1
 ClickerDude = Button(texture='https://i.ibb.co/mJvKZX2/Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
     if not NOINTERACT:
+        testRizz()
         Gen1CPS = .1 * Gen1Owned * gen1Multiplier * globalMultiplier
         Gen2CPS = 1 * Gen2Owned * gen2Multiplier * globalMultiplier
         Gen3CPS = 8 * Gen3Owned * gen3Multiplier * globalMultiplier
@@ -484,7 +495,7 @@ Gen2LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen2Info = Text(x=-.49,y=-.6,text=`Cost: ${formatNumber(Gen2Cost)}`,text_size=4.5,enabled=False)
 
-Gen3 = Button(cost=Gen3Cost,texture='clickerGen3.webp',enabled=False,x=-.8,y=-.3)
+Gen3 = Button(cost=Gen3Cost,texture='https://i.ibb.co/R6bXqbh/clicker-Gen3.webp',enabled=False,x=-.8,y=-.3)
 Gen3.on_click = def():
     if score >= Gen3.cost:
         score -= Gen3.cost
@@ -505,7 +516,7 @@ Gen3LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen3Info = Text(x=-.49,y=-.9,text=`Cost: ${formatNumber(Gen3Cost)}`,text_size=4.5,enabled=False)
 
-Gen4 = Button(cost=Gen4Cost,texture='ClickerGen4.webp',enabled=False,x=-.3,y=.3)
+Gen4 = Button(cost=Gen4Cost,texture='https://i.ibb.co/XDrkb27/Clicker-Gen4.webp',enabled=False,x=-.3,y=.3)
 Gen4.on_click = def():
     if score >= Gen4.cost:
         score -= Gen4.cost
@@ -526,7 +537,7 @@ Gen4LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen4Info = Text(x=-.05,y=-.3,text=`Cost: ${formatNumber(Gen4Cost)}`,text_size=4.5,enabled=False)
 
-Gen5 = Button(cost=Gen5Cost,texture='ClickerGen5.webp',enabled=False,x=-.3,y=-.01)
+Gen5 = Button(cost=Gen5Cost,texture='https://i.ibb.co/HgjZFYt/Clicker-Gen5.webp',enabled=False,x=-.3,y=-.01)
 Gen5.on_click = def():
     if score >= Gen5.cost:
         score -= Gen5.cost
@@ -547,7 +558,7 @@ Gen5LevelUp.on_click = def():
         godlyClicksTracker += 1
 Gen5Info = Text(x=-.05,y=-.6,text=`Cost: ${formatNumber(Gen5Cost)}`,text_size=4.5,enabled=False)
 
-Gen6 = Button(cost=Gen6Cost,texture='ClickerGen6.webp',enabled=False,x=-.3,y=-.3)
+Gen6 = Button(cost=Gen6Cost,texture='https://i.ibb.co/8gwrPYc/Clicker-Gen6.webp',enabled=False,x=-.3,y=-.3)
 Gen6.on_click = def():
     if score >= Gen6.cost:
         score -= Gen6.cost
@@ -569,7 +580,7 @@ Gen6LevelUp.on_click = def():
 Gen6Info = Text(x=-.05,y=-.9,text=`Cost: ${formatNumber(Gen6Cost)}`,text_size=4.5,enabled=False)
 
 
-Gen7 = Button(cost=Gen7Cost,texture='ClickerGenFinal.webp',enabled=False,x=0.35,y=0,scale=.3)
+Gen7 = Button(cost=Gen7Cost,texture='https://i.ibb.co/3kmJb0Z/Clicker-Gen-Final.webp',enabled=False,x=0.35,y=0,scale=.3)
 Gen7.on_click = def():
     if score >= Gen7.cost:
         score -= Gen7.cost
@@ -660,6 +671,62 @@ mainScene.append(prestigeStuffbg)
 #mainScene.append(GamesStuff)
 #mainScene.append(WORKNEEDED)
 
+function rizzlerBounce():
+    rizzler.animate('y', .22, .1)
+    after .1:
+        rizzlerBounce2()
+
+function rizzlerBounce2():
+    rizzler.animate('y', .25, .1)
+    after .1:
+        if rizzlerBounceActive:
+            rizzlerBounce()
+
+#This needs work on/finishing
+
+def speakToRizzler():
+    cpsDisplay.enabled=False
+    rizzlerBounceActive=True
+    rizzlerBounce()
+    RizzlerMsgbox = Entity(roundness=.05,color=color.white,enabled=True,scale=[1.7,.3],y=-.3,z=-1)
+    rizzOnCurrent=1
+    rizzCanContinue = False
+    parenter = document.getElementById("RizzlerMsgbox ");
+    container = parenter.querySelector("entity")
+    removeSpans()
+    textLines = [
+    { speed: 70, string: "\nI AM THE RIZZLER!" },
+    ];
+    createText()
+    revealOneCharacter(characters)
+    after 1.2:
+        rizzlerBounceActive = False
+    after 1.5:
+        nuhuh = Button(text="Nuh uh!",scale_x=.15,scale_y=.1,color=color.red,x=-.4,y=-.4)
+        nuhuh.on_click = def():
+            destroy(RizzlerMsgbox);
+            destroy(andSoWhat);
+            cpsDisplay.enabled=True
+            destroy(nuhuh);
+            destroy(rizzler);
+        andSoWhat = Button(text="Ok?",scale_x=.15,scale_y=.1,color=color.green,x=.4,y=-.4)
+        andSoWhat.on_click = def():
+            destroy(andSoWhat);
+            nuhuh.enabled=False
+            removeSpans()
+            textLines = [
+            { speed: 70, string: "\nWell yanno... IM THA RIZZLER!" },
+            ];
+            createText()
+            revealOneCharacter(characters)
+            rizzlerBounceActive=True
+            rizzlerBounce()
+            after 1.9:
+                rizzlerBounceActive=False
+            after 2.2:
+                nuhuh.enabled=True
+                broILiterallyDontCare = Button(text="Literally don't care",scale_x=.32,scale_y=.1,color=color.green,x=.4,y=-.4)
+
 def input(key):
     if not NOINTERACT:
         if held_keys['mouse left']:
@@ -673,9 +740,15 @@ def input(key):
             ClickerDude.animate('scale_x', .3, .1)
             ClickerDude.animate('scale_y', .3, .1)
 
-
 def update():
-    print(clickIntense)
+    if RizzEventActive:
+        NOINTERACT = True
+        noInteract = True
+        rizzler = Entity(texture='https://i.ibb.co/v3q60ZS/Rizzy.png',x=0,scale=.3,y=-.6)
+        rizzler.animate('y', .25, .3)
+        RizzEventActive = False
+        after .4:
+            speakToRizzler()
     try:
         save_system_save('gen1multiplier', gen1Multiplier)
         save_system_save('gen2multiplier', gen2Multiplier)

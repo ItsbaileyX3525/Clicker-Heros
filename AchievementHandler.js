@@ -101,11 +101,11 @@ amountEarned500000 = save_system_load('amountearned500000') || 0;
 
 spent1godlyclick = save_system_load('spent1godlyclick') || 0;
 spent10godlyclick = save_system_load('spent10godlyclick') || 0;
-spent25godlyclick = save_system_load('spent50godlyclick') || 0;
-spent50godlyclick = save_system_load('spent1godlyclick') || 0;
-spent75godlyclick = save_system_load('spent10godlyclick') || 0;
-spent100godlyclick = save_system_load('spent50godlyclick') || 0;
-spent150godlyclick = save_system_load('spent1godlyclick') || 0;
+spent25godlyclick = save_system_load('spent25godlyclick') || 0;
+spent50godlyclick = save_system_load('spent50godlyclick') || 0;
+spent75godlyclick = save_system_load('spent75godlyclick') || 0;
+spent100godlyclick = save_system_load('spent100godlyclick') || 0;
+spent150godlyclick = save_system_load('spent150godlyclick') || 0;
 
 playedforhour = save_system_load('playedforhour') || 0;
 playedfor3day = save_system_load('playedfor3day') || 0;
@@ -216,7 +216,7 @@ AchievementHandler.update = function () {
             save_system_save('amountearned500000', amountEarned500000);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
-            achievementQueue.push({ alpha: 1, icon: 'https://i.ibb.co/7gywknG/clicker-Gen1.webp', title:'250000 score earnt!' });  
+            achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/7gywknG/clicker-Gen1.webp', title:'250000 score earnt!' });  
             break;
         case overallScoreEarned >= 69000 && !callumWouldBeProud:
             callumWouldBeProud = 1;
@@ -276,14 +276,14 @@ AchievementHandler.update = function () {
             break;
         case godlyClicksTracker >= 1 && !spent1godlyclick:
             spent1godlyclick = 1;
-            save_system_save('spent1godlyclicks', spent1godlyclick);
+            save_system_save('spent1godlyclick', spent1godlyclick);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
             achievementQueue.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'First godly click!' });
             break;
         case godlyClicksTracker >= 10 && !spent10godlyclick:
             spent10godlyclick = 1;
-            save_system_save('spent10godlyclicks', spent10godlyclick);
+            save_system_save('spent10godlyclick', spent10godlyclick);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
             achievementQueue.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 10 godly clicks!' });
@@ -293,25 +293,25 @@ AchievementHandler.update = function () {
             save_system_save('spent25godlyclick', spent25godlyclick);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
-            achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 25 godly clicks!' });
+            achievementQueue.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 25 godly clicks!' });
         case godlyClicksTracker >= 50 && !spent50godlyclick:
             spent50godlyclick = 1;
             save_system_save('spent50godlyclick', spent50godlyclick);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
-            achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 50 godly clicks!' });
+            achievementQueue.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 50 godly clicks!' });
         case godlyClicksTracker >= 75 && !spent75godlyclick:
             spent75godlyclick = 1;
             save_system_save('spent75godlyclick', spent75godlyclick);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
-            achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 75 godly clicks!' });
+            achievementQueue.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 75 godly clicks!' });
         case godlyClicksTracker >= 100 && !spent100godlyclick:
             spent100godlyclick = 1;
             save_system_save('spent50godlyclick', spent100godlyclick);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
-            achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 100 godly clicks!' });
+            achievementQueue.push({ alpha: 1, icon: 'https://i.ibb.co/QP3kC9J/Godly-Click.webp', title:'Spent 100 godly clicks!' });
         case godlyClicksTracker >= 150 && !spent150godlyclick:
             spent150godlyclick = 1;
             save_system_save('spent150godlyclick', spent150godlyclick);
