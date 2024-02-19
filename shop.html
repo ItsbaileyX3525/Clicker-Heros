@@ -121,14 +121,23 @@ levelUps2 = []
 score = 100000
 godlyClicks = 0
 
+inShopScene = 0
+
 #Shop stuff & gens very annoying
 Gen1Cost = 15
 Gen2Cost = 100
 Gen3Cost = 1100
 Gen4Cost = 12000
 Gen5Cost = 130000
-Gen6Cost = 1400000
-Gen7Cost = 20000000
+Gen6Cost = 1050000
+Gen7Cost = 15000000
+Gen8Cost = 247500000
+Gen9Cost = 3825000000
+Gen10Cost = 56250000000
+Gen11Cost = 750000000000
+Gen12Cost = 10500000000000
+Gen13Cost = 127500000000000
+Gen14Cost = 1575000000000000
 Gen1 = Button(cost=Gen1Cost,texture='https://i.ibb.co/7gywknG/clicker-Gen1.webp',enabled=False,x=-.8,y=.3)
 Gen1.on_click = def():
     if score >= Gen1.cost:
@@ -286,42 +295,6 @@ if friendMode == 'true' or friendMode == true:
     Gen5.texture = 'https://i.ibb.co/dfCWMhy/Karlton-Gen.webp'
     Gen6.texture = 'https://i.ibb.co/6HKb53J/RyanGen.webp'
     Gen7.texture = 'https://i.ibb.co/bXBrQqb/EthanGen.webp'
-
-
-#Appending shop items
-shopScene.append(Gen1)
-shopScene.append(Gen1Info)
-shopScene.append(Gen2)
-shopScene.append(Gen2Info)
-shopScene.append(Gen3)
-shopScene.append(Gen3Info)
-shopScene.append(Gen4)
-shopScene.append(Gen4Info)
-shopScene.append(Gen5)
-shopScene.append(Gen5Info)
-shopScene.append(Gen6)
-shopScene.append(Gen6Info)
-shopScene.append(Gen7)
-shopScene.append(Gen7Info)
-levelUps.append(Gen1LevelUp)
-levelUps.append(Gen2LevelUp)
-levelUps.append(Gen3LevelUp)
-levelUps.append(Gen4LevelUp)
-levelUps.append(Gen5LevelUp)
-levelUps.append(Gen6LevelUp)
-levelUps.append(Gen7LevelUp)
-
-for e in shopScene:
-    e.enabled = True
-
-#shopScene 2 still very annoying but more fun cause not limited to heroes
-Gen8Cost = 330000000
-Gen9Cost = 5100000000
-Gen10Cost = 75000000000
-Gen11Cost = 1000000000000
-Gen12Cost = 14000000000000
-Gen13Cost = 170000000000000
-Gen14Cost = 2100000000000000
 
 Gen8 = Button(cost=Gen8Cost,texture='clickerGen8.webp',enabled=False,x=-.75,y=.3)
 Gen8.on_click = def():
@@ -482,6 +455,21 @@ if friendMode == 'true' or friendMode == true:
     Gen14.texture = 'https://i.ibb.co/b1f89BP/NattyUwU.webp'
 
 #Appending shop items
+#Appending shop items
+shopScene.append(Gen1)
+shopScene.append(Gen1Info)
+shopScene.append(Gen2)
+shopScene.append(Gen2Info)
+shopScene.append(Gen3)
+shopScene.append(Gen3Info)
+shopScene.append(Gen4)
+shopScene.append(Gen4Info)
+shopScene.append(Gen5)
+shopScene.append(Gen5Info)
+shopScene.append(Gen6)
+shopScene.append(Gen6Info)
+shopScene.append(Gen7)
+shopScene.append(Gen7Info)
 shopScene2.append(Gen8)
 shopScene2.append(Gen8Info)
 shopScene2.append(Gen9)
@@ -496,6 +484,13 @@ shopScene2.append(Gen13)
 shopScene2.append(Gen13Info)
 shopScene2.append(Gen14)
 shopScene2.append(Gen14Info)
+levelUps.append(Gen1LevelUp)
+levelUps.append(Gen2LevelUp)
+levelUps.append(Gen3LevelUp)
+levelUps.append(Gen4LevelUp)
+levelUps.append(Gen5LevelUp)
+levelUps.append(Gen6LevelUp)
+levelUps.append(Gen7LevelUp)
 levelUps2.append(Gen8LevelUp)
 levelUps2.append(Gen9LevelUp)
 levelUps2.append(Gen10LevelUp)
@@ -504,12 +499,13 @@ levelUps2.append(Gen12LevelUp)
 levelUps2.append(Gen13LevelUp)
 levelUps2.append(Gen14LevelUp)
 
-for e in shopScene:
-    e.enabled = False
-    ;
-for e in shopScene2:
-    e.enabled = True
-    ;
+if inShopScene == 1:
+    for e in shopScene:
+        #e.enabled = True
+elif inShopScene == 2:
+    for e in shopScene2:
+        e.enabled = True
+        ;
 
 #General updating stuff
 def update():

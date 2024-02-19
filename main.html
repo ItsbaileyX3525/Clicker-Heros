@@ -403,26 +403,22 @@ inShop = False
 ShopButton = Button(texture='https://i.ibb.co/wLcrcRn/shopCog.webp',x=.75,scale=.2,y=-.02)
 ShopButton.on_click = def():
     if not noInteract:
-        metMorshu = save_system_load('metmorshu')
-        if not metMorshu:
-            save_system_save("metmorshu", 1)
-            morshu = Entity(scale=[2,1],z=-1,parent=camera.ui,texture='https://i.ibb.co/MZHFXjq/morshu-CUM.gif')
-            petergriffin.play()
-            petergriffin.volume = volume
-            StartedSong.pause()
-            after 3:
-                destroy(morshu)
-                StartedSong.play()
-                StartedSong.loop = True
         if not inShop:
             inShop=True
             for e in mainScene:
                 e.enabled=False
-            for e in shopScene:
-                e.enabled=True
-            if unlockedGenLevels:
-                for e in levelUps:
+            if inShopScene == 0 or inShopScene == 1:
+                for e in shopScene:
                     e.enabled=True
+                if unlockedGenLevels:
+                    for e in levelUps:
+                        e.enabled=True
+            elif inShopScene == 2:
+                for e in shopScene:
+                    e.enabled=True
+                if unlockedGenLevels:
+                    for e in levelUps:
+                        e.enabled=True  
         else:
             inShop = False
             for e in mainScene:
@@ -431,6 +427,10 @@ ShopButton.on_click = def():
                 e.enabled=False
             for e in levelUps:
                 e.enabled=False
+            for e in shopScene2:
+                e.enabled = False
+            for e in levelUps2:
+                e.enabled = False
 
 #GamesStuff = Button(color=color.clear,text='Games',xy=[-0.7,-0.3],scale=[0.3,0.08],text_size=5)
 #WORKNEEDED = Entity(parent=camera.ui, texture='https://i.ibb.co/sbMvGt1/Under-Construction.webp',scale=[.28,.3],xy=[-0.7,-0.3],alpha=.3)
@@ -438,6 +438,9 @@ ShopButton.on_click = def():
     #SmoothTransit('mathsGame')
 
 #Shop stuff & gens very annoying
+inShopScene = 0
+
+
 
 Gen1 = Button(cost=Gen1Cost,texture='https://i.ibb.co/7gywknG/clicker-Gen1.webp',enabled=False,x=-.8,y=.3)
 Gen1.on_click = def():
