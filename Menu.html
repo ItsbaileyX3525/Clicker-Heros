@@ -27,8 +27,8 @@ html * {
 <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
 <script src="Smooth.js"></script>    
     <script>
-let click = new Audio('assets/clickMenu.ogg');
-let click2 = new Audio('assets/clickGeneral.ogg');
+let click = new Audio('https://audio.jukehost.co.uk/wFBY9k7xgDHD3mua18sX9BZgWqOsspN2');
+let click2 = new Audio('https://audio.jukehost.co.uk/OD92E34s7oYDgP7lRPmD80mdoV1GUmpy');
 function requestAppClose() { //Close android app
     try {
         AndroidApp.closeApp();
@@ -61,6 +61,10 @@ function PauseSounds() {
 function ResumeSounds() {
     //Resume all sounds
 }
+let online = window.navigator.onLine
+window.addEventListener('online', () => online = true);
+window.addEventListener('offline', () => online = false);
+
     </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
@@ -102,24 +106,33 @@ else:
     settingsButton = Button(text='SETTINGS',y=0,scale=[.5,.1],roundness=.5)
     creditsButton = Button(text='CREDITS',y=-.15,scale=[.5,.1],roundness=.5)
     exitButton = Button(text='EXIT',y=-.30,scale=[.5,.1],roundness=.5)
+NoWifi = Entity(parent=camera.ui,texture="assets/NoWifi.webp",scale=1.2,enabled=False,z=-2)
+NoWifiButton1 = Button(text="Try again",color=color.green,scale=[.31,.07],z=-2,xy=[0,-.104],enabled=False,roundness=.9)
+NoWifiButton2 = Button(scale=[.2,.07],z=-2,xy=[0,-.19],alpha=0,enabled=False)
+moreInfo = Button(texture="assets/info.png",scale=.1,xy=[0.3,-.4],z=-2,enabled=False)
 
 save_system_save('firsttimeplayed',1)
 getVersion();
 
 try:
     startButton.on_click = def():
-        click.play()
-        candoshit = False
-        SmoothTransit('main')
-        startButton.ignore_collision = True
-        settingsButton.ignore_collision = True
+        if online:
+            click.play()
+            candoshit = False
+            SmoothTransit('main')
+            startButton.ignore_collision = True
+            settingsButton.ignore_collision = True
+        else:
+            NoWifi.enabled = True
+            NoWifiButton1.enabled = True
+            NoWifiButton2.enabled = True
+            moreInfo.enabled = True
+            startButton.ignore_collision = True
+            settingsButton.ignore_collision = True
+            creditsButton.ignore_collision = True
+            exitButton.ignore_collision = True
 catch (Error) {;}
-startButtonUwU.on_click = def():
-    click.play()
-    candoshit = False
-    SmoothTransit('tutorial')
-    startButton.ignore_collision = True
-    settingsButton.ignore_collision = True
+
 
 settingsButton.on_click = def():
     click2.play();
@@ -132,6 +145,35 @@ creditsButton.on_click = def():
 exitButton.on_click = def():
     requestAppClose()
 
+NoWifiButton1.on_click = def():
+    if online:
+        click.play()
+        candoshit = False
+        SmoothTransit('main')
+        startButton.ignore_collision = True
+        settingsButton.ignore_collision = True
+    else:
+        print("Well that failed.")
+
+NoWifiButton2.on_click = def():
+    NoWifi.enabled = False
+    NoWifiButton1.enabled = False
+    NoWifiButton2.enabled = False
+    moreInfo.enabled=False
+    startButton.ignore_collision = False
+    settingsButton.ignore_collision = False
+    creditsButton.ignore_collision = False
+    exitButton.ignore_collision = False
+
+moreInfo.on_click = def():
+    moreInfoBackground = Entity(parent=camera.ui,z=-3,scale=[1,.8],color=color.gray)
+    moreInfoText = Text(text='This game uses texture streaming to reduce the game\nsize to a more acceptable level so that you, the user\ncan enjoy the game without having to worry about\nthe game being too big however if you wish to\ndownload the textures to play offline anyways you can\ngo in the settings at anytime and download the assets\nto your device, however it is worth noting that after\ndownloading all the textures and audio files to your\ndevice the app will increase from around 5MB to\naround 36MB.',z=-4,parent=camera.ui,text_color=color.white,xy=[-.08,-.15])
+    okContinue = Button(text="OK",z=-5,scale=[.3,.1],color=color.green,xy=[0,-.2])
+    okContinue.on_click = def():
+        destroy(moreInfoBackground)
+        destroy(moreInfoText)
+        destroy(okContinue)
+
 def reset():
     save_system_clear() 
     window.location.reload()
@@ -140,7 +182,12 @@ save_system_save('prevtab', "menu")
 save_system_save('currenttab', "menu")
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
-
+startButtonUwU.on_click = def():
+    click.play()
+    candoshit = False
+    SmoothTransit('tutorial')
+    startButton.ignore_collision = True
+    settingsButton.ignore_collision = True
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
 <script src="EarnClicks.js"></script></body>

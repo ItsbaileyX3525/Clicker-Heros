@@ -33,10 +33,10 @@ function random_int_(min, max) {//In taptapir.js but taptap isn't defined before
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }  
 wooshes = {
-    woosh1:new Audio('assets/woosh1.ogg'),
-    woosh2:new Audio('assets/woosh2.ogg'),
-    woosh3:new Audio('assets/woosh3.ogg'),
-    LeonYoda:new Audio('voiceLines/Leon/LeonYoda.ogg')
+    woosh1:new Audio('https://audio.jukehost.co.uk/MpARehtgl6AFbLaX3uWRtzPOz2NvVMjR'),
+    woosh2:new Audio('https://audio.jukehost.co.uk/um4mVDYgQbtSmTOOYguhD95ZKqhcX2Gn'),
+    woosh3:new Audio('https://audio.jukehost.co.uk/qJoqRPLAew1nOpfFWHdcCRpDuec55O9X'),
+    LeonYoda:new Audio('https://audio.jukehost.co.uk/SChapiIGXgcUMYa6Wry3LMQYEifC0RwJ')
 }
 
 function Playwoosh() {
@@ -62,14 +62,14 @@ function Playwoosh() {
     }
 }
 
-petergriffin = new Audio('assets/PeterMorshu.ogg')
-StartedSong = new Audio('assets/bgsong.ogg')
+petergriffin = new Audio('https://audio.jukehost.co.uk/1kRDA96ITj4IhDe8BLXB8VJjynwXY1o0')
+StartedSong = new Audio('https://audio.jukehost.co.uk/jFBrq3Dv1KmzcbhlTrRWAFQXvVPP1J8K')
 StartedSong.play();
 StartedSong.loop = false;
 StartedSong.currentTime = 92;
 StartedSong.addEventListener('ended', function() { // volume not settings after chainging.
 this.currentTime = 0;
-this.src = 'assets/bgsong1.ogg';
+this.src = 'https://audio.jukehost.co.uk/Uvp34wz3la4y4XRhm7BVa3z6YT6oBJaO';
 this.play();
 this.volume=volume
 }, false);
@@ -136,15 +136,15 @@ if (storedFileURL){
     createSong(storedFileURL)}else{console.log("No data")}
 
 LeonLines = {
-    line1:new Audio('voiceLines/Leon/number8.ogg'),
-    line2:new Audio('voiceLines/Leon/number9.ogg'),
-    line3:new Audio('voiceLines/Leon/number10.ogg'),
-    line4:new Audio('voiceLines/Leon/number11.ogg'),
-    line5:new Audio('voiceLines/Leon/number12.ogg'),
-    line6:new Audio('voiceLines/Leon/number13.ogg'),
-    line7:new Audio('voiceLines/Leon/numberE.ogg'),
-    line8:new Audio('voiceLines/Leon/thanos sync.ogg'),
-    line9:new Audio('voiceLines/Leon/ult.ogg'),
+    line1:new Audio('https://audio.jukehost.co.uk/6mxhCGu843pj20x1r71KwHa6ZD7TJY8c'),
+    line2:new Audio('https://audio.jukehost.co.uk/gHQidVp0EIMSH6b4Od7ECJ5zh8qolxnk'),
+    line3:new Audio('https://audio.jukehost.co.uk/Rf73YJAI3SIeQsHkaXd1MT8XoBtenOSS'),
+    line4:new Audio('https://audio.jukehost.co.uk/SgIlTwpGSqe6iegJtarhbOcxgfeywks3'),
+    line5:new Audio('https://audio.jukehost.co.uk/RomBoCZK70FrKirPIpdIMGh9lqVpwtz8'),
+    line6:new Audio('https://audio.jukehost.co.uk/iAnyiSbdipQGoZK0gj2DAT1iVgGzSVdj'),
+    line7:new Audio('https://audio.jukehost.co.uk/RGa59nM1kygiW1C8kadmIE0Xy5Y1PUUq'),
+    line8:new Audio('https://audio.jukehost.co.uk/Joj1PQjfMXynq6H2HnfsUnjqDy1tt1iq'),
+    line9:new Audio('https://audio.jukehost.co.uk/W9OLNXCE0KT1aa7ocMDaMqUi7GM7kUbS'),
 }
 function testRizz(){
     print("testing rizz")

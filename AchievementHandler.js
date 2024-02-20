@@ -13,7 +13,7 @@ class AchievementShower extends Entity {
     super(settings)
     this.iconShower = new Entity({parent:this,texture:this.icon,scale:[.5,.5]})
     this.animate('y', -.4, 1.5)
-    this.soundfx = new Audio('assets/rising.ogg')
+    this.soundfx = new Audio('https://audio.jukehost.co.uk/l5g4rPkWlMwH07mVljWRdExOwLInW07q')
     this.soundfx.play()
     this.soundfx.volume = volume
     this.texts = new Text({text:'ACHIEVEMENT UNLOCKED!',text_size:2.725,x:-.1,y:-.05,parent:this,text_color:color.green})
@@ -51,7 +51,7 @@ class AchievementShowerMAX extends Entity {
     }
     super(settings)
     this.animate('x', .55, 1.25)
-    this.soundfx = new Audio('voiceLines/Leon/ult.ogg')
+    this.soundfx = new Audio('https://audio.jukehost.co.uk/W9OLNXCE0KT1aa7ocMDaMqUi7GM7kUbS')
     this.soundfx.play()
     this.soundfx.volume = volume
     this.iconShower = new Entity({parent:this,texture:this.icon,scale:[.25,.9],xy:[.3,0]})
