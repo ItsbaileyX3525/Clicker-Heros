@@ -146,6 +146,19 @@ LeonLines = {
     line8:new Audio('https://audio.jukehost.co.uk/Joj1PQjfMXynq6H2HnfsUnjqDy1tt1iq'),
     line9:new Audio('https://audio.jukehost.co.uk/W9OLNXCE0KT1aa7ocMDaMqUi7GM7kUbS'),
 }
+rizzlerLines = {
+    line1:new Audio('https://audio.jukehost.co.uk/UenOryaukN8oXQTFOELoBLbg02ybJHTf'),
+    line2:new Audio('https://audio.jukehost.co.uk/hsUBAZ9AlxiHM6TLoBwhcvnBoEW8lkAD'),
+    line3:new Audio('https://audio.jukehost.co.uk/2awRea7MUO0ljE2m2fnYuXDyCrIuNP4l'),
+    line4:new Audio('https://audio.jukehost.co.uk/jdJh2Y6kaXjUXhC8Ks8vQXp4pnlndm85'),
+    line5:new Audio('https://audio.jukehost.co.uk/XUABcmSJjxmryImw7ZKkOi3ZpDp74MbE'),
+    line6:new Audio('https://audio.jukehost.co.uk/Bs6eJin6qeQ5FASlMHVe6h73dwJOoswz'),
+    line7:new Audio('https://audio.jukehost.co.uk/t090PMGlMjJDrLyeIbHGvnmiWJNrnESR'),
+    line8:new Audio('https://audio.jukehost.co.uk/vaTyrAt1fG2RspUmvW5sxZS1QST78TwH'),
+    slap:new Audio('https://audio.jukehost.co.uk/PeGaQZRNyLHZMtIYHPy4JljR9p2Gvf45'),
+    rizz:new Audio('https://audio.jukehost.co.uk/sZBLTg3QapKymrgqqjBhjKTQ49qodUQF')
+
+}
 function testRizz(){
     print("testing rizz")
     const value = Math.round(Math.random()*100,1);
@@ -153,6 +166,10 @@ function testRizz(){
         RizzEventActive = true;
         print("User has rizz")
     }
+}
+rizzyLines = {
+    1:"\nYour eyes are like IKEA.",
+    2:'Cause Im always getting lost in em.'
 }
     </script>
 
@@ -698,34 +715,100 @@ def speakToRizzler():
     { speed: 70, string: "\nI AM THE RIZZLER!" },
     ];
     createText()
+    rizzlerLines.line1.play()
     revealOneCharacter(characters)
+
+    continueOn = Button(text="Ok?",scale_x=.15,scale_y=.1,color=color.green,x=.4,y=-.4,enabled=False)
+    end = Button(text="Nuh uh!",scale_x=.15,scale_y=.1,color=color.red,x=-.4,y=-.4,enabled=False)
     after 1.2:
         rizzlerBounceActive = False
     after 1.5:
-        nuhuh = Button(text="Nuh uh!",scale_x=.15,scale_y=.1,color=color.red,x=-.4,y=-.4)
-        nuhuh.on_click = def():
+        end.enabled=True
+        continueOn.enabled=True
+        end.on_click = def():
             destroy(RizzlerMsgbox);
-            destroy(andSoWhat);
+            destroy(continueOn);
             cpsDisplay.enabled=True
-            destroy(nuhuh);
+            destroy(end);
             destroy(rizzler);
-        andSoWhat = Button(text="Ok?",scale_x=.15,scale_y=.1,color=color.green,x=.4,y=-.4)
-        andSoWhat.on_click = def():
-            destroy(andSoWhat);
-            nuhuh.enabled=False
+            NOINTERACT=False
+            noInteract=False
+        continueOn.on_click = def():
+            continueOn.enabled=False
+            end.enabled=False
+            continueOn.text="Whatever bud"
+            continueOn.scale_x=.3
             removeSpans()
             textLines = [
-            { speed: 70, string: "\nWell yanno... IM THA RIZZLER!" },
+            { speed: 70, string: "\nLemme rizz you up bbg." },
             ];
             createText()
             revealOneCharacter(characters)
             rizzlerBounceActive=True
             rizzlerBounce()
-            after 1.9:
+            rizzlerLines.line3.play()
+            after 1.5:
                 rizzlerBounceActive=False
-            after 2.2:
-                nuhuh.enabled=True
-                broILiterallyDontCare = Button(text="Literally don't care",scale_x=.32,scale_y=.1,color=color.green,x=.4,y=-.4)
+            after 1.7:
+                end.enabled=True
+                continueOn.enabled=True
+                continueOn.on_click = def():
+                    end.enabled=False
+                    continueOn.enabled=False
+                    removeSpans()
+                    textLines = [
+                    { speed: 70, string: "\nYour eyes are like IKEA." },
+                    ];
+                    createText()
+                    revealOneCharacter(characters)
+                    rizzlerBounceActive=True
+                    rizzlerBounce()
+                    rizzlerLines.line4.play()
+                    after 1.8:
+                        rizzlerBounceActive = False
+                    after 4:
+                        end.enabled=True
+                        continueOn.enabled=True
+                        continueOn.text="Annnnnd?"
+                        continueOn.on_click = def():
+                            end.enabled=False
+                            continueOn.enabled=False
+                            removeSpans()
+                            textLines = [
+                            { speed: 70, string: '\nCause Im always getting lost in em.' },
+                            ];
+                            createText()
+                            revealOneCharacter(characters)
+                            rizzlerBounceActive=True
+                            rizzlerBounce()
+                            rizzlerLines.line5.play()
+                            after 1.9:
+                                rizzlerBounceActive=False
+                                rizzlerLines.rizz.play()
+                            after 2.1:
+                                continueOn.enabled=True
+                                end.enabled=True
+                                end.text="Get yo ahh on outta here"
+                                continueOn.text="Ok..."
+                                end.scale_x=.5
+                                continueOn.scale_x=.2
+                                end.on_click = def():
+                                    rizzlerLines.slap.play()
+                                    slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
+                                    after .45:
+                                        destroy(slapThatAhh)
+                                    after .3:
+                                        rizzler.animate('x', -2,.2)
+                                    after 1:
+                                        destroy(end)
+                                        destroy(continueOn)
+                                        destroy(rizzler)
+                                        destroy(RizzlerMsgbox)
+                                        NOINTERACT=False
+                                        noInteract=False
+
+
+
 
 def input(key):
     if not NOINTERACT:
