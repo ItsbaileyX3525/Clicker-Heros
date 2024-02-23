@@ -116,7 +116,7 @@ playedformonth = save_system_load('playedformonth') || 0;
 playedforyear = save_system_load('playedforyear') || 0;
 
 //Custom achievements  secret achievements
-callumWouldBeProud = int(save_system_load(''))
+callumWouldBeProud = int(save_system_load('callumWouldBeProud'))
 prestigeLevel = int(save_system_load('prestigelevel'));
 achievedmaxprestige = save_system_save('achievedmaxprestige') || 0;
 escapedShadowRealm = save_system_load("escapedshadowrealm") || 0;
