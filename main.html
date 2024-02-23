@@ -159,6 +159,16 @@ rizzlerLines = {
     rizz:new Audio('https://audio.jukehost.co.uk/sZBLTg3QapKymrgqqjBhjKTQ49qodUQF')
 
 }
+rizzlerLinesBer = {
+    line1:new Audio('https://audio.jukehost.co.uk/wOMJdaXpXPCEs1sgZA1Axua7AAFokwSK'),
+    line2:new Audio('https://audio.jukehost.co.uk/hVGNYXW6zCgV5AUqeuUMapf31Hmx0rjL'),
+    line3:new Audio('https://audio.jukehost.co.uk/uMyhLFJHrImWCiIvfdZtwHNTBG3sHCHt'),
+    line4:new Audio('https://audio.jukehost.co.uk/hNTSKIdzbMVtBZES3SCIbF2zxOdTmq9X'),
+    line5:new Audio('https://audio.jukehost.co.uk/1aNkdr2ELskJOCx0Fn4coZf5CJRDTt1B'),
+    line6:new Audio('https://audio.jukehost.co.uk/RnKFg0pe09VK0CPEASAIgETyJqD2x7kC'),
+    line7:new Audio('https://audio.jukehost.co.uk/M4gWRSOVjsYRsysDvN3TyXCSGnJys8MJ'),
+    line8:new Audio('https://audio.jukehost.co.uk/kkAn7bshYa42P8pMzghx0OijDTXxTL4b'),
+}
 function testRizz(){
     print("testing rizz")
     const value = Math.round(Math.random()*100,1);
@@ -707,9 +717,16 @@ function rizzlerBounce2():
         if rizzlerBounceActive:
             rizzlerBounce()
 
-#This needs work on/finishing
-
+#TOO MANY INDENTS!!!! but cba changing it to call a function instead and indenting works fine
+weTayzer=False
 def speakToRizzler():
+    #Setting up if we tayzer or ber.
+
+    randomNumber = Math.random()
+    if randomNumber >=.5:
+        weTayzer =  True
+
+
     cpsDisplay.enabled=False
     rizzlerBounceActive=True
     rizzlerBounce()
@@ -719,11 +736,15 @@ def speakToRizzler():
     parenter = document.getElementById("RizzlerMsgbox ");
     container = parenter.querySelector("entity")
     removeSpans()
+    if weTayzer:
+        rizzlerLines.line1.play()
+    else:
+
     textLines = [
     { speed: 70, string: "\nI AM THE RIZZLER!" },
     ];
     createText()
-    rizzlerLines.line1.play()
+
     revealOneCharacter(characters)
 
     continueOn = Button(text="Ok?",scale_x=.15,scale_y=.1,color=color.green,x=.4,y=-.4,enabled=False)
