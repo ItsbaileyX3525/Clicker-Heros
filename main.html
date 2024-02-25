@@ -156,8 +156,13 @@ rizzlerLines = {
     line7:new Audio('https://audio.jukehost.co.uk/t090PMGlMjJDrLyeIbHGvnmiWJNrnESR'),
     line8:new Audio('https://audio.jukehost.co.uk/vaTyrAt1fG2RspUmvW5sxZS1QST78TwH'),
     slap:new Audio('https://audio.jukehost.co.uk/PeGaQZRNyLHZMtIYHPy4JljR9p2Gvf45'),
-    rizz:new Audio('https://audio.jukehost.co.uk/sZBLTg3QapKymrgqqjBhjKTQ49qodUQF')
-
+    rizz:new Audio('https://audio.jukehost.co.uk/sZBLTg3QapKymrgqqjBhjKTQ49qodUQF'),
+    ResturantRizz:new Audio(''),
+    ResturantRizzFinal:new Audio(''),
+    MapRizz:new Audio(''),
+    MapRizzFinal:new Audio(''),
+    GoogleRizz:new Audio(''),
+    GoogleRizzFinal:new Audio('')
 }
 rizzlerLinesBer = {
     line1:new Audio('https://audio.jukehost.co.uk/wOMJdaXpXPCEs1sgZA1Axua7AAFokwSK'),
@@ -171,7 +176,9 @@ rizzlerLinesBer = {
     ResturantRizz:new Audio('https://audio.jukehost.co.uk/b1RJnHOaNIuQjhwDE21Uwbw9vzF5D32p'),
     ResturantRizzFinal:new Audio('https://audio.jukehost.co.uk/T9kpX774scgoGjpO2JEruCwKqUr8rEq8'),
     MapRizz:new Audio('https://audio.jukehost.co.uk/fqwa3f15MVdBQPd6ePlUU2yJb3PhUnmR'),
-    MapRizzFinal:new Audio('https://audio.jukehost.co.uk/aKLcpEVopZZGc6ekj6leW57rxvny3O55')
+    MapRizzFinal:new Audio('https://audio.jukehost.co.uk/aKLcpEVopZZGc6ekj6leW57rxvny3O55'),
+    GoogleRizz:new Audio('https://audio.jukehost.co.uk/DfAjN3EiKEcqgInfIKExmug0pIIfAxFz'),
+    GoogleRizzFinal:new Audio('https://audio.jukehost.co.uk/PnmrmbjBDMjWVIcDA6vho5YAbOX5kTgI')
 }
 function testRizz(){
     print("testing rizz")
@@ -721,44 +728,14 @@ function rizzlerBounce2():
         if rizzlerBounceActive:
             rizzlerBounce()
 
-#TOO MANY INDENTS!!!! but cba changing it to call a function instead and indenting works fine
+#screw it im finna do the functions instead
 weTayzer=False
 rizzLine = 1
-def speakToRizzler():
-    #Setting up if we tayzer or ber.
 
-    randomNumber = Math.random()
-    rizzLine = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    print(rizzLine)
-    if randomNumber >=.5:
-        weTayzer =  True
-
-
-    cpsDisplay.enabled=False
-    rizzlerBounceActive=True
-    rizzlerBounce()
-    RizzlerMsgbox = Entity(roundness=.05,color=color.white,enabled=True,scale=[1.7,.3],y=-.3,z=-1)
-    rizzOnCurrent=1
-    rizzCanContinue = False
-    parenter = document.getElementById("RizzlerMsgbox ");
-    container = parenter.querySelector("entity")
-    removeSpans()
-    if weTayzer:
-        rizzlerLines.line1.play()
-    else:
-        rizzlerLinesBer.line1.play()
-    textLines = [
-    { speed: 70, string: "\nI AM THE RIZZLER!" },
-    ];
-    createText()
-
-    revealOneCharacter(characters)
-
-    continueOn = Button(text="Ok?",scale_x=.15,scale_y=.1,color=color.green,x=.4,y=-.4,enabled=False)
-    end = Button(text="Nuh uh!",scale_x=.15,scale_y=.1,color=color.red,x=-.4,y=-.4,enabled=False)
-    after 1.2:
+def RizzlerSpeaks1(time):
+    after time:
         rizzlerBounceActive = False
-    after 1.5:
+    after time +.3:
         end.enabled=True
         continueOn.enabled=True
         end.on_click = def():
@@ -783,201 +760,269 @@ def speakToRizzler():
             rizzlerBounceActive=True
             rizzlerBounce()
             if weTayzer:
+                rizzlerLines.line3.play()
+            else:
+                rizzlerLinesBer.line2.play()
+            RizzlerSpeaks2(1.5)
+
+def RizzlerSpeaks2(time):
+    after time:
+        rizzlerBounceActive=False
+    after time +.3:
+        end.enabled=True
+        continueOn.enabled=True
+        continueOn.on_click = def():
+            end.enabled=False
+            continueOn.enabled=False
+            removeSpans()
+            rizzLine = 4
+            textLines = [
+            { speed: 70, string: rizzyLines[rizzLine] },
+            ];
+            createText()
+            revealOneCharacter(characters)
+            rizzlerBounceActive=True
+            rizzlerBounce()
+            #Overide default rizz
+            
+            if weTayzer:
                 if rizzLine == 1:
-                    rizzlerLines.line3.play()
+                    rizzlerLines.line4.play()
                 elif rizzLine == 2:
-                    rizzlerLines.line3.play()
+                    rizzlerLines.line4.play()
                 elif rizzLine == 3:
-                    rizzlerLines.line3.play()
+                    rizzlerLines.line4.play()
                 elif rizzLine == 4:
-                    rizzlerLines.line3.play()
+                    rizzlerLines.line4.play()
             else:
                 if rizzLine == 1:
-                    rizzlerLinesBer.line2.play()
+                rizzlerLinesBer.line3.play() 
                 elif rizzLine == 2:
                     rizzlerLinesBer.ResturantRizz.play()
                 elif rizzLine == 3:
                     rizzlerLinesBer.MapRizz.play()
                 elif rizzLine == 4:
-                    print("Not voiced yet")
-            after 1.5:
+                    rizzlerLinesBer.GoogleRizz.play()
+                    RizzlerSpeaks3(1.1,"No... Why?")
+
+def RizzlerSpeaks3(time,resp,respScale):
+    after time:
+        rizzlerBounceActive=False
+    after 3:
+        end.enabled=True
+        continueOn.enabled=True
+        continueOn.text=resp
+        continueOn.scale_x = respScale
+        continueOn.on_click = def():
+            end.enabled=False
+            continueOn.enabled=False
+            removeSpans()
+            textLines = [
+            { speed: 70, string: rizzyLinesFinish[rizzLine] },
+            ];
+            createText()
+            revealOneCharacter(characters)
+            rizzlerBounceActive=True
+            rizzlerBounce()
+
+            if weTayzer:
+                if rizzLine == 1:
+                    rizzlerLines.line5.play()
+                elif rizzLine == 2:
+                    rizzlerLines.line5.play()
+                elif rizzLine == 3:
+                    rizzlerLines.line5.play()
+                elif rizzLine == 4:
+                    rizzlerLines.line5.play()
+            else:
+                if rizzLine == 1:
+                    rizzlerLinesBer.line4.play() 
+                elif rizzLine == 2:
+                    rizzlerLinesBer.ResturantRizzFinal.play()
+                elif rizzLine == 3:
+                    rizzlerLinesBer.MapRizzFinal.play()
+                elif rizzLine == 4:
+                    rizzlerLinesBer.GoogleRizzFinal.play()
+                    RizzlerSpeaks4(2.3)
+                    after 2:
+                        rizzlerLines.rizz.play()
+
+def RizzlerSpeaks4(time):
+    after time:
+        rizzlerBounceActive=False
+    after time+.3:
+        continueOn.enabled=True
+        end.enabled=True
+        end.text="Get yo ahh on outta here"
+        continueOn.text="Ok..."
+        end.scale_x=.5
+        continueOn.scale_x=.2
+        end.on_click = def():
+            rizzlerLines.slap.play()
+            slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
+            after .45:
+                destroy(slapThatAhh)
+            after .3:
+                rizzler.animate('x', -2,.2)
+            after 1:
+                destroy(end)
+                destroy(continueOn)
+                destroy(rizzler)
+                destroy(RizzlerMsgbox)
+                NOINTERACT=False
+                noInteract=False
+        continueOn.on_click = def():
+            end.enabled=False
+            continueOn.enabled=False
+            removeSpans()
+            textLines = [
+            { speed: 70, string: '\nYou like my rizz?' },
+            ];
+            createText()
+            revealOneCharacter(characters)
+            rizzlerBounceActive=True
+            rizzlerBounce()
+            if weTayzer:
+                rizzlerLines.line6.play()
+                RizzlerSpeaksGoodEnd(1.9)
+            else:
+                rizzlerLinesBer.line5.play()
+                RizzlerSpeaksGoodEnd(1.6)
+
+def RizzlerSpeaksGoodEnd(time):
+    after time:
+        rizzlerBounceActive=False
+    after time+.3:
+        end.enabled=True
+        continueOn.enabled=True
+        end.scale_x = .2
+        continueOn.scale_x = .31
+        end.text="No, I don't"
+        continueOn.text="Yeah, pretty good"
+        continueOn.on_click = def():
+            if weTayzer:
+                rizzlerLines.line8.play()
+            else:
+                rizzlerLinesBer.line8.play()
+            end.enabled=False
+            continueOn.enabled=False
+            removeSpans()
+            textLines = [
+            { speed: 70, string: '\nCome over here and kiss me on my hot mouth im feeling\nromantical.' },
+            ];
+            createText("20px")
+            revealOneCharacter(characters)
+            rizzlerBounceActive=True
+            rizzlerBounce()
+            after 4:
                 rizzlerBounceActive=False
-            after 1.7:
+            after 4.2:
                 end.enabled=True
-                continueOn.enabled=True
-                continueOn.on_click = def():
-                    end.enabled=False
-                    continueOn.enabled=False
-                    removeSpans()
-                    textLines = [
-                    { speed: 70, string: rizzyLines[rizzLine] },
-                    ];
-                    createText()
-                    revealOneCharacter(characters)
-                    rizzlerBounceActive=True
-                    rizzlerBounce()
-                    if weTayzer:
-                        rizzlerLines.line4.play()
-                    else:
-                        rizzlerLinesBer.line3.play()
-                    after 1.8:
-                        rizzlerBounceActive = False
-                    after 3:
-                        end.enabled=True
-                        continueOn.enabled=True
-                        continueOn.text="Annnnnd?"
-                        continueOn.on_click = def():
-                            end.enabled=False
-                            continueOn.enabled=False
-                            removeSpans()
-                            textLines = [
-                            { speed: 70, string: rizzyLinesFinish[rizzLine] },
-                            ];
-                            createText()
-                            revealOneCharacter(characters)
-                            rizzlerBounceActive=True
-                            rizzlerBounce()
-                            if weTayzer:
-                                rizzlerLines.line5.play()
-                            else:
-                                rizzlerLinesBer.line4.play()
-                            after 1.9:
-                                rizzlerBounceActive=False
-                                rizzlerLines.rizz.play()
-                            after 2.1:
-                                continueOn.enabled=True
-                                end.enabled=True
-                                end.text="Get yo ahh on outta here"
-                                continueOn.text="Ok..."
-                                end.scale_x=.5
-                                continueOn.scale_x=.2
-                                end.on_click = def():
-                                    rizzlerLines.slap.play()
-                                    slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
-                                    after .45:
-                                        destroy(slapThatAhh)
-                                    after .3:
-                                        rizzler.animate('x', -2,.2)
-                                    after 1:
-                                        destroy(end)
-                                        destroy(continueOn)
-                                        destroy(rizzler)
-                                        destroy(RizzlerMsgbox)
-                                        NOINTERACT=False
-                                        noInteract=False
-                                continueOn.on_click = def():
-                                    end.enabled=False
-                                    continueOn.enabled=False
-                                    removeSpans()
-                                    textLines = [
-                                    { speed: 70, string: '\nYou like my rizz?' },
-                                    ];
-                                    createText()
-                                    revealOneCharacter(characters)
-                                    rizzlerBounceActive=True
-                                    rizzlerBounce()
-                                    if weTayzer:
-                                        rizzlerLines.line6.play()
-                                    else:
-                                        rizzlerLinesBer.line5.play()
-                                    after 1.2:
-                                        rizzlerBounceActive=False
-                                    after 1.5:
-                                        end.enabled=True
-                                        continueOn.enabled=True
-                                        #end.scale_x = summin
-                                        #continueOn.scale_x = summin
-                                        end.text="No, I don't"
-                                        continueOn.text="Yeah, pretty good"
-                                        continueOn.on_click = def():
-                                            if weTayzer:
-                                                rizzlerLines.line8.play()
-                                            else:
-                                                rizzlerLinesBer.line8.play()
-                                            end.enabled=False
-                                            continueOn.enabled=False
-                                            removeSpans()
-                                            textLines = [
-                                            { speed: 70, string: '\nCome over here and kiss me on my hot mouth im feeling romantical.' },
-                                            ];
-                                            createText()
-                                            revealOneCharacter(characters)
-                                            rizzlerBounceActive=True
-                                            rizzlerBounce()
-                                            after 4:
-                                                rizzlerBounceActive=False
-                                            after 4.2:
-                                                end.enabled=True
-                                                end.text="Nah I'm alright..."
-                                                end.on_click = def():
-                                                    rizzlerLines.slap.play()
-                                                    slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
-                                                    after .45:
-                                                        destroy(slapThatAhh)
-                                                    after .3:
-                                                        rizzler.animate('x', -2,.2)
-                                                    after 1:
-                                                        destroy(end)
-                                                        destroy(continueOn)
-                                                        destroy(rizzler)
-                                                        destroy(RizzlerMsgbox)
-                                                        NOINTERACT=False
-                                                        noInteract=False    
-                                        end.on_click = def():
-                                            if weTayzer:
-                                                rizzlerLines.line7.play()
-                                                after 9:
-                                                    rizzlerBounceActive=False
-                                                after 9.2:
-                                                    end.text="MANNN GET YO AHH ON OUTTA HERE!"
-                                                    end.enabled=True
-                                                    end.on_click = def():
-                                                        rizzlerLines.slap.play()
-                                                        slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
-                                                        after .45:
-                                                            destroy(slapThatAhh)
-                                                        after .3:
-                                                            rizzler.animate('x', -2,.2)
-                                                        after 1:
-                                                            destroy(end)
-                                                            destroy(continueOn)
-                                                            destroy(rizzler)
-                                                            destroy(RizzlerMsgbox)
-                                                            NOINTERACT=False
-                                                            noInteract=False
-                                            else:
-                                                rizzlerLinesBer.line6.play()
-                                                after 5:
-                                                    rizzlerBounceActive=False
-                                                after 5.2:
-                                                    end.text="MANNN GET YO AHH ON OUTTA HERE!"
-                                                    end.enabled=True
-                                                    end.on_click = def():
-                                                        rizzlerLines.slap.play()
-                                                        slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
-                                                        after .45:
-                                                            destroy(slapThatAhh)
-                                                        after .3:
-                                                            rizzler.animate('x', -2,.2)
-                                                        after 1:
-                                                            destroy(end)
-                                                            destroy(continueOn)
-                                                            destroy(rizzler)
-                                                            destroy(RizzlerMsgbox)
-                                                            NOINTERACT=False
-                                                            noInteract=False
-                                            end.enabled=False
-                                            continueOn.enabled=False
-                                            removeSpans()
-                                            textLines = [
-                                            { speed: 70, string: '\n!#A$ %^@:£!' },
-                                            ];
-                                            createText()
-                                            revealOneCharacter(characters)
-                                            rizzlerBounceActive=True
-                                            rizzlerBounce()
+                end.text="Nah I'm alright..."
+                end.scale_x =.3
+                end.x=0
+                end.on_click = def():
+                    rizzlerLines.slap.play()
+                    slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
+                    after .45:
+                        destroy(slapThatAhh)
+                    after .3:
+                        rizzler.animate('x', -2,.2)
+                    after 1:
+                        destroy(end)
+                        destroy(continueOn)
+                        destroy(rizzler)
+                        destroy(RizzlerMsgbox)
+                        NOINTERACT=False
+                        noInteract=False    
+        end.on_click = def():
+            if weTayzer:
+                rizzlerLines.line7.play()
+                after 9:
+                    rizzlerBounceActive=False
+                after 9.2:
+                    end.text="MANNN GET YO AHH ON OUTTA HERE!"
+                    end.enabled=True
+                    end.on_click = def():
+                        rizzlerLines.slap.play()
+                        slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
+                        after .45:
+                            destroy(slapThatAhh)
+                        after .3:
+                            rizzler.animate('x', -2,.2)
+                        after 1:
+                            destroy(end)
+                            destroy(continueOn)
+                            destroy(rizzler)
+                            destroy(RizzlerMsgbox)
+                            NOINTERACT=False
+                            noInteract=False
+            else:
+                rizzlerLinesBer.line6.play()
+                after 5:
+                    rizzlerBounceActive=False
+                after 5.2:
+                    end.text="MANNN GET YO AHH ON OUTTA HERE!"
+                    end.enabled=True
+                    end.on_click = def():
+                        rizzlerLines.slap.play()
+                        slapThatAhh = Entity(parent=camera.ui,texture="https://i.ibb.co/fqvCw0W/slap.gif",scale=[.5,.5],x=.1,y=.2,z=-7)
+                        after .45:
+                            destroy(slapThatAhh)
+                        after .3:
+                            rizzler.animate('x', -2,.2)
+                        after 1:
+                            destroy(end)
+                            destroy(continueOn)
+                            destroy(rizzler)
+                            destroy(RizzlerMsgbox)
+                            NOINTERACT=False
+                            noInteract=False
+            end.enabled=False
+            continueOn.enabled=False
+            removeSpans()
+            textLines = [
+            { speed: 70, string: '\n!#A$ %^@:£!' },
+            ];
+            createText()
+            revealOneCharacter(characters)
+            rizzlerBounceActive=True
+            rizzlerBounce()
 
 
+RizzlerMsgbox = Entity(roundness=.05,color=color.white,enabled=False,scale=[1.7,.3],y=-.3,z=-1)
+continueOn = Button(text="Ok?",scale_x=.15,scale_y=.1,color=color.green,x=.4,y=-.4,enabled=False)
+end = Button(text="Nuh uh!",scale_x=.15,scale_y=.1,color=color.red,x=-.4,y=-.4,enabled=False)
+
+
+def speakToRizzler():
+    #Setting up if we tayzer or ber.
+    RizzlerMsgbox.enabled=True
+    randomNumber = Math.random()
+    rizzLine = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    print(rizzLine)
+    if randomNumber >=.5:
+        weTayzer =  True
+    cpsDisplay.enabled=False
+    rizzlerBounceActive=True
+    rizzlerBounce()
+    rizzOnCurrent=1
+    rizzCanContinue = False
+    parenter = document.getElementById("RizzlerMsgbox ");
+    container = parenter.querySelector("entity")
+    removeSpans()
+    if weTayzer:
+        rizzlerLines.line1.play()
+        RizzlerSpeaks1(1.2)
+    else:
+        rizzlerLinesBer.line1.play()
+        RizzlerSpeaks1(2.2)
+    textLines = [
+    { speed: 70, string: "\nI AM THE RIZZLER!" },
+    ];
+    createText()
+    revealOneCharacter(characters)
+    
 
 def input(key):
     if not NOINTERACT:
@@ -1254,12 +1299,14 @@ var speeds = {
    fast: 40,
    superFast: 10
 };
- 
+  
 var textLines = [
     { speed: 75, string:"\nYo! You've reached 100M clicks!" },
 ];
 var characters = [];
-function createText() {
+var textSizes = "x-large"
+function createText(textSizez="x-large") {
+    textSizes = textSizez
 if (characters != []){characters = []}
 textLines.forEach((line, index) => {
    if (index < textLines.length - 1) {
@@ -1270,7 +1317,7 @@ textLines.forEach((line, index) => {
       var span = document.createElement("span");
       span.style.zIndex = 10
       span.style.opacity = 0
-      span.style.fontSize = "x-large"
+      span.style.fontSize = textSizes
       span.textContent = character;
       container.appendChild(span);
       characters.push({
