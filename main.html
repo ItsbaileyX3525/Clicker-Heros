@@ -182,10 +182,10 @@ rizzlerLinesBer = {
 }
 function testRizz(){
     print("testing rizz")
-    const value = Math.round(Math.random()*100,1);
-    if (value > 0){
+    const value = Math.round(Math.random()*1000,1);
+    if (value > 998){
         RizzEventActive = true;
-        print("User has rizz")
+        rizzyChizzy = true
     }
 }
 rizzyLines = {
@@ -372,6 +372,7 @@ if allowedAttackSFX == null:
 
 #TODO: Create proper click multipler because i didnt have time to do it in the lunch break :(
 #Umm do you mean what im going to do now?
+#Hang on, did I do it already?
 
 clickIntense = 1
 justClicked = False
@@ -381,7 +382,6 @@ soManyNotNeededVariables = 1
 ClickerDude = Button(texture='https://i.ibb.co/mJvKZX2/Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
     if not NOINTERACT:
-        testRizz()
         Gen1CPS = .1 * Gen1Owned * gen1Multiplier * globalMultiplier
         Gen2CPS = 1 * Gen2Owned * gen2Multiplier * globalMultiplier
         Gen3CPS = 8 * Gen3Owned * gen3Multiplier * globalMultiplier
@@ -398,6 +398,7 @@ ClickerDude.on_click = def():
         Playwoosh()
         justClicked = True
         soManyNotNeededVariables = 1
+        decreased = 0
         if clickIntense <= 1.5:
             clickIntense +=.1
         elif clickIntense <= 2.3:
@@ -408,16 +409,27 @@ ClickerDude.on_click = def():
             clickIntense = 3
         if not checkingLogic:
             clickIntenseLogic()
+        testRizz()
 
 checkingLogic = False
+decreased = 0
 
 def clickIntenseLogic():
     checkingLogic = True
     if not justClicked:
+        print(clickIntense)
         clickIntense -= .05
+        decreased += 1
     if clickIntense > 1:
-        after .5:
-            clickIntenseLogic()
+        if decreased < 3:
+            after .5:
+                clickIntenseLogic()
+        elif decreased < 8:
+            after .25:
+                clickIntenseLogic()
+        elif decreased >= 8:
+            after .1:
+                clickIntenseLogic()
     elif clickIntense <= 1:
         checkingLogic = False
 
@@ -649,14 +661,14 @@ Gen7Info = Text(x=0.635,y=-.68,text=`Cost: ${formatNumber(Gen7Cost)}`,text_size=
 
 
 if friendMode == 'true' or friendMode == true:
-    Gen1.texture = 'CallumGen.webp'
-    Gen2.texture = 'NathanielGen.webp'
-    Gen3.texture = 'TaylorGen.webp'
-    Gen4.texture = 'WilsonGen.webp'
-    Gen5.texture = 'KarltonGen.webp'
-    Gen6.texture = 'RyanGen.webp'
-    Gen7.texture = 'EthanGen.webp'
-    ClickerDude.texture='LeonGen.webp'
+    Gen1.texture = 'https://i.ibb.co/TRkFD4b/Callum-Gen.webp'
+    Gen2.texture = 'https://i.ibb.co/mS7pcH1/Nathaniel-Gen.webp'
+    Gen3.texture = 'https://i.ibb.co/KbD1QMQ/Taylor-Gen.webp'
+    Gen4.texture = 'https://i.ibb.co/LNk1w7b/Wilson-Gen.webp'
+    Gen5.texture = 'https://i.ibb.co/dfCWMhy/Karlton-Gen.webp'
+    Gen6.texture = 'https://i.ibb.co/6HKb53J/RyanGen.webp'
+    Gen7.texture = 'https://i.ibb.co/bXBrQqb/EthanGen.webp'
+    ClickerDude.texture='https://i.ibb.co/8cTf4FN/LeonGen.webp'
 
 canPrestige = False
 prestigeStuffbg = Entity(parent=camera.ui,color=color.black,roundness=.1,xy=[-0.7,0.3],scale=[0.3,0.08],text_size=5)

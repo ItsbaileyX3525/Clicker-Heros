@@ -118,8 +118,11 @@ playedforyear = save_system_load('playedforyear') || 0;
 //Custom achievements  secret achievements
 callumWouldBeProud = int(save_system_load('callumWouldBeProud'))
 prestigeLevel = int(save_system_load('prestigelevel'));
-achievedmaxprestige = save_system_save('achievedmaxprestige') || 0;
+achievedmaxprestige = save_system_load('achievedmaxprestige') || 0;
 escapedShadowRealm = save_system_load("escapedshadowrealm") || 0;
+encounteredRizz = save_system_load('encounteredrizz') || 0;
+
+let rizzyChizzy = false
 
 achievementCounter = save_system_load('achievementcounter')
 if (!achievementCounter || achievementCounter === null){
@@ -128,13 +131,20 @@ if (!achievementCounter || achievementCounter === null){
 AchievementHandler = new Entity({ alpha: 0 });
 AchievementHandler.update = function () {
     switch (true) {
+        case rizzyChizzy && !encounteredRizz:
+            encounteredRizz = 1;
+            save_system_save('encounteredrizz', encounteredRizz);
+            achievementCounter+=1
+            save_system_save('achievementcounter', achievementCounter);
+            achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/VWZ3VC8/Welcome-Jimbo.webp', title:'Escaped shadow realm!' });  
+            break;     
         case escapedShadowRealm == 2:
             achievedmaxprestige = 1;
             save_system_save('escapedshadowrealm', escapedShadowRealm);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
             achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/VWZ3VC8/Welcome-Jimbo.webp', title:'Escaped shadow realm!' });  
-            break;      
+            break;
         case prestigeLevel >= 10:
             achievedmaxprestige = 1;
             save_system_save('achievedmaxprestige', achievedmaxprestige);
