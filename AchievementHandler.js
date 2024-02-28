@@ -118,9 +118,9 @@ playedforyear = save_system_load('playedforyear') || 0;
 //Custom achievements  secret achievements
 callumWouldBeProud = int(save_system_load('callumWouldBeProud'))
 prestigeLevel = int(save_system_load('prestigelevel'));
-achievedmaxprestige = save_system_load('achievedmaxprestige') || 0;
-escapedShadowRealm = save_system_load("escapedshadowrealm") || 0;
-encounteredRizz = save_system_load('encounteredrizz') || 0;
+achievedmaxprestige = int(save_system_load('achievedmaxprestige')) || 0;
+escapedShadowRealm = int(save_system_load("escapedshadowrealm")) || 0;
+encounteredRizz = int(save_system_load('encounteredrizz')) || 0;
 
 let rizzyChizzy = false
 
@@ -136,7 +136,7 @@ AchievementHandler.update = function () {
             save_system_save('encounteredrizz', encounteredRizz);
             achievementCounter+=1
             save_system_save('achievementcounter', achievementCounter);
-            achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/VWZ3VC8/Welcome-Jimbo.webp', title:'Escaped shadow realm!' });  
+            achievementQueueMAX.push({ alpha: 1, icon: 'https://i.ibb.co/v3q60ZS/Rizzy.png', title:'Encountered rizzy chizzy' });  
             break;     
         case escapedShadowRealm == 2:
             achievedmaxprestige = 1;

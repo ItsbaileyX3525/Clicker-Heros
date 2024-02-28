@@ -182,8 +182,10 @@ rizzlerLinesBer = {
 }
 function testRizz(){
     print("testing rizz")
-    const value = Math.round(Math.random()*1000,1);
-    if (value > 998){
+    const value = Math.round(Math.random()*10000,1);
+    console.log(value)
+    if (value >= 9999){
+        
         RizzEventActive = true;
         rizzyChizzy = true
     }
@@ -401,10 +403,11 @@ ClickerDude.on_click = def():
         decreased = 0
         if clickIntense <= 1.5:
             clickIntense +=.1
+            print(clickIntense)
         elif clickIntense <= 2.3:
             clickIntense +=.05
         elif clickIntense < 3:
-            clickIntense += 0.025
+            clickIntense += 0.025            
         elif clickIntense > 3:
             clickIntense = 3
         if not checkingLogic:
@@ -427,8 +430,11 @@ def clickIntenseLogic():
         elif decreased < 8:
             after .25:
                 clickIntenseLogic()
-        elif decreased >= 8:
+        elif decreased < 15:
             after .1:
+                clickIntenseLogic()
+        elif decreased >= 15:
+            after 0.06:
                 clickIntenseLogic()
     elif clickIntense <= 1:
         checkingLogic = False
