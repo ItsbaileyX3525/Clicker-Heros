@@ -102,7 +102,7 @@ set_window_color('transparent')
  
 useCode = False
 volume=100
-onCurrent=5
+onCurrent=1
 canContinue=False
 ClickerDude = Button(texture='https://i.ibb.co/mJvKZX2/Clicker-idle.gif',scale=[.3,.3],y=0)
 ClickerDude.on_click = def():
@@ -151,7 +151,7 @@ def loadSettings():
         print("You can't go back here")
 
     attackSFX = Checkbox(state=allowedAttackSFX,y=.17,x=-.22)
-    attackSFXText = Text(text='Click sounds: ',y=-.31,x=-.07)
+    attackSFXText = Text(text='Click sounds: ',y=-.295,x=-.175)
 
     masterVolume = new Slider({y:.315,scale:[0.4,0.03],background_color:rgb(57, 66, 92)})
 
@@ -159,11 +159,11 @@ def loadSettings():
     masterVolumeVolume.update = def():
         masterVolumeVolume.text = masterVolume.value
 
-    masterVolumeText = Text(text='Master volume: ',x=-.07,y=-.1625)
+    masterVolumeText = Text(text='Master volume: ',x=-.2,y=-.15)
 
-    TwitterCodesText = Text(text='Code: ',y=-.482,x=-.068)
+    TwitterCodesText = Text(text='Code: ',y=-.47,x=-.135)
     TwitterCodes = InputField(x=-0.16,scale=[.4,.04],roundness=.1)
-    TwitterCodesSubmit = Button(text='Submit',scale=[.12,.06],x=.125,y=-.004)
+    TwitterCodesSubmit = Button(text='Submit',scale=[.175,.06],x=.14,y=-.004)
     TwitterCodesSubmit.on_click = def():
         
         if TwitterCodes.value == 'tutorial' and useCode:
@@ -223,7 +223,7 @@ def loadSettings():
         canContinue=False
         removeSpans()
         textLines = [
-        { speed: 65, string: '\nThe settings menu has a few different things like setting the volume and redeeming codes and turning on and off a few options' },
+        { speed: 65, string: '\nThe settings menu has a few different things like\nsetting the volume and redeeming codes and turning on and off a few options' },
 
         ];
         createText()
@@ -257,7 +257,7 @@ def loadShop():
     shopScene = []
     levelUps = []
 
-    score = 100000
+    score = 0
     godlyClicks = 0
 
     #Shop stuff & gens very annoying
@@ -348,7 +348,7 @@ def loadShop():
             canContinue = True
         onCurrent += 1
 
-shopButton = Button(enabled=False,texture='https://i.ibb.co/4W67V1j/settings-Cog.webp',x=.75,scale=.2,y=-.02)
+shopButton = Button(enabled=False,texture='https://i.ibb.co/wLcrcRn/shopCog.webp',x=.75,scale=.2,y=-.02)
 shopArrow = Entity(enabled=False,texture='https://i.ibb.co/r4RFvBg/Shoparrow.webp',scale=[.7,.8],xy=[.35,.1])
 
 
@@ -385,6 +385,7 @@ msgboxgodly.on_click = def():
         onCurrent +=1
     elif onCurrent == 3 and canContinue:
         canContinue=False
+        thisGuyRightHere.enabled=False
         LeonLines.line3.play()
         removeSpans()
         textLines = [
@@ -431,6 +432,7 @@ msgboxgodly.on_click = def():
         { speed: 50, string: "\nIf you click on it you can see the current available\ngenerators you can buy." },
 
         ];
+        shopArrow.enabled=False
         createText()
         revealOneCharacter(characters)
         msgboxArrow.enabled=True
@@ -459,7 +461,7 @@ msgboxgodly.on_click = def():
         canContinue=False
         removeSpans()
         textLines = [
-        { speed: 65, string: '\nLater on in the game you’ll encounter things called godly clicks which you can use on these generators to supercharge them' },
+        { speed: 65, string: '\nLater on in the game you’ll encounter things called godly clicks\nwhich you can use on these generators to supercharge them' },
 
         ];
         createText()
@@ -490,7 +492,7 @@ msgboxgodly.on_click = def():
         canContinue=False
         removeSpans()
         textLines = [
-        { speed: 65, string: "\nThe main thing you really need to worry" +' about in '+ "this is the master volume and the click sounds which can add to the game's atmosphere but can be rather annoying at times" },
+        { speed: 65, string: "\nThe main thing you really need to worry" +' about in '+ "this is the master volume and the click sounds which can\nadd to the game's atmosphere but can be rather annoying at times" },
         ];
         createText()
         revealOneCharacter(characters)
@@ -511,8 +513,11 @@ msgboxgodly.on_click = def():
         revealOneCharacter(characters)
         msgboxArrow.enabled=True
         after 3.07548s:
+            useCode=True
             print("Voice line over")
         onCurrent += 1
+    elif onCurrent == 15 and canContinue:
+        SmoothTransit("main")
 
 msgboxgodly.enabled=True
 after 2:

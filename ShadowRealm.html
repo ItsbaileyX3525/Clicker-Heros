@@ -16,6 +16,7 @@
     </style>
 </head>
 <body>
+    <div id='Smooth' style="z-index: -123;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;background-color: black; opacity: 1;"></div>
     <script src="Smooth.js"></script>
     <script src="taptapir/taptapir.js"></script>
     <script type="text/javascript">
@@ -32,28 +33,28 @@ if (key === 'h' && ! nextButton1) {
         nextButton1 = false
     })
 }
-if (key != 'e' && nextButton1) {
+else if (key === 'e' && nextButton1) {
     nextButton1 = false
     nextButton2 = true
     after(2, function() {
         nextButton2 = false
     })
 }
-if (key === 'l' && nextButton2) {
+else if (key === 'l' && nextButton2) {
     nextButton2 = false
     nextButton3 = true
     after(2, function() {
         nextButton3 = false
     })
 }
-if (key === 'l' && nextButton3) {
+else if (key === 'l' && nextButton3) {
     nextButton3 = false
     nextButton4 = true
     after(2, function() {
         nextButton4 = false
     })
 }
-if (key === 'o' && nextButton4) {
+else if (key === 'o' && nextButton4) {
     nextButton4 = false
     nextButton5 = true
     shadowLevel = save_system_load("escapedshadowrealm");
@@ -61,11 +62,20 @@ if (key === 'o' && nextButton4) {
     egg.on_click = function(){
         if (!shadowLevel === 1){
         save_system_save("escapedshadowrealm", 2)}
+        save_system_save("Tescapedshadowrealm", 1)
         SmoothTransit("main");
     }
     after(2, function() {
         nextButton5 = false
-    }        )}        }
+    }        )}
+else if (key != "h up" && key != "e up" && key != "l up" && key != "h" && key != "e" && key != "l" && key != "0" && key != "o up"){
+    console.log("Reset")
+    console.log(key)
+    nextButton1 = false
+    nextButton2 = false
+    nextButton3 = false
+    nextButton4 = false
+}        }
     </script>
 </body>
 </html>

@@ -131,63 +131,66 @@ try:
             settingsButton.ignore_collision = True
             creditsButton.ignore_collision = True
             exitButton.ignore_collision = True
+            settingsButton.on_click = def():
+                click2.play();
+                SmoothTransit("Settings")
+        
+    creditsButton.on_click = def():
+        click2.play()
+        SmoothTransit("Credits")
+    
+    exitButton.on_click = def():
+        requestAppClose()
+    
+    NoWifiButton1.on_click = def():
+        if online:
+            click.play()
+            candoshit = False
+            SmoothTransit('main')
+            startButton.ignore_collision = True
+            settingsButton.ignore_collision = True
+        else:
+            print("Well that failed.")
+    
+    NoWifiButton2.on_click = def():
+        NoWifi.enabled = False
+        NoWifiButton1.enabled = False
+        NoWifiButton2.enabled = False
+        moreInfo.enabled=False
+        startButton.ignore_collision = False
+        settingsButton.ignore_collision = False
+        creditsButton.ignore_collision = False
+        exitButton.ignore_collision = False
+    
+    moreInfo.on_click = def():
+        moreInfoBackground = Entity(parent=camera.ui,z=-3,scale=[1,.8],color=color.gray)
+        moreInfoText = Text(text='This game uses texture streaming to reduce the game\nsize to a more acceptable level so that you, the user\ncan enjoy the game without having to worry about\nthe game being too big however if you wish to\ndownload the textures to play offline anyways you can\ngo in the settings at anytime and download the assets\nto your device, however it is worth noting that after\ndownloading all the textures and audio files to your\ndevice the app will increase from around 5MB to\naround 36MB.',z=-4,parent=camera.ui,text_color=color.white,xy=[-.08,-.15])
+        okContinue = Button(text="OK",z=-5,scale=[.3,.1],color=color.green,xy=[0,-.2])
+        okContinue.on_click = def():
+            destroy(moreInfoBackground)
+            destroy(moreInfoText)
+            destroy(okContinue)
+    
+    def reset():
+        save_system_clear() 
+        window.location.reload()
+        
 catch (Error) {;}
 
 
-settingsButton.on_click = def():
-    click2.play();
-    SmoothTransit("Settings")
-
-creditsButton.on_click = def():
-    click2.play()
-    SmoothTransit("Credits")
-
-exitButton.on_click = def():
-    requestAppClose()
-
-NoWifiButton1.on_click = def():
-    if online:
-        click.play()
-        candoshit = False
-        SmoothTransit('main')
-        startButton.ignore_collision = True
-        settingsButton.ignore_collision = True
-    else:
-        print("Well that failed.")
-
-NoWifiButton2.on_click = def():
-    NoWifi.enabled = False
-    NoWifiButton1.enabled = False
-    NoWifiButton2.enabled = False
-    moreInfo.enabled=False
-    startButton.ignore_collision = False
-    settingsButton.ignore_collision = False
-    creditsButton.ignore_collision = False
-    exitButton.ignore_collision = False
-
-moreInfo.on_click = def():
-    moreInfoBackground = Entity(parent=camera.ui,z=-3,scale=[1,.8],color=color.gray)
-    moreInfoText = Text(text='This game uses texture streaming to reduce the game\nsize to a more acceptable level so that you, the user\ncan enjoy the game without having to worry about\nthe game being too big however if you wish to\ndownload the textures to play offline anyways you can\ngo in the settings at anytime and download the assets\nto your device, however it is worth noting that after\ndownloading all the textures and audio files to your\ndevice the app will increase from around 5MB to\naround 36MB.',z=-4,parent=camera.ui,text_color=color.white,xy=[-.08,-.15])
-    okContinue = Button(text="OK",z=-5,scale=[.3,.1],color=color.green,xy=[0,-.2])
-    okContinue.on_click = def():
-        destroy(moreInfoBackground)
-        destroy(moreInfoText)
-        destroy(okContinue)
-
-def reset():
-    save_system_clear() 
-    window.location.reload()
 
 save_system_save('prevtab', "menu")
 save_system_save('currenttab', "menu")
 
 _hidden_fullscreen_button.xy = [213213213,123123123]
-startButtonUwU.on_click = def():
-    click.play()
-    candoshit = False
-    SmoothTransit('tutorial')
-    startButton.ignore_collision = True
-    settingsButton.ignore_collision = True
+try:
+    startButtonUwU.on_click = def():
+        click.play()
+        candoshit = False
+        SmoothTransit('tutorial')
+        startButton.ignore_collision = True
+        settingsButton.ignore_collision = True
+catch (Error) {;}
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
 <script src="EarnClicks.js"></script></body>
